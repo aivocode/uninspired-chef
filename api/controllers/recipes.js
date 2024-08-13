@@ -1,11 +1,11 @@
 const Recipe = require("../models/recipe");
 const { generateToken } = require("../lib/token");
 
-const getRecipes = 
+const getRecipes = null
 
 
-const getFavouritedRecipes = 
+const getFavouritedRecipes = null
 
 
-const likeRecipe = 
+const likeRecipe = null
 
