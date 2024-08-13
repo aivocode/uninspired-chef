@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "../tailwind.css";
+import './global.css';
 import "./index.css";
 import { HomePage } from "./pages/HomePage";
 import { AuthenticationPage } from "./pages/AuthenticationPage";

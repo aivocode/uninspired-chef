@@ -3,18 +3,18 @@ export const RecipeCard = ({ property1, className, recipeImageClassName }) => {
     <div
       className={`border-color-border-default-default flex items-start shadow-[0px_4px_4px_#00000059] pt-[var(--size-space-600)] pr-[var(--size-space-600)] pb-[var(--size-space-600)] pl-[var(--size-space-600)] bg-[50%_50%] relative w-[749px] rounded-2xl bg-cover gap-[var(--size-space-600)] border border-solid flex-wrap h-[413px] ${
         property1 === "saved-recipe"
-          ? "bg-[url(https://c.animaapp.com/XNVGwrYa/img/property-1-saved-recipe.png)]"
-          : "bg-[url(https://c.animaapp.com/XNVGwrYa/img/property-1-default.png)]"
+          ? "bg-[url(https://c.animaapp.com/6Dok7BEk/img/property-1-saved-recipe.png)]"
+          : "bg-[url(https://c.animaapp.com/6Dok7BEk/img/property-1-default.png)]"
       } ${className}`}
     >
       {property1 === "default" && (
         <div
-          className={`relative w-[350px] h-[209px] rounded-2xl bg-[url(https://c.animaapp.com/XNVGwrYa/img/recipe-image-3.svg)] bg-cover bg-[50%_50%] ${recipeImageClassName}`}
+          className={`relative w-[350px] h-[209px] rounded-2xl bg-[url(https://c.animaapp.com/6Dok7BEk/img/recipe-image-3.svg)] bg-cover bg-[50%_50%] ${recipeImageClassName}`}
         />
       )}
 
       {property1 === "saved-recipe" && (
-        <div className="relative w-[350px] h-[209px] rounded-2xl bg-[url(https://c.animaapp.com/XNVGwrYa/img/recipe-image-4.svg)] bg-cover bg-[50%_50%]" />
+        <div className="relative w-[350px] h-[209px] rounded-2xl bg-[url(https://c.animaapp.com/6Dok7BEk/img/recipe-image-4.svg)] bg-cover bg-[50%_50%]" />
       )}
 
       <div className="flex min-w-40 flex-col items-center grow gap-[var(--size-space-400)] flex-1 h-[321px] justify-center relative">
@@ -28,9 +28,9 @@ export const RecipeCard = ({ property1, className, recipeImageClassName }) => {
         </div>
         <div className="w-full flex self-stretch items-center gap-[var(--size-space-400)] flex-[0_0_auto] relative">
           <button className="all-[unset] box-border border border-solid border-color-border-neutral-secondary inline-flex items-center gap-[var(--size-space-200)] flex-[0_0_auto] pt-[var(--size-space-300)] pr-[var(--size-space-300)] pb-[var(--size-space-300)] pl-[var(--size-space-300)] overflow-hidden rounded-[var(--size-radius-200)] justify-center bg-color-background-neutral-tertiary relative">
-            <div className="all-[unset] box-border font-single-line-body-base w-fit mt-[-1.00px] tracking-[var(--single-line-body-base-letter-spacing)] text-[length:var(--single-line-body-base-font-size)] [font-style:var(--single-line-body-base-font-style)] text-color-text-default-default font-[number:var(--single-line-body-base-font-weight)] leading-[var(--single-line-body-base-line-height)] whitespace-nowrap relative">
+            <span className="font-single-line-body-base w-fit mt-[-1.00px] tracking-[var(--single-line-body-base-letter-spacing)] text-[length:var(--single-line-body-base-font-size)] [font-style:var(--single-line-body-base-font-style)] text-color-text-default-default font-[number:var(--single-line-body-base-font-weight)] leading-[var(--single-line-body-base-line-height)] whitespace-nowrap">
               See more
-            </div>
+            </span>
           </button>
         </div>
       </div>
@@ -38,7 +38,7 @@ export const RecipeCard = ({ property1, className, recipeImageClassName }) => {
         <img
           className="relative w-[67px] h-[84px] mr-[-4.00px]"
           alt="Save recipe button"
-          src="https://c.animaapp.com/XNVGwrYa/img/save-recipe-button.svg"
+          src="https://c.animaapp.com/6Dok7BEk/img/save-recipe-button.svg"
         />
       )}
     </div>
