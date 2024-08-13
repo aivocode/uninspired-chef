@@ -1,13 +1,26 @@
+import {
+  subtract_12,
+  subtract_14,
+  union_1,
+  union,
+  line_1,
+  union_2,
+  subtract_19,
+  subtract_15,
+  ellipse_1_3
+} from '../../assets/svg-assets';
+
+
 export const Header = ({
     property1,
     className,
-    subtract = "https://c.animaapp.com/XNVGwrYa/img/subtract-12.svg",
-    img = "https://c.animaapp.com/XNVGwrYa/img/subtract-14.svg",
-    union = "https://c.animaapp.com/XNVGwrYa/img/union.svg",
-    union1 = "https://c.animaapp.com/XNVGwrYa/img/union-1.svg",
-    line = "https://c.animaapp.com/XNVGwrYa/img/line-1.svg",
+    subtract = subtract_12,
+    img = subtract_14,
+    union = union,
+    union1 = union_1,
+    line = line_1,
     settingBottomBunClassName,
-    union2 = "https://c.animaapp.com/XNVGwrYa/img/union-2.svg",
+    union2 = union_2,
   }) => {
     return (
       <div
@@ -25,7 +38,7 @@ export const Header = ({
             <img
               className="absolute w-[17px] h-4 top-0 left-0"
               alt="Subtract"
-              src="https://c.animaapp.com/XNVGwrYa/img/subtract-19.svg"
+              src={subtract_19}
             />
           </div>
           <div className="absolute w-[17px] h-[17px] top-5 left-[139px]">
@@ -47,14 +60,14 @@ export const Header = ({
             <div className="absolute w-[186px] h-2 top-[60px] left-[3px] bg-[#b51b1e]" />
             <div className="absolute w-[186px] h-2 top-[68px] left-[3px] bg-[#638209]" />
             <div
-              className={`absolute w-48 h-[26px] top-[113px] left-0 bg-[url(https://c.animaapp.com/XNVGwrYa/img/subtract-15.svg)] bg-[100%_100%] ${settingBottomBunClassName}`}
+              className={`absolute w-48 h-[26px] top-[113px] left-0 bg-[subtract_15] bg-[100%_100%] ${settingBottomBunClassName}`}
             />
             <div className="absolute w-48 h-8 top-[81px] left-0 bg-[#a13c2a] rounded-[64px]" />
             <div className="absolute w-48 h-[120px] top-0 left-0">
               <img
                 className="absolute w-[189px] h-[60px] top-0 left-px"
                 alt="Ellipse"
-                src="https://c.animaapp.com/XNVGwrYa/img/ellipse-1-3.svg"
+                src={ellipse_1_3}
               />
             </div>
             <img className="absolute w-48 h-[21px] top-[76px] left-0" alt="Union" src={union2} />
@@ -63,4 +76,3 @@ export const Header = ({
       </div>
     );
   };
-  

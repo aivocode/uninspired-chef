@@ -1,9 +1,4 @@
-/*
-We're constantly improving the code you see. 
-Please share your feedback here: https://form.asana.com/?k=uvp-HPgd3_hyoXRBw1IcNg&d=1152665201300829
-*/
-
-import React from "react";
+import { line_2_1, line_3_1, subtract_11 } from '../../assets/svg-assets';
 
 export const Pantry = ({ className }) => {
   return (
@@ -12,16 +7,16 @@ export const Pantry = ({ className }) => {
         <div className="absolute w-[1200px] h-[296px] top-0 left-0 bg-[#d9d9d9]" />
         <div className="absolute w-[726px] h-[72px] top-[206px] left-[237px] bg-[#abaaaa]" />
         <div className="absolute w-[681px] h-[1333px] top-[272px] left-[261px]">
-          <div className="relative w-[677px] h-[1333px] bg-[url(https://c.animaapp.com/IoEhOXU4/img/subtract-11.svg)] bg-[100%_100%]">
+          <div className="relative w-[677px] h-[1333px] bg-[url(${subtract_11})] bg-[100%_100%]">
             <img
               className="absolute w-[483px] h-1.5 top-[194px] left-[88px]"
               alt="Line"
-              src="https://c.animaapp.com/IoEhOXU4/img/line-2-1.svg"
+              src={line_2_1}
             />
             <img
               className="absolute w-[483px] h-1.5 top-[1150px] left-[88px]"
               alt="Line"
-              src="https://c.animaapp.com/IoEhOXU4/img/line-3-1.svg"
+              src={line_2_1}
             />
             <div className="absolute w-[289px] top-20 left-[194px] font-title-hero font-[number:var(--title-hero-font-weight)] text-black text-[length:var(--title-hero-font-size)] tracking-[var(--title-hero-letter-spacing)] leading-[var(--title-hero-line-height)] whitespace-nowrap [font-style:var(--title-hero-font-style)]">
               PANTRY

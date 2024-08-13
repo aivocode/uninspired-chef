@@ -1,15 +1,31 @@
 import { CuttingTransition } from "../CuttingTransition/CuttingTransition";
 import { TextContentTitle } from "../TextContentTitle/TextContentTitle";
+import {
+  cuttingTransitionPolygon as defaultCuttingTransitionPolygon,
+  cuttingTransitionEllipse as defaultCuttingTransitionEllipse,
+  cuttingTransitionImg as defaultCuttingTransitionImg,
+  cuttingTransitionSubtract as defaultCuttingTransitionSubtract,
+  cuttingTransitionSubtract1 as defaultCuttingTransitionSubtract1,
+  cuttingTransitionSubtract2 as defaultCuttingTransitionSubtract2,
+  choppingBoard,
+  knifeEllipse,
+  knifeImg,
+  knifePolygon,
+  polygon_5_3,
+  subtract_3,
+  subtract_4,
+  subtract_5
+} from '../../assets/svg-assets';
 
 export const LandingScreen = ({
   property1,
   className,
-  cuttingTransitionPolygon = "https://c.animaapp.com/XNVGwrYa/img/polygon-5.svg",
-  cuttingTransitionEllipse = "https://c.animaapp.com/XNVGwrYa/img/ellipse-8-3.svg",
-  cuttingTransitionImg = "https://c.animaapp.com/XNVGwrYa/img/ellipse-7-3.svg",
-  cuttingTransitionSubtract = "https://c.animaapp.com/XNVGwrYa/img/subtract-4.svg",
-  cuttingTransitionSubtract1 = "https://c.animaapp.com/XNVGwrYa/img/subtract-3.svg",
-  cuttingTransitionSubtract2 = "https://c.animaapp.com/XNVGwrYa/img/subtract-2.svg",
+  cuttingTransitionPolygon = defaultCuttingTransitionPolygon,
+  cuttingTransitionEllipse = defaultCuttingTransitionEllipse,
+  cuttingTransitionImg = defaultCuttingTransitionImg,
+  cuttingTransitionSubtract = defaultCuttingTransitionSubtract,
+  cuttingTransitionSubtract1 = defaultCuttingTransitionSubtract1,
+  cuttingTransitionSubtract2 = defaultCuttingTransitionSubtract2,
 }) => {
   return (
     <div className={`w-[var(--responsive-device-width)] h-[605px] bg-[#feead1] ${className}`}>
@@ -30,26 +46,27 @@ export const LandingScreen = ({
         <img
           className="w-[1200px] left-0 top-[766px] h-[163px] absolute"
           alt="Chopping board"
-          src="https://c.animaapp.com/XNVGwrYa/img/chopping-board-2.svg"
+          src={choppingBoard}
         />
         <CuttingTransition
           className="!absolute !left-14 !top-0"
           ellipse={cuttingTransitionImg}
-          ellipse1={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/ellipse-8-1.svg" : undefined}
+          ellipse1={property1 === "chopped" ? cuttingTransitionEllipse : undefined}
           img={cuttingTransitionEllipse}
-          kniveEllipse={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/ellipse-2-2.svg" : undefined}
-          kniveImg={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/ellipse-3-2.svg" : undefined}
-          knivePolygon={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/polygon-3-2.svg" : undefined}
+          kniveEllipse={property1 === "chopped" ? knifeEllipse : undefined}
+          kniveImg={property1 === "chopped" ? knifeImg : undefined}
+          knivePolygon={property1 === "chopped" ? knifePolygon : undefined}
           polygon={cuttingTransitionPolygon}
-          polygon1={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/polygon-5-1.svg" : undefined}
+          polygon1={property1 === "chopped" ? polygon_5_3 : undefined}
           property1={property1 === "chopped" ? "chopping" : "default"}
           subtract={cuttingTransitionSubtract1}
           subtract1={cuttingTransitionSubtract}
           subtract2={cuttingTransitionSubtract2}
-          subtract3={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/subtract-3.svg" : undefined}
-          subtract4={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/subtract-4.svg" : undefined}
-          subtract5={property1 === "chopped" ? "https://c.animaapp.com/XNVGwrYa/img/subtract-5.svg" : undefined}
+          subtract3={property1 === "chopped" ? subtract_3 : undefined}
+          subtract4={property1 === "chopped" ? subtract_4 : undefined}
+          subtract5={property1 === "chopped" ? subtract_5 : undefined}
         />
       </div>
     </div>
-  )};
+  );
+};

@@ -1,0 +1,84 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --color-background-default-default: var(--color-primitives-white-1000);
+  --color-border-default-default: var(--color-primitives-gray-300);
+  --color-border-neutral-secondary: var(--color-primitives-slate-600);
+  --color-primitives-gray-300: rgba(217, 217, 217, 1);
+  --color-primitives-gray-600: rgba(68, 68, 68, 1);
+  --color-primitives-gray-900: rgba(30, 30, 30, 1);
+  --color-primitives-slate-500: rgba(148, 148, 148, 1);
+  --color-primitives-slate-600: rgba(118, 118, 118, 1);
+  --color-primitives-white-1000: rgba(255, 255, 255, 1);
+  --color-text-default-default: var(--color-primitives-gray-900);
+  --heading-font-family: "Inter", Helvetica;
+  --heading-font-size: 24px;
+  --heading-font-style: normal;
+  --heading-font-weight: 600;
+  --heading-letter-spacing: -0.48px;
+  --heading-line-height: 120.00000476837158%;
+  --responsive-device-width: 1200px;
+  --single-line-body-base-font-family: "Inter", Helvetica;
+  --single-line-body-base-font-size: 16px;
+  --single-line-body-base-font-style: normal;
+  --single-line-body-base-font-weight: 400;
+  --single-line-body-base-letter-spacing: 0px;
+  --single-line-body-base-line-height: 100%;
+  --size-radius-200: 8px;
+  --size-space-200: 8px;
+  --size-space-300: 12px;
+  --size-space-400: 16px;
+  --size-space-600: 24px;
+  --size-space-800: 32px;
+  --title-hero-font-family: "Inter", Helvetica;
+  --title-hero-font-size: 72px;
+  --title-hero-font-style: normal;
+  --title-hero-font-weight: 700;
+  --title-hero-letter-spacing: -2.16px;
+  --title-hero-line-height: 120.00000476837158%;
+}
+
+/*
+
+To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+
+<body data-responsive-mode="desktop">
+    <!-- the rest of your content -->
+</body>
+
+You can apply the theme on any DOM node, not just the `body`
+
+*/
+
+[data-responsive-mode="desktop"] {
+  --responsive-device-width: 1200px;
+}
+
+[data-responsive-mode="mobile"] {
+  --responsive-device-width: 375px;
+}
+
+[data-responsive-mode="tablet"] {
+  --responsive-device-width: 768px;
+}
+
+[data-color-mode="SDS-light"] {
+  --color-background-default-default: var(--color-primitives-white-1000);
+  --color-border-default-default: var(--color-primitives-gray-300);
+  --color-border-neutral-secondary: var(--color-primitives-slate-600);
+  --color-text-default-default: var(--color-primitives-gray-900);
+}
+
+[data-color-mode="SDS-dark"] {
+  --color-background-default-default: var(--color-primitives-gray-900);
+  --color-border-default-default: var(--color-primitives-gray-600);
+  --color-border-neutral-secondary: var(--color-primitives-slate-500);
+  --color-text-default-default: var(--color-primitives-white-1000);
+}

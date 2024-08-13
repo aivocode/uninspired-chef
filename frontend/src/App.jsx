@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
+import "./global.css";
 import { HomePage } from "./pages/HomePage";
 import { AuthenticationPage } from "./pages/AuthenticationPage";
 import { PantryPage } from "./pages/PantryPage";

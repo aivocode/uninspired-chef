@@ -1,22 +1,35 @@
 import { Knife } from "../Knife/Knife";
+import {
+  ellipse_7_3,
+  ellipse_8_3,
+  subtract_6,
+  subtract_7,
+  polygon_5_3,
+  subtract_11,
+  subtract_9,
+  subtract_10,
+  polygon_3_1,
+  ellipse_2_1,
+  ellipse_3_1,
+} from '../../assets/svg-assets';
 
 export const CuttingTransition = ({
   property1,
   className,
-  ellipse = "https://c.animaapp.com/XNVGwrYa/img/ellipse-7-3.svg",
-  img = "https://c.animaapp.com/XNVGwrYa/img/ellipse-8-3.svg",
-  subtract = "https://c.animaapp.com/XNVGwrYa/img/subtract-6.svg",
-  subtract1 = "https://c.animaapp.com/XNVGwrYa/img/subtract-7.svg",
-  polygon = "https://c.animaapp.com/XNVGwrYa/img/polygon-5-3.svg",
-  subtract2 = "https://c.animaapp.com/XNVGwrYa/img/subtract-11.svg",
-  ellipse1 = "https://c.animaapp.com/XNVGwrYa/img/ellipse-8-3.svg",
-  subtract3 = "https://c.animaapp.com/XNVGwrYa/img/subtract-9.svg",
-  subtract4 = "https://c.animaapp.com/XNVGwrYa/img/subtract-10.svg",
-  polygon1 = "https://c.animaapp.com/XNVGwrYa/img/polygon-5-3.svg",
-  subtract5 = "https://c.animaapp.com/XNVGwrYa/img/subtract-11.svg",
-  KnifePolygon = "https://c.animaapp.com/XNVGwrYa/img/polygon-3-1.svg",
-  KnifeEllipse = "https://c.animaapp.com/XNVGwrYa/img/ellipse-2-1.svg",
-  KnifeImg = "https://c.animaapp.com/XNVGwrYa/img/ellipse-3-1.svg",
+  ellipse = ellipse_7_3,
+  img = ellipse_8_3,
+  subtract = subtract_6,
+  subtract1 = subtract_7,
+  polygon = polygon_5_3,
+  subtract2 = subtract_11,
+  ellipse1 = ellipse_8_3,
+  subtract3 = subtract_9,
+  subtract4 = subtract_10,
+  polygon1 = polygon_5_3,
+  subtract5 = subtract_11,
+  KnifePolygon = polygon_3_1,
+  KnifeEllipse = ellipse_2_1,
+  KnifeImg = ellipse_3_1,
 }) => {
   return (
     <div className={`w-[775px] h-[904px] ${className}`}>
@@ -64,7 +77,7 @@ export const CuttingTransition = ({
             <img
               className="absolute w-[140px] h-[141px] top-[139px] left-[369px]"
               alt="Ellipse"
-              src="https://c.animaapp.com/XNVGwrYa/img/ellipse-7-3.svg"
+              src={ellipse_7_3}
             />
           </>
         )}

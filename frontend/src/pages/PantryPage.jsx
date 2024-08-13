@@ -1,5 +1,15 @@
 import { Header } from "../components/Header/Header";
 import { Pantry } from "../components/Pantry/Pantry";
+import {
+  subtract_7,
+  subtract_8,
+  subtract_9,
+  union_5,
+  union_6,
+  line_1_1,
+  ellipse_1_3,
+  union_7,
+} from '../assets/svg-assets';
 
 export const PantryPage = () => {
   return (
@@ -12,7 +22,7 @@ export const PantryPage = () => {
             <img
               className="absolute w-[17px] h-4 top-0 left-0"
               alt="Subtract"
-              src="https://c.animaapp.com/IoEhOXU4/img/subtract-7.svg"
+              src={subtract_7}
             />
           </div>
           <div className="absolute w-[17px] h-[17px] top-[26px] left-28">
@@ -21,7 +31,7 @@ export const PantryPage = () => {
             <img
               className="absolute w-[17px] h-4 top-0 left-0"
               alt="Subtract"
-              src="https://c.animaapp.com/IoEhOXU4/img/subtract-8.svg"
+              src={subtract_8}
             />
           </div>
           <div className="absolute w-[17px] h-[17px] top-5 left-[139px]">
@@ -30,7 +40,7 @@ export const PantryPage = () => {
             <img
               className="absolute w-[17px] h-4 top-0 left-0"
               alt="Subtract"
-              src="https://c.animaapp.com/IoEhOXU4/img/subtract-9.svg"
+              src={subtract_9}
             />
           </div>
           <div className="absolute w-[91px] h-[103px] top-[60px] left-[13px]">
@@ -40,25 +50,25 @@ export const PantryPage = () => {
             <img
               className="absolute w-[91px] h-[39px] top-0 left-0"
               alt="Union"
-              src="https://c.animaapp.com/IoEhOXU4/img/union-5.svg"
+              src={union_5}
             />
             <img
               className="w-14 top-20 left-[17px] absolute h-[23px]"
               alt="Union"
-              src="https://c.animaapp.com/IoEhOXU4/img/union-6.svg"
+              src={union_6}
             />
             <img
               className="absolute w-[5px] h-11 top-9 left-11"
               alt="Line"
-              src="https://c.animaapp.com/IoEhOXU4/img/line-1-1.svg"
+              src={line_1_1}
             />
           </div>
         </div>
         <Header
           className="!h-[180px] !absolute !left-[968px] !top-6"
-          overlapGroupClassName="bg-[url(https://c.animaapp.com/IoEhOXU4/img/ellipse-1-3.svg)]"
+          overlapGroupClassName={`bg-[url(${ellipse_1_3})]`}
           property1="open"
-          union="https://c.animaapp.com/IoEhOXU4/img/union-7.svg"
+          union={union_7}
         />
       </header>
       <Pantry className="!relative" />

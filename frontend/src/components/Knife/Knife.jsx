@@ -1,8 +1,14 @@
+import { 
+  polygon_3_2, 
+  ellipse_2_2, 
+  ellipse_3_2 
+} from '../../assets/svg-assets';
+
 export const Knife = ({
     className,
-    polygon = "https://c.animaapp.com/XNVGwrYa/img/polygon-3-2.svg",
-    ellipse = "https://c.animaapp.com/XNVGwrYa/img/ellipse-2-2.svg",
-    img = "https://c.animaapp.com/XNVGwrYa/img/ellipse-3-2.svg",
+    polygon = polygon_3_2,
+    ellipse = ellipse_2_2,
+    img = ellipse_3_2,
   }) => {
     return (
       <div className={`w-[649px] h-[286px] ${className}`}>
@@ -24,4 +30,3 @@ export const Knife = ({
       </div>
     );
   };
-  
