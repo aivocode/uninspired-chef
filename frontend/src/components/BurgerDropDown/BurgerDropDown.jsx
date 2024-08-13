@@ -1,16 +1,23 @@
-export const BurgerDropDown = ({ property1, className }) => {
+import { useState } from 'react';
+import './BurgerDropDown.css';
+
+export const BurgerDropDown = ({ className }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation(); // Prevents event bubbling if necessary
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div
-      className={`w-[225px] ${property1 === "closed" ? "h-[180px]" : "h-[260px]"} ${
-        property1 === "open" ? "relative" : ""
-      } ${className}`}
+      className={`burger-dropdown w-[225px] ${isOpen ? "h-[260px]" : "h-[180px]"} ${className}`}
+      onClick={toggleDropdown}
     >
       <div
-        className={`left-5 top-[19px] ${property1 === "open" ? "w-[189px]" : "w-48"} ${
-          property1 === "open" ? "h-[136px]" : "h-[139px]"
-        } ${property1 === "open" ? "absolute" : "relative"}`}
+        className={`burger-content left-5 top-[19px] ${isOpen ? "w-[189px] h-[136px] absolute" : "w-48 h-[139px] relative"}`}
       >
-        {property1 === "open" && (
+        {isOpen && (
           <img
             className="absolute w-[189px] h-[23px] top-[113px] left-0"
             alt="Union"
@@ -19,28 +26,24 @@ export const BurgerDropDown = ({ property1, className }) => {
         )}
 
         <div
-          className={`left-[3px] bg-[#b51b1e] absolute ${property1 === "closed" ? "w-[186px]" : "w-[183px]"} ${
-            property1 === "closed" ? "top-[60px]" : "top-[72px]"
-          } ${property1 === "closed" ? "h-2" : "h-[9px]"}`}
+          className={`burger-layer left-[3px] bg-[#b51b1e] absolute ${isOpen ? "w-[183px] top-[72px] h-[9px]" : "w-[186px] top-[60px] h-2"}`}
         />
         <div
-          className={`left-[3px] bg-[#638209] absolute ${property1 === "open" ? "w-[183px]" : "w-[186px]"} ${
-            property1 === "open" ? "top-[89px]" : "top-[68px]"
-          } ${property1 === "open" ? "h-[9px]" : "h-2"}`}
+          className={`burger-layer left-[3px] bg-[#638209] absolute ${isOpen ? "w-[183px] top-[89px] h-[9px]" : "w-[186px] top-[68px] h-2"}`}
         />
-        {property1 === "open" && (
-          <div className="absolute w-[189px] h-[130px] top-0 left-0">
-            <button className="all-[unset] box-border relative w-[186px] h-[65px] left-px bg-[url(https://c.animaapp.com/SwMh7ZZE/img/ellipse-1-2.svg)] bg-[100%_100%]">
-              <button className="all-[unset] box-border flex w-[111px] h-[52px] items-center justify-center gap-2 p-3 relative top-[13px] left-[38px] rounded-lg overflow-hidden">
-                <div className="relative w-fit [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
+        {isOpen && (
+          <div className="burger-ellipse absolute w-[189px] h-[130px] top-0 left-0">
+            <button className="burger-button all-[unset] box-border relative w-[186px] h-[65px] left-px bg-[url(https://c.animaapp.com/SwMh7ZZE/img/ellipse-1-2.svg)] bg-[100%_100%]">
+              <div className="inner-button all-[unset] box-border flex w-[111px] h-[52px] items-center justify-center gap-2 p-3 relative top-[13px] left-[38px] rounded-lg overflow-hidden">
+                <div className="button-text relative w-fit [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
                   Logout
                 </div>
-              </button>
+              </div>
             </button>
           </div>
         )}
 
-        {property1 === "closed" && (
+        {!isOpen && (
           <>
             <div className="absolute w-48 h-[26px] top-[113px] left-0 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-3.svg)] bg-[100%_100%]" />
             <div className="absolute w-48 h-8 top-[81px] left-0 bg-[#a13c2a] rounded-[64px]" />
@@ -59,18 +62,18 @@ export const BurgerDropDown = ({ property1, className }) => {
           </>
         )}
       </div>
-      {property1 === "open" && (
+      {isOpen && (
         <>
           <div className="absolute w-[189px] h-7 top-[216px] left-5 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-2.svg)] bg-[100%_100%]">
             <div className="flex w-[162px] h-7 items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
-              <div className="relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
+              <div className="button-text relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
                 Saved Recipes
               </div>
             </div>
           </div>
           <div className="absolute w-[189px] h-[35px] top-[158px] left-5 bg-[#a13c2a] rounded-[64px]">
             <div className="flex w-[162px] h-[35px] items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
-              <div className="relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
+              <div className="button-text relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
                 My pantry
               </div>
             </div>
