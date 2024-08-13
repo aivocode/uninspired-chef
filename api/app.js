@@ -7,6 +7,8 @@ const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const tokenChecker = require("./middleware/tokenChecker");
 
+const pantryRouter = require("./routes/pantry");
+
 const app = express();
 
 // Allow requests from any client
@@ -21,6 +23,9 @@ app.use(bodyParser.json());
 app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
+
+// tell app to use our imported Pantry router
+app.use("/pantry", pantryRouter);
 
 // 404 Handler
 app.use((_req, res) => {
