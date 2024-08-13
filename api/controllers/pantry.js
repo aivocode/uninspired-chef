@@ -45,7 +45,7 @@ const createPantry = async (req, res) => {
   } else if (notIngredients.length === 0) {
     // we create new Pantry in Mongo since we passed check that all ingredients are correct
     const pantry = new Pantry({
-      userId: req.body.userId,
+      user_id: req.body.userId,
       ingredientsArray: req.body.ingredientsArray,
     });
     pantry.save();
@@ -69,13 +69,13 @@ const getPantry = async (req, res) => {
 
   // we look for a Pantry in Mongo matching userId of owner
   // note: this will need to be changed if we will decide having multiple Pantry for one user
-  const pantry = await Pantry.findOne({ userId: userId });
-  console.log(pantry);
+  const pantry = await Pantry.findOne({ user_id: userId });
+  // console.log(pantry);
 
   if (pantry !== null) {
     res.status(200).json({
       pantryId: pantry.id,
-      userId: pantry.userId,
+      userId: pantry.user_id,
       ingredientsArray: pantry.ingredientsArray,
       status: 400,
     });
