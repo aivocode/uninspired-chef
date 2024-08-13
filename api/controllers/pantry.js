@@ -40,6 +40,7 @@ const createPantry = async (req, res) => {
     // response to our service on frontend if not valid ingredients found
     res.status(404).json({
       message: `Ingredients not available in database: ${message}. Try again.`,
+      status: 404,
     });
   } else if (notIngredients.length === 0) {
     // we create new Pantry in Mongo since we passed check that all ingredients are correct
@@ -52,12 +53,43 @@ const createPantry = async (req, res) => {
     // response to our service on frontend if Pantry was created in Mongo
     res
       .status(200)
-      .json({ message: `Pantry created with all ingredients specified.` });
+      .json({
+        message: `Pantry created with all ingredients specified.`,
+        status: 200,
+      });
+  }
+};
+
+const getPantry = async (req, res) => {
+  // console.log(req.method);
+  // console.log(req.query.userId);
+
+  // id of owner of the pantry
+  userId = req.query.userId;
+
+  // we look for a Pantry in Mongo matching userId of owner
+  // note: this will need to be changed if we will decide having multiple Pantry for one user
+  const pantry = await Pantry.findOne({ userId: userId });
+  console.log(pantry);
+
+  if (pantry !== null) {
+    res.status(200).json({
+      pantryId: pantry.id,
+      userId: pantry.userId,
+      ingredientsArray: pantry.ingredientsArray,
+      status: 400,
+    });
+  } else if (pantry === null) {
+    res.status(400).json({
+      message: "No pantry found for current user. Create one?",
+      status: 400,
+    });
   }
 };
 
 const PantryController = {
   createPantry: createPantry,
+  getPantry: getPantry,
 };
 
 module.exports = PantryController;
