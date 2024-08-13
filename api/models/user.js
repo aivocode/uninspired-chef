@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  full_name: { type: String, required: true },
-  user_name: { type: String, required: true },
+  fullName: { type: String, required: true },
+  userName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  favourites: { type: Array, required: false },
+  favouritedRecipes: { type: Array, default: [] },
 });
 
 const User = mongoose.model("User", UserSchema);
