@@ -4,6 +4,16 @@ https://trello.com/b/08mUmnLZ/uninspired-chef
 ## Diagrams
 ![image](https://github.com/user-attachments/assets/506d7886-5ead-49e9-9bcb-b87adac161cb)
 
+![image](https://github.com/user-attachments/assets/6afad3ae-1f4b-4b3c-9aaf-2805496be467)
+
+![image](https://github.com/user-attachments/assets/27687b0f-96c4-47d7-b2ec-4a173a08e145)
+
+![image](https://github.com/user-attachments/assets/062f1cc3-a211-43e1-85e6-9c235cb52238)
+
+![image](https://github.com/user-attachments/assets/ebd9fce6-c887-42f9-8588-54dc5acf05e3)
+
+
+
 
 
 
