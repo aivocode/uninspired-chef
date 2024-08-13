@@ -28,28 +28,26 @@ export const LandingScreen = ({
   cuttingTransitionSubtract2 = defaultCuttingTransitionSubtract2,
 }) => {
   return (
-    <div className={`w-[var(--responsive-device-width)] h-[605px] bg-[#feead1] ${className}`}>
-      <div className="top-[-324px] h-[929px] relative">
+    <div className={`w-full h-auto bg-[#feead1] ${className} flex flex-col items-center`}>
+      <div className="relative w-full max-w-5xl flex flex-col items-center">
         <TextContentTitle
           align="center"
-          className="!absolute !left-[398px] !top-[427px]"
+          className="mt-16 mb-8"
           subtitle="That can change"
           title="Uninspired?"
         />
-        <div className="w-60 flex left-[480px] items-center top-[591px] gap-[var(--size-space-400)] absolute">
-          <button className="all-[unset] box-border border border-solid border-color-border-neutral-secondary flex items-center grow gap-[var(--size-space-200)] flex-1 pt-[var(--size-space-300)] pr-[var(--size-space-300)] pb-[var(--size-space-300)] pl-[var(--size-space-300)] overflow-hidden rounded-[var(--size-radius-200)] justify-center bg-[#fd6f2f] relative">
-            <div className="font-single-line-body-base w-fit mt-[-1.00px] tracking-[var(--single-line-body-base-letter-spacing)] text-[length:var(--single-line-body-base-font-size)] [font-style:var(--single-line-body-base-font-style)] text-color-text-default-default font-[number:var(--single-line-body-base-font-weight)] leading-[var(--single-line-body-base-line-height)] whitespace-nowrap relative">
-              Inspire Me!
-            </div>
+        <div className="flex justify-center items-center mb-8">
+          <button className="px-6 py-3 bg-[#fd6f2f] text-white font-bold rounded-lg">
+            Inspire Me!
           </button>
         </div>
         <img
-          className="w-[1200px] left-0 top-[766px] h-[163px] absolute"
+          className="w-full max-w-3xl mt-8"
           alt="Chopping board"
           src={choppingBoard}
         />
         <CuttingTransition
-          className="!absolute !left-14 !top-0"
+          className="w-full max-w-3xl mt-8"
           ellipse={cuttingTransitionImg}
           ellipse1={property1 === "chopped" ? cuttingTransitionEllipse : undefined}
           img={cuttingTransitionEllipse}
