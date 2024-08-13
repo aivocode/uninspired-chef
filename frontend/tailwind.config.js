@@ -1,6 +1,5 @@
-/** @type {import('tailwindcss').Config} */
-tailwind.config = {
-    content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
+export default {
+  content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
     theme: {
       extend: {
         colors: {
@@ -27,6 +26,12 @@ tailwind.config = {
           "color-text-disabled-default": "var(--color-text-disabled-default)",
           "color-text-disabled-on-disabled": "var(--color-text-disabled-on-disabled)",
           "color-text-neutral-default": "var(--color-text-neutral-default)",
+        },
+        screens: {
+          'sm': '640px',
+          'md': '768px',
+          'lg': '1024px',
+          'xl': '1280px',
         },
         fontFamily: {
           "body-base": "var(--body-base-font-family)",
