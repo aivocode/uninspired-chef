@@ -1,3 +1,13 @@
+## Trello Board
+https://trello.com/b/08mUmnLZ/uninspired-chef
+
+## Diagrams
+![image](https://github.com/user-attachments/assets/506d7886-5ead-49e9-9bcb-b87adac161cb)
+
+
+
+
+
 ## Acebook MERN Template
 
 In this project, you are task with working on an existing application. A
