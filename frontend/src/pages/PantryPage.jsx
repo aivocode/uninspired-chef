@@ -1,6 +1,5 @@
-import React from "react";
-import { BurgerDropDown } from "../../components/BurgerDropDown";
-import { Pantry } from "../../components/Pantry";
+import { Header } from "../components/Header/Header";
+import { Pantry } from "../components/Pantry/Pantry";
 
 export const PantryPage = () => {
   return (
@@ -55,7 +54,7 @@ export const PantryPage = () => {
             />
           </div>
         </div>
-        <BurgerDropDown
+        <Header
           className="!h-[180px] !absolute !left-[968px] !top-6"
           overlapGroupClassName="bg-[url(https://c.animaapp.com/IoEhOXU4/img/ellipse-1-3.svg)]"
           property1="open"

@@ -1,5 +1,5 @@
-import { CuttingTransition } from "../CuttingTransition";
-import { TextContentTitle } from "../TextContentTitle";
+import { CuttingTransition } from "../CuttingTransition/CuttingTransition";
+import { TextContentTitle } from "../TextContentTitle/TextContentTitle";
 
 export const LandingScreen = ({
   property1,
@@ -52,4 +52,4 @@ export const LandingScreen = ({
         />
       </div>
     </div>
-  );
+  )};

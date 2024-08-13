@@ -1,5 +1,5 @@
-import { Header } from "../components/Header";
-import { TextLink } from "./TextLink";
+import { Header } from "../components/Header/Header";
+import { TextLink } from "../components/TextLink/TextLink";
 
 export const AuthenticationPage = () => {
   return (

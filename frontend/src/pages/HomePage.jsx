@@ -1,6 +1,6 @@
-import { Header } from "./Header";
-import { LandingScreen } from "./LandingScreen";
-import { RecipeFeed } from "./RecipeFeed";
+import { Header } from "../components/Header/Header";
+import { LandingScreen } from "../components//LandingScreen/LandingScreen";
+import { RecipeFeed } from "../components/RecipeFeed/RecipeFeed";
 
 export const HomePage = () => {
   return (
