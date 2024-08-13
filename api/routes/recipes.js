@@ -3,8 +3,8 @@ const router = express.Router();
 const RecipesController = require("../controllers/recipes");
 
 
-router.get("/", RecipesController.getAllPosts);
-router.post("/", RecipesController.createPost);
+router.get("/", RecipesController.getRecipes);
+// router.post("/", RecipesController.);
 
 
 module.exports = router;
