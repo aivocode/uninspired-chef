@@ -3,7 +3,8 @@ const router = express.Router();
 const RecipesController = require("../controllers/recipes");
 
 
-router.get("/", RecipesController.getRecipes);
+router.get("/", RecipesController.getRandomRecipes);
+
 // router.post("/", RecipesController.);
 
 
