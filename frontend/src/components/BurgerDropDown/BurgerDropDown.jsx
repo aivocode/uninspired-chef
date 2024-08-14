@@ -1,49 +1,41 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';  // Import useLocation to get the current route
+import { useNavigate, useLocation } from 'react-router-dom';
 import './BurgerDropDown.css';
 
 export const BurgerDropDown = ({ className }) => {
-  // State to manage whether the dropdown is open or closed
   const [isOpen, setIsOpen] = useState(false);
-  
-  // useNavigate is a hook that provides navigation functionality
   const navigate = useNavigate();
-  
-  // useLocation is a hook that gives access to the current location (URL path)
   const location = useLocation();
 
-  // Toggles the dropdown open/closed when clicked
   const toggleDropdown = (e) => {
-    e.stopPropagation(); // Prevents event bubbling if necessary
-    setIsOpen(!isOpen); // Toggle the dropdown open/closed
+    e.stopPropagation();
+    setIsOpen(!isOpen);
   };
 
-  // useEffect to automatically close the dropdown after 30 seconds if it's open
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
-        setIsOpen(false); // Close the dropdown after 30 seconds
-      }, 30000); // 30 seconds timeout
-      return () => clearTimeout(timer); // Cleanup function to clear the timer if dropdown is closed before 30 seconds
+        setIsOpen(false);
+      }, 30000);
+      return () => clearTimeout(timer);
     }
-  }, [isOpen]); // This effect runs whenever `isOpen` changes
+  }, [isOpen]);
 
-  // Handles the click on the "My pantry"/"Home" button
   const handlePantryClick = () => {
     if (location.pathname === '/pantry') {
-      navigate('/'); // If currently on /pantry, navigate to the home page (/)
+      navigate('/');
     } else {
-      navigate('/pantry'); // If not on /pantry, navigate to /pantry
+      navigate('/pantry');
     }
   };
 
   return (
     <div
-      className={`burger-dropdown w-[225px] ${isOpen ? "h-[260px]" : "h-[180px]"} ${className}`}
-      onClick={toggleDropdown} // Toggles the dropdown when this div is clicked
+      className={`burger-dropdown w-[225px] ${isOpen ? 'open' : 'closed'} ${isOpen ? "h-[260px]" : "h-[180px]"} ${className}`}
+      onClick={toggleDropdown}
     >
       <div
-        className={`burger-content left-5 top-[19px] ${isOpen ? "w-[189px] h-[136px] absolute" : "w-48 h-[139px] relative"}`}
+        className={`burger-content left-5 top-[19px] ${isOpen ? 'w-[189px] h-[136px] absolute open' : 'w-48 h-[139px] relative closed'}`}
       >
         {isOpen && (
           <img
@@ -53,14 +45,13 @@ export const BurgerDropDown = ({ className }) => {
           />
         )}
 
-        {/* Tomato and lettuce layers in the burger */}
         <div
-          className={`TomatoLayer left-[3px] bg-[#b51b1e] absolute ${isOpen ? "w-[183px] top-[72px] h-[9px]" : "w-[186px] top-[60px] h-2"}`}
+          className={`TomatoLayer left-[3px] bg-[#b51b1e] absolute ${isOpen ? 'w-[183px] top-[72px] h-[9px] open' : 'w-[186px] top-[60px] h-2 closed'}`}
         />
         <div
-          className={`LettuceLayer left-[3px] bg-[#638209] absolute ${isOpen ? "w-[183px] top-[89px] h-[9px]" : "w-[186px] top-[68px] h-2"}`}
+          className={`LettuceLayer left-[3px] bg-[#638209] absolute ${isOpen ? 'w-[183px] top-[89px] h-[9px] open' : 'w-[186px] top-[68px] h-2 closed'}`}
         />
-        
+
         {isOpen && (
           <div className="BurgerBunTop absolute w-[189px] h-[130px] top-0 left-0">
             <button className="BurgerBunTop all-[unset] box-border relative w-[186px] h-[65px] left-px bg-[url(https://c.animaapp.com/SwMh7ZZE/img/ellipse-1-2.svg)] bg-[100%_100%]">
@@ -73,7 +64,6 @@ export const BurgerDropDown = ({ className }) => {
           </div>
         )}
 
-        {/* When the dropdown is not open, render the collapsed burger */}
         {!isOpen && (
           <>
             <div className="CheeseLayer absolute w-48 h-[26px] top-[113px] left-0 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-3.svg)] bg-[100%_100%]" />
@@ -94,7 +84,6 @@ export const BurgerDropDown = ({ className }) => {
         )}
       </div>
 
-      {/* When the dropdown is open, render the additional layers (bun bottom, saved recipes, pantry/home button) */}
       {isOpen && (
         <>
           <div className="BurgerBunBottom absolute w-[189px] h-7 top-[216px] left-5 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-2.svg)] bg-[100%_100%]">
@@ -104,14 +93,14 @@ export const BurgerDropDown = ({ className }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="BurgerBunBottom absolute w-[189px] h-[35px] top-[158px] left-5 bg-[#a13c2a] rounded-[64px]">
             <div className="BurgerBunBottom flex w-[162px] h-[35px] items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
               <div
                 className="button-text relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap cursor-pointer"
-                onClick={handlePantryClick} // Navigates to /pantry or / depending on current route
+                onClick={handlePantryClick}
               >
-                {location.pathname === '/pantry' ? 'Home' : 'My pantry'} {/* Show "Home" if on /pantry, otherwise show "My pantry" */}
+                {location.pathname === '/pantry' ? 'Home' : 'My pantry'}
               </div>
             </div>
           </div>

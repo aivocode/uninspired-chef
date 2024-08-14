@@ -1,30 +1,31 @@
 .burger-dropdown {
     cursor: pointer;
     transition: height 0.3s ease-in-out;
-  }
-  
-  .burger-content {
+    overflow: hidden; /* Ensure smooth transition */
+}
+
+.burger-content {
     transition: all 0.3s ease-in-out;
-  }
-  
-  .burger-layer {
+}
+
+.burger-layer {
     position: absolute;
-  }
-  
-  .burger-ellipse {
+}
+
+.burger-ellipse {
     position: absolute;
     top: 60px;
     left: 0;
     width: 48px;
     height: 120px;
-  }
-  
-  .burger-union {
+}
+
+.burger-union {
     width: 48px;
     height: 60px;
-  }
-  
-  .burger-button {
+}
+
+.burger-button {
     display: block;
     width: 100%;
     height: 100%;
@@ -32,30 +33,62 @@
     background-color: transparent;
     font-size: 16px;
     color: #1e1e1e;
-  }
-  
-  .inner-button {
+}
+
+.inner-button {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .button-text {
+}
+
+.button-text {
     font-family: 'Inter', Helvetica, sans-serif;
     font-size: 16px;
     color: #1e1e1e;
-  }
-  
-  .burger-content.open .burger-button,
-  .burger-content.open .button-text {
-    pointer-events: auto;
-  }
-  
-  .burger-content.closed .burger-button,
-  .burger-content.closed .button-text {
-    pointer-events: none;
-  }
+}
 
-  .burger-dropdown {
-    transition: height 0.3s ease-in-out;
-  }
+.burger-content.open .burger-button,
+.burger-content.open .button-text {
+    pointer-events: auto;
+}
+
+.burger-content.closed .burger-button,
+.burger-content.closed .button-text {
+    pointer-events: none;
+}
+
+
+.BurgerBunTop {
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.TomatoLayer, .LettuceLayer, .CheeseLayer, .BurgerBunBottom {
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Handle closed state without disappearing */
+.burger-dropdown.closed .BurgerBunTop,
+.burger-dropdown.closed .TomatoLayer,
+.burger-dropdown.closed .LettuceLayer,
+.burger-dropdown.closed .CheeseLayer,
+.burger-dropdown.closed .BurgerBunBottom {
+    transform: translateY(0); /* No translation to prevent hiding */
+    opacity: 1; /* Maintain opacity */
+}
+
+.burger-dropdown.closed .burger-content {
+    height: 180px; /* Ensure it's the same height as the closed state */
+}
+
+/* Optional: Add slight shrinkage on closing for a subtle effect */
+.burger-dropdown.closed .burger-content {
+    transform: scale(0.98);
+}
+
+.burger-dropdown.open .burger-content {
+    transform: scale(1);
+}
