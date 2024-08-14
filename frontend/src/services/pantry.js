@@ -41,3 +41,33 @@ export const getPantry = async (userId) => {
   // console.log(data);
   return data;
 };
+
+export const updatePantry = async (token, pantryId, ingredientsArray) => {
+  const payload = {
+    // userId that came from .jsx page/component
+    pantryId: pantryId,
+    // array of ingredients that came from .jsx page/component
+    ingredientsArray: ingredientsArray,
+  };
+
+  const requestOptions = {
+    method: "PUT",
+    // we send token with headers because Cors requires it
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  };
+
+  // fetch request is built based on route defined in ../api/app.js and ../api/routers/pantry.js
+  const response = await fetch(
+    `${BACKEND_URL}/pantry/update-pantry`,
+    requestOptions
+  );
+  // console.log(response.status);
+
+  const data = await response.json();
+  // console.log(data);
+  return data;
+};
