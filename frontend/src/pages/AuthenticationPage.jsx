@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Header } from "../components/Header/Header";
-import './AuthenticationPage.css'; // Assuming you have this CSS file
+import '../static/AuthenticationPage.css'; // Assuming you have this CSS file
 
 export const AuthenticationPage = () => {
   const [isLogin, setIsLogin] = useState(false);
