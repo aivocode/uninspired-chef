@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 
 export const RecipeCard = ({ title, description, saved }) => {
