@@ -8,6 +8,8 @@ export const AuthenticationPage = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailLog, setEmailLog] = useState("");
+  const [passwordLog, setPasswordLog] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ export const AuthenticationPage = () => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = await login(email, password);
+      const token = await login(emailLog, passwordLog);
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
@@ -57,6 +59,13 @@ export const AuthenticationPage = () => {
   const handlePasswordChange = (newPassword, isValid) => {
     setPassword(newPassword);
     setIsPasswordValid(isValid);
+  };
+
+  const handlePasswordLogChange = (event) => {
+    setPasswordLog(event.target.value);
+  };
+  const handleEmailLogChange = (event) => {
+    setEmailLog(event.target.value);
   };
 
   return (
@@ -105,15 +114,15 @@ export const AuthenticationPage = () => {
           <input
             id="email"
             type="text"
-            value={email}
-            onChange={handleEmailChange}
+            value={emailLog}
+            onChange={handleEmailLogChange}
           />
           <label htmlFor="password">Password:</label>
           <input
             id="password"
             type="password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={passwordLog}
+            onChange={handlePasswordLogChange}
           />
           <input
             role="submit-button"
