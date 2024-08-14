@@ -55,4 +55,7 @@
   .burger-content.closed .button-text {
     pointer-events: none;
   }
-  
+
+  .burger-dropdown {
+    transition: height 0.3s ease-in-out;
+  }

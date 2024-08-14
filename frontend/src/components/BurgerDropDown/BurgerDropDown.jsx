@@ -1,12 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BurgerDropDown.css';
 
 export const BurgerDropDown = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = (e) => {
     e.stopPropagation(); // Prevents event bubbling if necessary
     setIsOpen(!isOpen);
+  };
+
+  // Close the dropdown after 30 seconds
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        setIsOpen(false);
+      }, 30000); // 30 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  const handlePantryClick = () => {
+    navigate('/pantry');
   };
 
   return (
@@ -73,7 +89,10 @@ export const BurgerDropDown = ({ className }) => {
           </div>
           <div className="BurgerBunBottom absolute w-[189px] h-[35px] top-[158px] left-5 bg-[#a13c2a] rounded-[64px]">
             <div className="BurgerBunBottom flex w-[162px] h-[35px] items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
-              <div className="button-text relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
+              <div
+                className="button-text relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap cursor-pointer"
+                onClick={handlePantryClick}
+              >
                 My pantry
               </div>
             </div>
