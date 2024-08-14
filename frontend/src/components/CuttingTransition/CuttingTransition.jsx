@@ -18,11 +18,6 @@ export const CuttingTransition = ({ className }) => {
       {isCutting && (
         <>
           <Knife className="absolute left-[400px] top-[100px]" />
-          <img
-            className="absolute w-[58px] h-[42px] left-[459px] top-[122px]"
-            alt="Knife Blade"
-            src="https://c.animaapp.com/8aTehn18/img/subtract-11.svg"
-          />
         </>
       )}
     </div>
