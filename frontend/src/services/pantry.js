@@ -23,8 +23,21 @@ export const createPantry = async (token, userId, ingredientsArray) => {
     `${BACKEND_URL}/pantry/create-pantry`,
     requestOptions
   );
-//   console.log(response.status);
+  // console.log(response.status);
 
   const data = await response.json();
-//   console.log(data);
+  // console.log(data);
+  return data;
+};
+
+export const getPantry = async (userId) => {
+  // simple fetch GET request with query parameter
+  const response = await fetch(
+    `${BACKEND_URL}/pantry/get-pantry?userId=${userId}`
+  );
+  // console.log(response.status);
+
+  const data = await response.json();
+  // console.log(data);
+  return data;
 };
