@@ -1,27 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { getPosts } from "../../services/posts";
-import Post from "../../components/Post/Post";
+import RandomRecipe from "../../components/Recipes/RandomRecipe.jsx";
+import { getRandomRecipe } from "../../services/services.js";
 
 export const FeedPage = () => {
-  const [posts, setPosts] = useState([]);
+  const [recipe, setRecipe] = useState()
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      getPosts(token)
-        .then((data) => {
-          setPosts(data.posts);
-          localStorage.setItem("token", data.token);
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
-    }
-  }, [navigate]);
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -29,13 +13,31 @@ export const FeedPage = () => {
     return;
   }
 
+  //function to handle getting a random recipe
+  const fetchGetRecipe = async () => {
+    try {
+      // calls function from services
+        const data = await getRandomRecipe(token)
+      //sets recipe to the data object returned
+        setRecipe(data)
+        return data
+
+    } catch (err) {
+        console.log('Failed to get inspired! ')
+        console.error('Failed to get inspired :( ', err)
+    };
+}
+
   return (
     <>
-      <h2>Posts</h2>
-      <div className="feed" role="feed">
-        {posts.map((post) => (
-          <Post post={post} key={post._id} />
-        ))}
+      <div>
+        <button 
+          onClick={() => {
+            fetchGetRecipe()
+            }}> 
+          GET INSPIRED
+        </button>
+            <RandomRecipe recipe={recipe}/>
       </div>
     </>
   );
