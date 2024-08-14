@@ -4,7 +4,13 @@ export const FullRecipePopout = ({ onClose }) => {
   return (
     <div className="full-recipe-popout-overlay">
       <div className="full-recipe-popout">
-        <div className="full-recipe-image" />
+        <div className="top-buttons">
+          <div className="save-recipe-button"></div>
+          <button className="close-button" onClick={onClose}>
+            &times;
+          </button>
+        </div>
+        <div className="full-recipe-image"></div>
         <div className="full-recipe-content">
           <div className="recipe-header">
             <div className="recipe-title">Recipe</div>
@@ -22,18 +28,8 @@ export const FullRecipePopout = ({ onClose }) => {
           <div className="recipe-serves">
             <strong>Serves:</strong> 4 people
           </div>
-          <button className="cooking-button">I’m cooking it</button>
         </div>
-        <div className="top-buttons">
-          <img
-            className="save-recipe-button"
-            alt="Save recipe button"
-            src="save-recipe-button.svg"
-          />
-          <button className="close-button" onClick={onClose}>
-            &times;
-          </button>
-        </div>
+        <button className="cooking-button">I’m cooking it</button>
       </div>
     </div>
   );

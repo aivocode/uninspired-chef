@@ -26,10 +26,7 @@ export const RecipeCard = ({ title, description, saved }) => {
 
       {showPopout && (
         <div className="popout-overlay">
-          <FullRecipePopout />
-          <button onClick={handleClosePopout} className="close-popout">
-            Close
-          </button>
+          <FullRecipePopout onClose={handleClosePopout} />
         </div>
       )}
     </>

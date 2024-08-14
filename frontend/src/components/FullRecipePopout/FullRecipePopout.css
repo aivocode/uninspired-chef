@@ -16,7 +16,7 @@
     height: 852px;
     border-radius: 20px;
     overflow: hidden;
-    background-color: #fff5f5; /* Match the mockup background */
+    background-color: #fff5f5;
     position: relative;
     padding: 20px;
     display: flex;
@@ -28,8 +28,9 @@
     width: 419px;
     height: 293px;
     border-radius: 20px;
-    background: url('/recipe-image.svg') center/cover no-repeat;
+    background: #ddd; /* Grey placeholder for the image */
     margin: 20px 0;
+    align-self: center;
   }
   
   .full-recipe-content {
@@ -51,10 +52,30 @@
   }
   
   .save-recipe-button {
-    width: 67px;
-    height: 145px;
-    margin-right: -20px;
-    margin-top: -20px;
+    width: 40px;
+    height: 60px;
+    background: red;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+  
+  .top-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    margin-left: 10px;
   }
   
   .recipe-description {
@@ -83,24 +104,14 @@
   }
   
   .cooking-button {
-    margin-top: 30px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     padding: 10px 20px;
     background-color: #ff6347;
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-    align-self: flex-end;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: black;
     cursor: pointer;
   }
   
