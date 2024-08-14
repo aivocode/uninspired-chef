@@ -1,0 +1,54 @@
+.add-ingredient-popout {
+    width: 428px;
+    padding: 20px;
+    background-color: #feead1;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #515839;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 16px;
+    color: #515839;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #515839;
+    color: #feead1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .add-button:hover {
+    background-color: #414c34;
+  }
+  

@@ -60,3 +60,5 @@ export const Header = ({ property1 = "default" }) => {
     </div>
   );
 };
+
+export default Header;

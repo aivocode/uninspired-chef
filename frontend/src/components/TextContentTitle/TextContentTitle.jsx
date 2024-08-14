@@ -24,4 +24,5 @@ export const TextContentTitle = ({ title = "Title", hasSubtitle = true, subtitle
       </div>
     );
   };
-  
+
+export default TextContentTitle;
