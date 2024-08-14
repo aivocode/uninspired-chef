@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authentication";
-import { PasswordValidator } from "../../components/Utilities/PasswordValidator"
+import { PasswordValidator } from "../../components/Utilities/PasswordValidator";
 
 export const SignupPage = () => {
   const [fullName, setFullName] = useState("");
@@ -14,7 +14,7 @@ export const SignupPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isPasswordValid) {
-      alert('Please fix the errors in the form');
+      alert("Please fix the errors in the form");
       return;
     }
     try {
@@ -22,8 +22,8 @@ export const SignupPage = () => {
       console.log("redirecting...:");
       navigate("/login");
     } catch (err) {
-      console.error(err);
-      navigate("/signup");
+      alert("User with this user name provided already exists");
+      window.location.reload();
     }
   };
 
@@ -48,7 +48,7 @@ export const SignupPage = () => {
     <>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-      <label htmlFor="fullName">Name:</label>
+        <label htmlFor="fullName">Name:</label>
         <input
           id="fullName"
           type="text"
@@ -69,19 +69,19 @@ export const SignupPage = () => {
           value={email}
           onChange={handleEmailChange}
         />
-        {/* <label htmlFor="password">Password:</label>
-        <input
-          placeholder="Password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        /> */}
         <div className="form-group">
-          <label htmlFor="password" className="form-label">Password:</label>
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <PasswordValidator onPasswordChange={handlePasswordChange} />
         </div>
-        <input role="submit-button" id="submit" type="submit" value="Submit" disabled={!isPasswordValid} /> 
+        <input
+          role="submit-button"
+          id="submit"
+          type="submit"
+          value="Submit"
+          disabled={!isPasswordValid}
+        />
       </form>
     </>
   );

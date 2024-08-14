@@ -1,5 +1,4 @@
 const User = require("../models/user");
-
 const create = (req, res) => {
   const fullName = req.body.fullName;
   const userName = req.body.userName;
@@ -7,11 +6,11 @@ const create = (req, res) => {
   const password = req.body.password;
   const favouritedRecipes = req.body.favouritedRecipes;
 
-  User.findOne({ email: req.body.email }).then((data) => {
+  User.findOne({ userName: req.body.userName }).then((data) => {
     if (data !== null) {
       res
         .status(409)
-        .json({ message: "User with email provided already exists" });
+        .json({ message: "User with user name provided already exists" });
     }
     if (data === null) {
       const user = new User({
@@ -21,7 +20,6 @@ const create = (req, res) => {
         password,
         favouritedRecipes,
       });
-
       user
         .save()
         .then((user) => {
@@ -35,9 +33,7 @@ const create = (req, res) => {
     }
   });
 };
-
 const UsersController = {
   create: create,
 };
-
 module.exports = UsersController;
