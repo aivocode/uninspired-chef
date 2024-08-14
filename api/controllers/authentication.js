@@ -2,6 +2,7 @@ const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
 const createToken = async (req, res) => {
+  console.log(">>>>>>>>>________");
   const email = req.body.email;
   const password = req.body.password;
 

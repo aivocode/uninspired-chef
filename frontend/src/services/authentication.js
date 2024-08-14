@@ -6,6 +6,7 @@ export const login = async (email, password) => {
     email: email,
     password: password,
   };
+  console.log(" !!!!!!!!" + payload);
 
   const requestOptions = {
     method: "POST",
