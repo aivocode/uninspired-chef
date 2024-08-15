@@ -1,5 +1,36 @@
-#root {
-  margin: 0 auto;
-  text-align: center;
+/* Additional or modified styles */
+html, body, #root {
+  background-color: #fce8d8; /* Update background color */
+  font-family: 'Poppins', sans-serif; /* Update font */
 }
 
+.recipe-card {
+  background-color: #f9f3f1;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 15px 0;
+}
+
+.recipe-card h3 {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.recipe-card p {
+  color: #555;
+}
+
+.recipe-card button {
+  background-color: #ff7f50;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.recipe-card button:hover {
+  background-color: #ff6347;
+}
