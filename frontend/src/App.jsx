@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import "./App.css";
-import { HomePage } from "./pages/Home/HomePage";
-import { FeedPage } from "./pages/Feed/FeedPage";
-import { AuthenticationPage } from "./pages/Authentication/AuthenticationPage";
+import "../tailwind.css";
+import './global.css';
+import "./index.css";
+import { HomePage } from "./pages/HomePage";
+import { AuthenticationPage } from "./pages/AuthenticationPage";
+import { PantryPage } from "./pages/PantryPage";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -12,14 +13,17 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/posts",
-    element: <FeedPage />,
-  },
-  // Dual Sign up & Log in page
-  {
-    path: "/authentication",
+    path: "/auth",
     element: <AuthenticationPage />,
   },
+  {
+    path: "/pantry",
+    element: <PantryPage />,
+  },
+  {
+    path: "/pantry",
+    element: <PantryPage/>
+  }
 ]);
 
 const App = () => {
