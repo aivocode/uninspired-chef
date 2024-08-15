@@ -6,6 +6,7 @@ const create = (req, res) => {
   const password = req.body.password;
   const favouritedRecipes = req.body.favouritedRecipes;
 
+  // Checking if user name already exists in the Mongo database
   User.findOne({ userName: req.body.userName }).then((data) => {
     if (data !== null) {
       res

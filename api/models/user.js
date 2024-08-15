@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Fields to be in the database
 const UserSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   userName: { type: String, required: true },

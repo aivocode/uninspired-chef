@@ -1,12 +1,12 @@
 // docs: https://vitejs.dev/guide/env-and-mode.html
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+// Service request for log in to the api
 export const login = async (userName, password) => {
   const payload = {
     userName: userName,
     password: password,
   };
-  console.log(" !!!!!!!!" + payload);
 
   const requestOptions = {
     method: "POST",
@@ -30,6 +30,7 @@ export const login = async (userName, password) => {
   }
 };
 
+// Service request for sign up to the api
 export const signup = async (fullName, userName, email, password) => {
   const payload = {
     fullName: fullName,

@@ -4,6 +4,7 @@ import { signup, login } from "../../services/authentication";
 import { PasswordValidator } from "../../components/Utilities/PasswordValidator";
 
 export const AuthenticationPage = () => {
+  // Defined required states
   const [isSignUp, setIsSignUp] = useState(true);
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
@@ -14,6 +15,7 @@ export const AuthenticationPage = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const navigate = useNavigate();
 
+  // Handle sign up button on click
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     if (!isPasswordValid) {
@@ -30,6 +32,7 @@ export const AuthenticationPage = () => {
     }
   };
 
+  // Handle log in button on click
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -38,12 +41,12 @@ export const AuthenticationPage = () => {
       navigate("/posts");
     } catch (err) {
       console.error(err);
-      console.log("HERE!!!!!" + err);
       alert("Login failed. Please check your credentials and try again.");
       window.location.reload();
     }
   };
 
+  // Handle required fields for sign up & log in
   const handleFullNameChange = (event) => {
     setFullName(event.target.value);
   };
@@ -68,6 +71,7 @@ export const AuthenticationPage = () => {
     setUserNameLog(event.target.value);
   };
 
+  // Conditional rendering Sign up & Log in
   return (
     <>
       <h2>{isSignUp ? "Sign Up" : "Log In"}</h2>
@@ -140,6 +144,3 @@ export const AuthenticationPage = () => {
     </>
   );
 };
-//     </>
-//   );
-// };
