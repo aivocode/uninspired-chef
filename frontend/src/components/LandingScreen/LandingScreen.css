@@ -1,69 +1,67 @@
 .landing-screen {
-    width: 100%;
-    height: 2000px;
-  }
-  
-  .chopping-board {
-    position: absolute;
-    top: calc(120%); /* Adjust this to move the chopping board up or down */
-    left: 0;
-    height: 163px;
-    width: 100%;
-  }
-  
-  .cutting-transition-container {
-    position: relative;
-    width: 100%;
-    height: calc(50% - 150px); /* Adjust height to properly fit within the landing screen */
-    top: 50px; /* Move the container to align with the rest of the content */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-  
-  .tomato-position {
-    position: relative;
-    top: -50px; /* Adjust this value to align the tomato with the chopping board */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1; /* Ensure the tomato appears above the chopping board */
-  }
-  
-  .cutting-class {
-    animation: cutTomato 2s ease-in-out forwards;
-  }
-  
-  @keyframes cutTomato {
-    0% {
-      transform: translateY(-50%) rotate(0deg); /* Starting position of the tomato */
-    }
-    100% {
-      transform: translateY(0%) rotate(45deg); /* Adjust the final position and rotation of the tomato */
-    }
-  }
-  .knife-position {
-    position: absolute;
-    top: 0; /* Adjust the top position to align better with the tomato */
-    left: 50%;
-    transform: translateX(-50%); /* Adjust the rotation angle */
-  }
+  width: 100%;
+  height: 2000px;
+}
 
-  .action-container {
-    margin-top: 20px; /* Adjust margin to keep it away from the cutting transition */
+.chopping-board {
+  position: absolute;
+  top: calc(120%);
+  left: 0;
+  height: 163px;
+  width: 100%;
+}
+
+.cutting-transition-container {
+  position: relative;
+  width: 100%;
+  height: calc(50% - 150px);
+  top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.tomato-position {
+  position: relative;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1; /* Ensure the tomato appears above the chopping board */
+}
+
+.knife-position {
+  position: absolute;
+  top: -300px; /* Start the knife well above the screen */
+  left: 40%;
+  transform: translateX(-50%);
+  animation: descendKnife 2s ease-in-out forwards; /* Knife animation */
+}
+
+/* Animation for the knife descending */
+@keyframes descendKnife {
+  0% {
+    top: -1000px; /* Start off-screen */
   }
-  
-  .inspire-button {
-    background-color: #fd6f2f;
-    border: none;
-    padding: 12px 24px;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
+  100% {
+    top: -170px; /* Final position of the knife */
   }
-  
-  .inspire-button:hover {
-    background-color: #ff7f3f;
-  }
-  
+}
+
+.action-container {
+  margin-top: 20px;
+}
+
+.inspire-button {
+  background-color: #fd6f2f;
+  border: none;
+  padding: 12px 24px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.inspire-button:hover {
+  background-color: #ff7f3f;
+}
