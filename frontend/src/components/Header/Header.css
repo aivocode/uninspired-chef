@@ -1,24 +1,21 @@
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #fff5ee;
-    border-bottom: 2px solid #ffe4e1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff5ee;
+  border-bottom: 2px solid #ffe4e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
-
-
 .header-logo img {
-    width: 150px;
+  width: 150px;
 }
-
 .header-menu img {
-    width: 30px;
-    margin-left: 15px;
-    cursor: pointer;
+  width: 30px;
+  margin-left: 15px;
+  cursor: pointer;
 }

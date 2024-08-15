@@ -7,7 +7,7 @@ import "../../static/AuthenticationPage.css"; //Sam's
 
 export const AuthenticationPage = () => {
   // Defined required states
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -122,6 +122,11 @@ export const AuthenticationPage = () => {
               className="auth-button"
             />
           </form>
+          <button onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp
+              ? "Already have an account? Log In"
+              : "Don't have an account? Sign Up"}
+          </button>
         </div>
       ) : (
         <div className={`auth-form ${isSignUp ? "signup" : "login"}`}>
@@ -151,13 +156,13 @@ export const AuthenticationPage = () => {
               className="auth-button"
             />
           </form>
+          <button onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp
+              ? "Already have an account? Log In"
+              : "Don't have an account? Sign Up"}
+          </button>
         </div>
       )}
-      <button onClick={() => setIsSignUp(!isSignUp)}>
-        {isSignUp
-          ? "Already have an account? Log In"
-          : "Don't have an account? Sign Up"}
-      </button>
     </div>
   );
 };
