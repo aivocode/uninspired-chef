@@ -85,11 +85,11 @@ const getPantry = async (req, res) => {
       pantryId: pantry.id,
       userId: pantry.user_id,
       ingredientsArray: pantry.ingredientsArray,
-      status: 400,
+      status: 200,
     });
   } else if (pantry === null) {
     res.status(400).json({
-      message: "No pantry found for current user. Create one?",
+      message: "No Pantry found. Click ADD to add each pantry ingredient, click CREATE to create Pantry.",
       status: 400,
     });
   }
