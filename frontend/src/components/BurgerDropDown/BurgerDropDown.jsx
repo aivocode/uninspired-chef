@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './BurgerDropDown.css';
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./BurgerDropDown.css";
 
 export const BurgerDropDown = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,20 +22,33 @@ export const BurgerDropDown = ({ className }) => {
   }, [isOpen]);
 
   const handlePantryClick = () => {
-    if (location.pathname === '/pantry') {
-      navigate('/');
+    if (location.pathname === "/pantry") {
+      navigate("/");
     } else {
-      navigate('/pantry');
+      navigate("/pantry");
     }
+  };
+
+  const handleLogoutClick = () => {
+    // clear local storage
+    localStorage.clear();
+    // redirect to login page
+    window.location.href = "/auth";
   };
 
   return (
     <div
-      className={`burger-dropdown w-[225px] ${isOpen ? 'open' : 'closed'} ${isOpen ? "h-[260px]" : "h-[180px]"} ${className}`}
+      className={`burger-dropdown w-[225px] ${isOpen ? "open" : "closed"} ${
+        isOpen ? "h-[260px]" : "h-[180px]"
+      } ${className}`}
       onClick={toggleDropdown}
     >
       <div
-        className={`burger-content left-5 top-[19px] ${isOpen ? 'w-[189px] h-[136px] absolute open' : 'w-48 h-[139px] relative closed'}`}
+        className={`burger-content left-5 top-[19px] ${
+          isOpen
+            ? "w-[189px] h-[136px] absolute open"
+            : "w-48 h-[139px] relative closed"
+        }`}
       >
         {isOpen && (
           <img
@@ -46,15 +59,26 @@ export const BurgerDropDown = ({ className }) => {
         )}
 
         <div
-          className={`TomatoLayer left-[3px] bg-[#b51b1e] absolute ${isOpen ? 'w-[183px] top-[72px] h-[9px] open' : 'w-[186px] top-[60px] h-2 closed'}`}
+          className={`TomatoLayer left-[3px] bg-[#b51b1e] absolute ${
+            isOpen
+              ? "w-[183px] top-[72px] h-[9px] open"
+              : "w-[186px] top-[60px] h-2 closed"
+          }`}
         />
         <div
-          className={`LettuceLayer left-[3px] bg-[#638209] absolute ${isOpen ? 'w-[183px] top-[89px] h-[9px] open' : 'w-[186px] top-[68px] h-2 closed'}`}
+          className={`LettuceLayer left-[3px] bg-[#638209] absolute ${
+            isOpen
+              ? "w-[183px] top-[89px] h-[9px] open"
+              : "w-[186px] top-[68px] h-2 closed"
+          }`}
         />
 
         {isOpen && (
           <div className="BurgerBunTop absolute w-[189px] h-[130px] top-0 left-0">
-            <button className="BurgerBunTop all-[unset] box-border relative w-[186px] h-[65px] left-px bg-[url(https://c.animaapp.com/SwMh7ZZE/img/ellipse-1-2.svg)] bg-[100%_100%]">
+            <button
+              className="BurgerBunTop all-[unset] box-border relative w-[186px] h-[65px] left-px bg-[url(https://c.animaapp.com/SwMh7ZZE/img/ellipse-1-2.svg)] bg-[100%_100%]"
+              onClick={handleLogoutClick}
+            >
               <div className="inner-button all-[unset] box-border flex w-[111px] h-[52px] items-center justify-center gap-2 p-3 relative top-[13px] left-[38px] rounded-lg overflow-hidden">
                 <div className="button-text relative w-fit [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
                   Logout
@@ -100,7 +124,7 @@ export const BurgerDropDown = ({ className }) => {
                 className="button-text relative w-fit mt-[-3.54px] mb-[-1.54px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap cursor-pointer"
                 onClick={handlePantryClick}
               >
-                {location.pathname === '/pantry' ? 'Home' : 'My pantry'}
+                {location.pathname === "/pantry" ? "Home" : "My pantry"}
               </div>
             </div>
           </div>

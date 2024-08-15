@@ -2,6 +2,7 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getPosts = async (token) => {
+  
   const requestOptions = {
     method: "GET",
     headers: {
@@ -16,5 +17,6 @@ export const getPosts = async (token) => {
   }
 
   const data = await response.json();
+  console.log(data);
   return data;
 };
