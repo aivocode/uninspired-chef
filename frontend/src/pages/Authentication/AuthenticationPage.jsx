@@ -8,7 +8,7 @@ export const AuthenticationPage = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailLog, setEmailLog] = useState("");
+  const [userNameLog, setUserNameLog] = useState("");
   const [passwordLog, setPasswordLog] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
@@ -33,7 +33,7 @@ export const AuthenticationPage = () => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = await login(emailLog, passwordLog);
+      const token = await login(userNameLog, passwordLog);
       localStorage.setItem("token", token);
       navigate("/posts");
     } catch (err) {
@@ -64,8 +64,8 @@ export const AuthenticationPage = () => {
   const handlePasswordLogChange = (event) => {
     setPasswordLog(event.target.value);
   };
-  const handleEmailLogChange = (event) => {
-    setEmailLog(event.target.value);
+  const handleUserNameLogChange = (event) => {
+    setUserNameLog(event.target.value);
   };
 
   return (
@@ -110,12 +110,12 @@ export const AuthenticationPage = () => {
         </form>
       ) : (
         <form onSubmit={handleLoginSubmit}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="user-name">User Name:</label>
           <input
-            id="email"
+            id="user-name"
             type="text"
-            value={emailLog}
-            onChange={handleEmailLogChange}
+            value={userNameLog}
+            onChange={handleUserNameLogChange}
           />
           <label htmlFor="password">Password:</label>
           <input

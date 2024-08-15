@@ -3,10 +3,10 @@ const { generateToken } = require("../lib/token");
 
 const createToken = async (req, res) => {
   console.log(">>>>>>>>>________");
-  const email = req.body.email;
+  const userName = req.body.userName;
   const password = req.body.password;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ userName: userName });
   if (!user) {
     console.log("Auth Error: User not found");
     res.status(401).json({ message: "User not found" });
