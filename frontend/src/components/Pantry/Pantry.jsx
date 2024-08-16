@@ -24,13 +24,13 @@ export const Pantry = ({ className }) => {
 
   useEffect(() => {
     if (token) {
-      fetchGetPantry();
+      fetchGetPantry(); // first time it renders, it does GET request do determine what mode to choose
     }
   }, []);
 
   // console.log(pantryRenderMode);
-  console.log(ingredientsArrayState);
-  // console.log(dataState);
+  // console.log(ingredientsArrayState);
+  console.log(dataState);
   // console.log(message);
 
   const addToIngredientsArray = (ingredientString) => {
@@ -50,8 +50,9 @@ export const Pantry = ({ className }) => {
 
   const fetchCreatePantry = async () => {
     const data = await createPantry(token, userId, ingredientsArrayState);
+    setPantryRenderMode(1);
     setMessage(data.message);
-    fetchGetPantry();
+    setDataState(data);
   };
 
   const handleAddButtonClick = () => {
@@ -81,13 +82,9 @@ export const Pantry = ({ className }) => {
                   {message && <div className="mb-2 text-center">{message}</div>}
                 </div>
 
-                <button className="add-button" onClick={handleAddButtonClick}>
-                  <div className="add-button-text">➕ADD</div>
-                </button>
-
                 <div className="container m-auto grid grid-cols-6">
                   {ingredientsArrayState.map((element, index) => (
-                    <div className="flex items-end mb-2" key={index}>
+                    <div className="flex justify-center mb-2 gap-2" key={index}>
                       <div className="flex items-end badge-ingredient">
                         <div>{element}</div>
                       </div>
@@ -95,12 +92,26 @@ export const Pantry = ({ className }) => {
                   ))}
                 </div>
 
-                {/* render button only there some ingredients added to ingredientsArray */}
-                {ingredientsArrayState.length > 0 && (
-                  <button className="add-button" onClick={fetchCreatePantry}>
-                    <div className="add-button-text">CREATE</div>
-                  </button>
-                )}
+                <div className="container m-auto">
+                  <div className="flex gap-2">
+                    <button
+                      className="pantry-button"
+                      onClick={handleAddButtonClick}
+                    >
+                      +ADD
+                    </button>
+
+                    {/* render button only there some ingredients added to ingredientsArray */}
+                    {ingredientsArrayState.length > 0 && (
+                      <button
+                        className="pantry-button"
+                        onClick={fetchCreatePantry}
+                      >
+                        CREATE
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </>
           )}
@@ -120,32 +131,38 @@ export const Pantry = ({ className }) => {
 
                 <div className="container m-auto grid grid-cols-3">
                   {dataState.ingredientsArray.map((element, index) => (
-                    <div className="flex items-end mb-2" key={index}>
-                      <button className="mr-2 pt-1 pb-1" onClick={console.log("Clicked")}>
-                        ✖️
-                      </button>
+                    <div className="flex justify-start mb-2 gap-2 " key={index}>
+                      <button className="pt-1 pb-1">✖️</button>
+
                       <button
                         type="button"
-                        className="mr-2 pt-1 pb-1"
+                        className="pt-1 pb-1"
                         onClick={handleAddButtonClick}
                       >
                         &#9998;
                       </button>
-                      <div className="flex items-end badge-ingredient">
-                        <img src={element.image} class="avatar-ingredient mr-1"/>
+
+                      <div className="flex gap-1 badge-ingredient">
+                        <img
+                          src={element.image}
+                          className="avatar-ingredient"
+                        />
                         <div>{element.label}</div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <button className="add-button" onClick={fetchCreatePantry}>
-                  UPDATE
-                </button>
+
+                <div className="container m-auto">
+                  <div className="flex">
+                    <button className="pantry-button">UPDATE</button>
+                  </div>
+                </div>
               </div>
             </>
           )}
         </div>
-        <div className="white-box" />
+        {/* <div className="white-box" /> */}
         <div className="header-bar" />
       </div>
 

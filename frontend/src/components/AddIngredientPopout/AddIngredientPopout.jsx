@@ -25,7 +25,7 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
           <input
             type="text"
             className="input"
-            placeholder="Tomato"
+            placeholder="tomato"
             onChange={handleChange}
           />
         </div>

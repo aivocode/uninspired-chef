@@ -47,8 +47,8 @@ const createPantry = async (req, res) => {
     message = message.slice(0, -2);
     // response to our service on frontend if not valid ingredients found
     res.status(404).json({
-      message: `Ingredients not available in database: ${message}. Try again.`,
       status: 404,
+      message: `Ingredients not available in database: ${message}. Try again.`,
     });
   } else if (notIngredients.length === 0) {
     // we create new Pantry in Mongo since we passed check that all ingredients are correct
@@ -59,12 +59,13 @@ const createPantry = async (req, res) => {
     pantry.save();
 
     // response to our service on frontend if Pantry was created in Mongo
-    res
-      .status(200)
-      .json({
-        message: `Pantry created with all ingredients specified.`,
-        status: 200,
-      });
+    res.status(200).json({
+      pantryId: pantry.id,
+      userId: pantry.user_id,
+      ingredientsArray: pantry.ingredientsArray,
+      status: 200,
+      message: `Pantry created with all ingredients specified.`,
+    });
   }
 };
 
@@ -89,8 +90,9 @@ const getPantry = async (req, res) => {
     });
   } else if (pantry === null) {
     res.status(400).json({
-      message: "No Pantry found. Click ADD to add each pantry ingredient, click CREATE to create Pantry.",
       status: 400,
+      message:
+        "No Pantry found. Click ADD to add each pantry ingredient, click CREATE to create Pantry.",
     });
   }
 };
@@ -137,8 +139,8 @@ const updatePantry = async (req, res) => {
     message = message.slice(0, -2);
     // response to our service on frontend if not valid ingredients found
     res.status(404).json({
-      message: `Ingredients not available in database: ${message}. Try again.`,
       status: 404,
+      message: `Ingredients not available in database: ${message}. Try again.`,
     });
   } else if (notIngredients.length === 0) {
     // we update Pantry in Mongo since we passed check that all ingredients are correct
@@ -156,8 +158,8 @@ const updatePantry = async (req, res) => {
 
     // response to our service on frontend if Pantry was created in Mongo
     res.status(201).json({
-      message: `Pantry updated with all ingredients specified.`,
       status: 201,
+      message: `Pantry updated with all ingredients specified.`,
     });
   }
 };

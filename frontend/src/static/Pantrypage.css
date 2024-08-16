@@ -175,7 +175,7 @@
   z-index: 200; /* Ensure the popout is above all other content */
 }
 
-.update-button {
+.pantry-button {
   all: unset;
   box-sizing: border-box;
   display: flex;
@@ -190,11 +190,9 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.update-button:hover {
-  background-color: var(
-    --color-border-neutral-secondary
-  ); /* Darken the background on hover */
-  color: white; /* Change text color to white on hover */
+.pantry-button:hover {
+  background-color: var(--color-border-neutral-secondary);
+  color: white;
 }
 
 .avatar-ingredient {
