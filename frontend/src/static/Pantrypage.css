@@ -1,173 +1,212 @@
 .pantrypage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100vh;
-    padding-top: 100px; /* Add padding to push down the content */
-    background-color: #feead1;
-    overflow-y: auto;
-    margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  padding-top: 100px; /* Add padding to push down the content */
+  background-color: #feead1;
+  overflow-y: auto;
+  margin: 0;
 }
 
 .pantry-container {
-    width: 1200px;
-    height: auto;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 0; /* Ensure no margin above the pantry content */
+  width: 1200px;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 0; /* Ensure no margin above the pantry content */
 }
 
 .pantry-content {
-    position: relative;
-    padding: 20px;
-    margin-top: 20px; /* Reduce the gap */
+  position: relative;
+  padding: 20px;
+  margin-top: 20px; /* Reduce the gap */
 }
 
 .pantry-background {
-    position: absolute;
-    width: 1200px;
-    height: 296px;
-    top: 0;
-    left: 0;
-    background-color: #d9d9d9;
+  position: absolute;
+  width: 1200px;
+  height: 296px;
+  top: 0;
+  left: 0;
+  background-color: #d9d9d9;
 }
 
 .pantry-header-bar {
-    position: absolute;
-    width: 726px;
-    height: 72px;
-    top: 206px;
-    left: 237px;
-    background-color: #abaaaa;
+  position: absolute;
+  width: 726px;
+  height: 72px;
+  top: 206px;
+  left: 237px;
+  background-color: #abaaaa;
 }
 
 .pantry-content-box {
-    position: absolute;
-    width: 681px;
-    height: 1333px;
-    top: 272px;
-    left: 261px;
-    background: url('https://c.animaapp.com/2O5FotJ7/img/subtract-11.svg') no-repeat;
-    background-size: cover;
+  position: absolute;
+  width: 681px;
+  height: 1333px;
+  top: 272px;
+  left: 261px;
+  background: url("https://c.animaapp.com/2O5FotJ7/img/subtract-11.svg")
+    no-repeat;
+  background-size: cover;
 }
 
 .pantry-content-inner {
-    position: relative;
-    width: 677px;
-    height: 1333px;
+  position: relative;
+  width: 677px;
+  height: 1333px;
 }
 
 .line {
-    position: absolute;
-    width: 483px;
-    height: 1.5px;
-    left: 88px;
+  position: absolute;
+  width: 483px;
+  height: 1.5px;
+  left: 88px;
 }
 
 .line-top {
-    top: 194px;
+  top: 194px;
 }
 
 .line-bottom {
-    top: 1150px;
+  top: 1150px;
 }
 
 .pantry-title {
-    position: absolute;
-    width: 289px;
-    top: 20px;
-    left: 194px;
-    font-family: var(--title-hero-font-family);
-    font-weight: var(--title-hero-font-weight);
-    font-size: var(--title-hero-font-size);
-    color: black;
-    letter-spacing: var(--title-hero-letter-spacing);
-    line-height: var(--title-hero-line-height);
+  /* position: absolute; */
+  /* width: 289px;
+  top: 20px;
+  left: 194px; */
+  font-family: var(--title-hero-font-family);
+  font-weight: var(--title-hero-font-weight);
+  font-size: var(--title-hero-font-size);
+  color: black;
+  letter-spacing: var(--title-hero-letter-spacing);
+  line-height: var(--title-hero-line-height);
 }
 
 .pantry-ingredients {
-    position: absolute;
-    width: 483px;
-    top: 236px;
-    left: 88px;
-    font-family: var(--heading-font-family);
-    font-weight: var(--heading-font-weight);
-    font-size: var(--heading-font-size);
-    color: black;
-    letter-spacing: var(--heading-letter-spacing);
-    line-height: var(--heading-line-height);
+  position: absolute;
+  width: 483px;
+  top: 236px;
+  left: 88px;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-font-size);
+  color: black;
+  letter-spacing: var(--heading-letter-spacing);
+  line-height: var(--heading-line-height);
 }
 
 .add-button-container {
-    display: flex;
-    width: 98px;
-    align-items: center;
-    gap: var(--size-space-400);
-    position: absolute;
-    top: 3px;
-    left: 564px;
+  display: flex;
+  width: 98px;
+  align-items: center;
+  gap: var(--size-space-400);
+  position: absolute;
+  top: 3px;
+  left: 564px;
 }
 
 .add-button {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--size-space-200);
-    padding: var(--size-space-300);
-    background-color: white;
-    border-radius: var(--size-radius-200);
-    border: 1px solid var(--color-border-neutral-secondary);
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-space-200);
+  padding: var(--size-space-300);
+  background-color: white;
+  border-radius: var(--size-radius-200);
+  border: 1px solid var(--color-border-neutral-secondary);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .add-button:hover {
-    background-color: var(--color-border-neutral-secondary); /* Darken the background on hover */
-    color: white; /* Change text color to white on hover */
+  background-color: var(
+    --color-border-neutral-secondary
+  ); /* Darken the background on hover */
+  color: white; /* Change text color to white on hover */
 }
 
 .add-button-text {
-    margin-top: -1.00px;
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    font-size: var(--single-line-body-base-font-size);
-    color: var(--color-text-default-default);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    line-height: var(--single-line-body-base-line-height);
+  margin-top: -1px;
+  font-family: var(--single-line-body-base-font-family);
+  font-weight: var(--single-line-body-base-font-weight);
+  font-size: var(--single-line-body-base-font-size);
+  color: var(--color-text-default-default);
+  letter-spacing: var(--single-line-body-base-letter-spacing);
+  line-height: var(--single-line-body-base-line-height);
 }
 
 .white-box {
-    position: absolute;
-    width: 677px;
-    height: 59px;
-    top: 213px;
-    left: 261px;
-    background-color: white;
+  position: absolute;
+  width: 677px;
+  height: 59px;
+  top: 213px;
+  left: 261px;
+  background-color: white;
 }
 
 .header-bar {
-    position: absolute;
-    width: 726px;
-    height: 54px;
-    top: 170px;
-    left: 237px;
-    background-color: #abaaaa;
-    z-index: 10; /* Add z-index */
+  position: absolute;
+  width: 726px;
+  height: 54px;
+  top: 170px;
+  left: 237px;
+  background-color: #abaaaa;
+  z-index: 10; /* Add z-index */
 }
 
 .popout-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 200; /* Ensure the popout is above all other content */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200; /* Ensure the popout is above all other content */
+}
+
+.update-button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-space-200);
+  padding: var(--size-space-300);
+  background-color: white;
+  border-radius: var(--size-radius-200);
+  border: 1px solid var(--color-border-neutral-secondary);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.update-button:hover {
+  background-color: var(
+    --color-border-neutral-secondary
+  ); /* Darken the background on hover */
+  color: white; /* Change text color to white on hover */
+}
+
+.avatar-ingredient {
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.badge-ingredient {
+  background-color: #feead1;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
 }
