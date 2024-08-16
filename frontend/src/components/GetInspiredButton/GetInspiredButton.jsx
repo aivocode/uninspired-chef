@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RandomRecipe from "../../components/Recipes/RandomRecipe.jsx";
+import RandomRecipe from "../Recipes/RandomRecipe.jsx";
 import { getRandomRecipe } from "../../services/services.js";
+import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
+import { Knife } from "../Knife/Knife.jsx";
+import { Tomato } from "../Tomato/Tomato.jsx";
 
-export const FeedPage = () => {
+export const GetInspiredButton = () => {
   const [recipe, setRecipe] = useState()
+  // const [inspiredText, setInspiredText] = useState("")
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -12,6 +16,7 @@ export const FeedPage = () => {
     navigate("/login");
     return;
   }
+
 
   //function to handle getting a random recipe
   const fetchGetRecipe = async () => {
@@ -26,19 +31,31 @@ export const FeedPage = () => {
         console.log('Failed to get inspired! ')
         console.error('Failed to get inspired :( ', err)
     };
-}
+  }
+
+  // const changeText =() => {
+  //   if (setInspiredText = "") {
+  //     setInspiredText("GET INSPIRED")
+  //   } else {
+  //   setInspiredText("More inspiration...")
+  //   }
+  // }
+
 
   return (
     <>
       <div>
-        <button 
+        <button className="inspire-button"
           onClick={() => {
-            fetchGetRecipe()
+            fetchGetRecipe();
+            // changeText();
             }}> 
-          GET INSPIRED
+          Get Inspired
         </button>
-            <RandomRecipe recipe={recipe}/>
+            <RecipeCard recipe={recipe}/>
       </div>
     </>
   );
 };
+
+export default GetInspiredButton

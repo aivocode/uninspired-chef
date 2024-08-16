@@ -16,6 +16,7 @@ export const getRandomRecipe = async (token) => {
         throw new Error("Error retreiving a recipe")
     }
     const data = await response.json() 
+    console.log(data)
     return data
 }
 
