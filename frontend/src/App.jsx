@@ -18,8 +18,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/pantry",
-    element: <PantryPage />,
-  },
+    element: <PantryPage/>
+  }
 ]);
 
 const App = () => {
