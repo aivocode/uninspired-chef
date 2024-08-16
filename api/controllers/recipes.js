@@ -1,5 +1,7 @@
 // Load environment variables from the /api/.env file
-require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
 
 const Pantry = require("../models/pantry");
 
@@ -8,7 +10,6 @@ const recipeAppKey = process.env.RECIPE_APP_KEY;
 
 // const Recipe = require("../models/recipe");
 const { generateToken } = require("../lib/token");
-
 
 /* 
 
@@ -52,55 +53,62 @@ Return suggestions array
 
 */
 
-
 const getRandomRecipes = async (req, res) => {
+  const pantry = await Pantry.findOne({ user_id: "66b50d1969615f1c46aa93ab" });
+  const allIngredients = pantry.ingredientsArray.map(
+    (ingredient) => ingredient.label
+  );
 
-    const pantry = await Pantry.findOne({ user_id: '66b50d1969615f1c46aa93ab'});
-    const allIngredients = pantry.ingredientsArray.map(ingredient => ingredient.label);
+  // randomly selects 5 ingredients from our pantry
+  const ingredients = allIngredients
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 5);
+  console.log(ingredients);
 
-    // randomly selects 5 ingredients from our pantry
-    const ingredients = allIngredients.sort(() => 0.5 - Math.random()).slice(0, 5);
-    console.log(ingredients)
+  try {
+    // initialises the count value with the loop
+    let data = { count: 0 };
 
-    try {
-        // initialises the count value with the loop
-        let data = { count: 0 } 
+    while (data.count === 0 && ingredients.length > 0) {
+      console.log("Initialising loop...");
+      // converts ingredients Array to formatted string to insert into the URL
+      const formattedString = ingredients.toString().replaceAll(",", "%2C%20");
 
-        while (data.count === 0 && ingredients.length > 0) {
-            console.log('Initialising loop...')
-            // converts ingredients Array to formatted string to insert into the URL
-            const formattedString = ingredients.toString().replaceAll(',','%2C%20');
+      // fetches data from Edamam API
+      const response = await fetch(
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${formattedString}&app_id=${recipeAppId}&app_key=${recipeAppKey}`
+      );
+      data = await response.json();
+      console.log("this is the data: ", data);
 
-            // fetches data from Edamam API 
-            const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${formattedString}&app_id=${recipeAppId}&app_key=${recipeAppKey}`);
-            data = await response.json();
-            console.log('this is the data: ', data)
-
-            //if statement to check the value of count (hits for combination). If 0 then we remove a random ingredient and then go again
-            if (data.count === 0) {
-
-                // chatGPT generated code to initialise a randomIndex that 
-                // we will use to remove one ingredient from the array
-                const randomIndex = Math.floor(Math.random() * ingredients.length)
-                ingredients.splice(randomIndex, 1);
-            }
-        }
-
-        // Once we get a hit, we return the data. 
-        if (data.count > 0) {
-            res.status(200).json(data)
-        } else {
-            res.status(404).json({ message: "Couldn't find a recipe with your ingredients. You need to go shopping!"})
-        }
-    } catch (err) {
-        console.log('You got an error!: ');
-        res.status(500).json({ message: "error fetching a recipe"})
+      //if statement to check the value of count (hits for combination). If 0 then we remove a random ingredient and then go again
+      if (data.count === 0) {
+        // chatGPT generated code to initialise a randomIndex that
+        // we will use to remove one ingredient from the array
+        const randomIndex = Math.floor(Math.random() * ingredients.length);
+        ingredients.splice(randomIndex, 1);
+      }
     }
-}
+
+    // Once we get a hit, we return the data.
+    if (data.count > 0) {
+      res.status(200).json(data);
+    } else {
+      res
+        .status(404)
+        .json({
+          message:
+            "Couldn't find a recipe with your ingredients. You need to go shopping!",
+        });
+    }
+  } catch (err) {
+    console.log("You got an error!: ");
+    res.status(500).json({ message: "error fetching a recipe" });
+  }
+};
 
 const RecipesController = {
-    getRandomRecipes: getRandomRecipes
+  getRandomRecipes: getRandomRecipes,
 };
 
 module.exports = RecipesController;
-

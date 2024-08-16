@@ -5,6 +5,7 @@ import "./index.css";
 import { HomePage } from "./pages/HomePage";
 import { AuthenticationPage } from "./pages/Authentication/AuthenticationPage";
 import { PantryPage } from "./pages/PantryPage";
+import { NutritionPage } from "./pages/Nutrition/NutritionPage";
 
 // docs: https://reactrouter.com/en/main/start/overview
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/pantry",
     element: <PantryPage />,
+  },
+  {
+    path: "/nutrition",
+    element: <NutritionPage />,
   },
 ]);
 
