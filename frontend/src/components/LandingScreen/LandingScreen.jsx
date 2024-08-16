@@ -29,7 +29,7 @@ export const LandingScreen = ({ className }) => {
           src="https://c.animaapp.com/XNVGwrYa/img/chopping-board-2.svg"
         />
         <div className="cutting-transition-container">
-          <div className={`tomato-position ${isCutting ? 'cutting-class' : ''}`}>
+          <div className="tomato-position">
             <Tomato />
           </div>
           {isCutting && (
