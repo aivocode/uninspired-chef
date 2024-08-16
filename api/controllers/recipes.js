@@ -94,12 +94,10 @@ const getRandomRecipes = async (req, res) => {
     if (data.count > 0) {
       res.status(200).json(data);
     } else {
-      res
-        .status(404)
-        .json({
-          message:
-            "Couldn't find a recipe with your ingredients. You need to go shopping!",
-        });
+      res.status(404).json({
+        message:
+          "Couldn't find a recipe with your ingredients. You need to go shopping!",
+      });
     }
   } catch (err) {
     console.log("You got an error!: ");
