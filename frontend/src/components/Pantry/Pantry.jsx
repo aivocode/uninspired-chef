@@ -28,11 +28,6 @@ export const Pantry = ({ className }) => {
     }
   }, []);
 
-  // console.log(pantryRenderMode);
-  // console.log(ingredientsArrayState);
-  console.log(dataState);
-  // console.log(message);
-
   const addToIngredientsArray = (ingredientString) => {
     setIngredientsArrayState([...ingredientsArrayState, ingredientString]); // we add new array item each time submit from popup
   };
@@ -45,6 +40,7 @@ export const Pantry = ({ className }) => {
     } else if ((data.status = 200)) {
       setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
       setDataState(data);
+      setIngredientsArrayState(data.ingredientsArray);
     }
   };
 
@@ -52,7 +48,13 @@ export const Pantry = ({ className }) => {
     const data = await createPantry(token, userId, ingredientsArrayState);
     setPantryRenderMode(1);
     setMessage(data.message);
-    setDataState(data);
+    setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
+  };
+
+  const deleteDataStateIngredientsArrayItem = (index) => {
+    setIngredientsArrayState((ingredientsArrayState) => {
+      return ingredientsArrayState.filter((_, i) => i !== index); // delete element in useState based on on index, so elements can re-render
+    });
   };
 
   const handleAddButtonClick = () => {
@@ -62,6 +64,11 @@ export const Pantry = ({ className }) => {
   const handleClosePopout = () => {
     setShowPopout(false); // Hide the popout when the user is done
   };
+
+  // console.log(pantryRenderMode);
+  // console.log(ingredientsArrayState);
+  // console.log(dataState);
+  // console.log(message);
 
   return (
     <div className={`pantry-container ${className}`}>
@@ -130,9 +137,17 @@ export const Pantry = ({ className }) => {
                 </div>
 
                 <div className="container m-auto grid grid-cols-3">
-                  {dataState.ingredientsArray.map((element, index) => (
+                  {ingredientsArrayState.map((element, index) => (
                     <div className="flex justify-start mb-2 gap-2 " key={index}>
-                      <button className="pt-1 pb-1">✖️</button>
+                      <button
+                        type="button"
+                        className="pt-1 pb-1"
+                        onClick={() =>
+                          deleteDataStateIngredientsArrayItem(index)
+                        }
+                      >
+                        ✖️
+                      </button>
 
                       <button
                         type="button"
