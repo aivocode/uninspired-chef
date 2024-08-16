@@ -1,25 +1,15 @@
 // Load environment variables from the /api/.env file
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
-
 const Pantry = require("../models/pantry");
-
 const examplePantry = require("../lists/examplePantry")
 const essentialsList = require("../lists/essentials")
-
 const recipeAppId = process.env.RECIPE_APP_ID;
 const recipeAppKey = process.env.RECIPE_APP_KEY;
-
 const foodAppId = process.env.FOOD_APP_ID;
 const foodAppKey = process.env.FOOD_APP_KEY;
-
-// const Recipe = require("../models/recipe");
-const Pantry = require("../models/pantry");
 const { Recipe } = require("../models/recipe"); // importing the Recipe model
 const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
-
-
-
 
 /* 
 
@@ -62,8 +52,6 @@ Return suggestions array
 
 
 */
-
-
 
 const getRandomRecipes = async (req, res) => {
     
