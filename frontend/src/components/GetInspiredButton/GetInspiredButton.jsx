@@ -6,7 +6,7 @@ import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
 import { Knife } from "../Knife/Knife.jsx";
 import { Tomato } from "../Tomato/Tomato.jsx";
 
-export const GetInspiredButton = () => {
+export const GetInspiredButton = ({ setSuggestionsData }) => {
   const [recipe, setRecipe] = useState()
   // const [inspiredText, setInspiredText] = useState("")
   const navigate = useNavigate();
@@ -24,7 +24,8 @@ export const GetInspiredButton = () => {
       // calls function from services
         const data = await getRandomRecipe(token)
       //sets recipe to the data object returned
-        setRecipe(data)
+        setRecipe(data.hit)
+        setSuggestionsData(data.suggestions);
         return data
 
     } catch (err) {
@@ -52,6 +53,7 @@ export const GetInspiredButton = () => {
             }}> 
           Get Inspired
         </button>
+        <br/>
             <RecipeCard recipe={recipe}/>
       </div>
     </>
