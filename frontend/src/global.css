@@ -6,6 +6,16 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'ThermalReceipt';
+  src: url('./assets/fonts/thermal-receipt.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'LemonTuesday';
+  src: url('./assets/fonts/HoneyScript-SemiBold.ttf') format('truetype');
+}
+
 html,
 body {
   margin: 0px;

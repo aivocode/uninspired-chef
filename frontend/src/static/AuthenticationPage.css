@@ -5,15 +5,17 @@
     align-items: center;
     background-color: #feead1;
     height: 100vh;
-    justify-content: center; /* Center the content vertically */
   }
   
   .auth-header {
-    position: absolute;
-    top: 20px; /* Adjust as needed to bring it down a bit */
-    width: 100%;
+    position: fixed; /* Fixed at the top */
+    top: 0; /* Align to the top of the window */
+    width: 100%; /* Ensure the header takes full width */
     display: flex;
     justify-content: center;
+    background-color: #feead1; /* Add a background color to avoid overlap issues */
+    z-index: 1000; /* Ensure the header is above other content */
+    padding: 20px 0; /* Add padding to adjust spacing */
   }
   
   .auth-form {
@@ -71,15 +73,7 @@
   
   .signup {
     transform: translateX(-100%);
-    animation: slideIn 0.5s forwards;
   }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  to {
+    transform: translateX(0);
   }
-  
