@@ -92,7 +92,7 @@
     width: 289px;
     top: 20px;
     left: 194px;
-    font-family: var(--title-hero-font-family);
+    font-family: 'ThermalReceipt', sans-serif;;
     font-weight: var(--title-hero-font-weight);
     font-size: var(--title-hero-font-size);
     color: black;
@@ -105,7 +105,7 @@
     width: 483px;
     top: 236px;
     left: 88px;
-    font-family: var(--heading-font-family);
+    font-family: 'ThermalReceipt', sans-serif;;
     font-weight: var(--heading-font-weight);
     font-size: var(--heading-font-size);
     color: black;

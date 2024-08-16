@@ -65,3 +65,15 @@
 .inspire-button:hover {
   background-color: #ff7f3f;
 }
+
+.title-content {
+  font-family: 'LemonTuesday', cursive;
+  font-size: 6rem;
+  color: #515839;
+}
+
+.subtitle-content {
+  font-family: 'LemonTuesday', cursive;
+  font-size: 2rem;
+  color: #515839;
+}
