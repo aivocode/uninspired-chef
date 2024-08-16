@@ -1,12 +1,24 @@
 // Load environment variables from the /api/.env file
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 
+const Pantry = require("../models/pantry");
+
+const examplePantry = require("../lists/examplePantry")
+const essentialsList = require("../lists/essentials")
+
 const recipeAppId = process.env.RECIPE_APP_ID;
 const recipeAppKey = process.env.RECIPE_APP_KEY;
+
+const foodAppId = process.env.FOOD_APP_ID;
+const foodAppKey = process.env.FOOD_APP_KEY;
+
+// const Recipe = require("../models/recipe");
 const Pantry = require("../models/pantry");
 const { Recipe } = require("../models/recipe"); // importing the Recipe model
 const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
+
+
 
 
 /* 
@@ -52,21 +64,28 @@ Return suggestions array
 */
 
 
-const getRandomRecipes = async (req, res) => {
 
+const getRandomRecipes = async (req, res) => {
+    
+    /* commented out for testing 
     const pantry = await Pantry.findOne({ user_id: '66b50d1969615f1c46aa93ab'});
     const allIngredients = pantry.ingredientsArray.map(ingredient => ingredient.label);
+    */
+    const allIngredients = examplePantry
+    
+    let suggestionsArray = [];
+    
+    // we're setting up a while loop so we dont get stuck in a infinite loop searching for the same ingredients over and over
+    while (true) {
+        console.log('Initialising loop...')
+        // randomly selects 5 ingredients from our pantry. If nothing is found it randomises and goes again.
+        const ingredients = allIngredients.sort(() => 0.5 - Math.random()).slice(0, 4);
+        console.log("Randomly selected ingredients: ",ingredients)
+        
+        try {
+            // initialises the count value with the loop
+            let data = { count: 0 } 
 
-    // randomly selects 5 ingredients from our pantry
-    const ingredients = allIngredients.sort(() => 0.5 - Math.random()).slice(0, 5);
-    console.log(ingredients)
-
-    try {
-        // initialises the count value with the loop
-        let data = { count: 0 } 
-
-        while (data.count === 0 && ingredients.length > 0) {
-            console.log('Initialising loop...')
             // converts ingredients Array to formatted string to insert into the URL
             const formattedString = ingredients.toString().replaceAll(',','%2C%20');
 
@@ -76,26 +95,59 @@ const getRandomRecipes = async (req, res) => {
             console.log('this is the data: ', data)
 
             //if statement to check the value of count (hits for combination). If 0 then we remove a random ingredient and then go again
-            if (data.count === 0) {
+            if (data.count > 0) {
+                data.hits.forEach(recipe => {
+                    console.log('this the food info: ',recipe.recipe.ingredients)
 
-                // chatGPT generated code to initialise a randomIndex that 
-                // we will use to remove one ingredient from the array
-                const randomIndex = Math.floor(Math.random() * ingredients.length)
-                ingredients.splice(randomIndex, 1);
+                    // maps the ingredients of each recipe into an array (formatted as lower case)
+                    const recipeIngredients = recipe.recipe.ingredients.map(ingredient => ingredient.food.toLowerCase());
+                    console.log("Here are the recipe ingredients: ",recipeIngredients)
+
+                    // filters out ingredients that are in our essentials list
+                    const filteredIngredients = recipeIngredients.filter(food => !essentialsList.includes(food));
+                    console.log("Here are the filtered ingredients: ",filteredIngredients)
+
+                    // checks which ingredients are in our pantry and creates an array of missing ingredients
+                    const missingIngredients = filteredIngredients.filter(food => !allIngredients.includes(food));
+                    console.log("Here are the missing ingredients: ",missingIngredients)
+
+                    if (missingIngredients.length === 0 ) {
+                        //lucky us we got a match!
+                        return res.status(200).json({ 
+                            hit: recipe, 
+                            suggestions: [] 
+                        })
+                    } else {
+                        // we push an OBJECT of a recipe to an array. This clever little trick allows us to sort via missing ingredients later and 
+                        // it will allow us to display on the front end which ingredients we are missing from the recipe
+                        suggestionsArray.push({
+                            recipe: recipe,
+                            missingIngredients: missingIngredients,
+                            missingCount: missingIngredients.length
+                        })
+                    }
+                })
+                // break out of the loop as we've processed the recipes
+                break;
             }
+            
+        } catch (err) {
+            console.log('You got an error!: ');
+            res.status(500).json({ message: "error fetching a recipe"})
+            return;
         }
-
-        // Once we get a hit, we return the data. 
-        if (data.count > 0) {
-            res.status(200).json(data)
-        } else {
-            res.status(404).json({ message: "Couldn't find a recipe with your ingredients. You need to go shopping!"})
-        }
-    } catch (err) {
-        console.log('You got an error!: ');
-        res.status(500).json({ message: "error fetching a recipe"})
     }
-}
+    
+    // Sort the suggestions by the fewest missing ingredients
+    suggestionsArray.sort((a, b) => a.missingCount - b.missingCount);
+    console.log("this is our suggestions array: ",suggestionsArray)
+
+    if (suggestionsArray.length > 0) {
+        res.status(200).json({ hit: null, suggestions: suggestionsArray });
+    } else {
+        res.status(404).json({ message: "Couldn't find a recipe with your ingredients. You need to go shopping!" });
+    }
+};
 
 const addRecipeToFavourites = async (req, res) => {
 
@@ -215,3 +267,6 @@ const RecipesController = {
 };
 
 module.exports = RecipesController;
+
+
+

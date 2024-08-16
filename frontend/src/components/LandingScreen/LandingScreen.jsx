@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Knife } from "../Knife/Knife";
 import { Tomato } from "../Tomato/Tomato";
 import './LandingScreen.css';
+import GetInspiredButton from '../../components/GetInspiredButton/GetInspiredButton';
 
-export const LandingScreen = ({ className }) => {
+
+export const LandingScreen = ({ className, setSuggestionsData }) => {
   const [isCutting, setIsCutting] = useState(false);
 
   const handleCut = () => {
@@ -19,9 +21,10 @@ export const LandingScreen = ({ className }) => {
         <h1 className="title-content">Uninspired?</h1>
         <h2 className="subtitle-content">That can change</h2>
         <div className="action-container mt-6">
-          <button className="inspire-button" onClick={handleCut}>
+          <GetInspiredButton setSuggestionsData={setSuggestionsData}/>
+          {/* <button className="inspire-button" onClick={handleCut}>
             <div className="button-text">Inspire Me!</div>
-          </button>
+          </button> */}
         </div>
         <img
           className="chopping-board"
@@ -39,6 +42,7 @@ export const LandingScreen = ({ className }) => {
           )}
         </div>
       </div>
+      
     </div>
   );
 };
