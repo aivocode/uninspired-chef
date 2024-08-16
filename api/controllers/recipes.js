@@ -1,12 +1,11 @@
 // Load environment variables from the /api/.env file
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 
-const Pantry = require("../models/pantry");
-
 const recipeAppId = process.env.RECIPE_APP_ID;
 const recipeAppKey = process.env.RECIPE_APP_KEY;
-
-// const Recipe = require("../models/recipe");
+const Pantry = require("../models/pantry");
+const { Recipe } = require("../models/recipe"); // importing the Recipe model
+const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
 
 
@@ -98,9 +97,121 @@ const getRandomRecipes = async (req, res) => {
     }
 }
 
+const addRecipeToFavourites = async (req, res) => {
+
+    try {
+        //find the user by their ID
+        const user = await User.findById(req.user_id);
+
+        //create a new recipe object
+        const newFavouriteRecipe = new Recipe ({ recipe: req.body.recipe }); 
+
+        //check recipe object isn't already included in favouriteRecipes array - three steps:
+
+        //step 1 - create function that compares two objects:
+        const areObjectsEqual = (object1, object2) => {
+
+            //checks if the objects have the same number of keys
+            const object1Keys = Object.keys(object1);
+            const object2Keys = Object.keys(object2);
+
+            if (object1Keys.length !== object2Keys.length) {
+                return false;
+            }
+
+            //then checks if every key in object1 exists in object2 and has the same value
+
+            return object1Keys.every(key => object2.hasOwnProperty(key) && object1[key] === object2[key]);
+        };
+
+        //step 2 - create function which iterates through an array and compares each existing object in the array against the new object, by applying the above function:
+
+        const checkIfObjectAlreadyIncludedInArray = (objectArray, newObject) => {
+            return objectArray.some(existingObject => areObjectsEqual(existingObject, newObject));
+        };
+
+        //step 3 - apply above function to user's favouritedRecipes array to see if the recipe is already included in favourites
+
+        const recipeAlreadyInFavourites = checkIfObjectAlreadyIncludedInArray(user.favouritedRecipes, newFavouriteRecipe)
+
+        //if recipe has already been favourited, return a response confirming this
+
+        if (recipeAlreadyInFavourites) {
+            return res.status(400).json({message: 'Recipe has already been favourited!'});
+        }
+
+        //if recipe hasn't been favourited, add the new recipe to the user's favouritedRecipes array
+        user.favouritedRecipes.push(newFavouriteRecipe); 
+        await user.save();
+
+        //send a response confirming action
+        res.status(200).json({ message: 'Recipe added to favourites!'});
+
+    } catch (err) {
+        console.error(error);
+        res.status(500).json( {message: 'Something went wrong - unable to add recipe to favourites.'})
+    }
+};
+
+const removeRecipeFromFavourites = async (req, res) => {
+    try {
+        //find the user by their ID
+        const user = await User.findById(req.user_id);
+
+        //create a new recipe object
+        const recipeToBeRemoved = new Recipe ({ recipe: req.body.recipe }); 
+
+        //find index of recipe object in array
+
+        //step 1 - create function that compares two objects:
+        const areObjectsEqual = (object1, object2) => {
+
+            //checks if the objects have the same number of keys
+            const object1Keys = Object.keys(object1);
+            const object2Keys = Object.keys(object2);
+
+            if (object1Keys.length !== object2Keys.length) {
+                return false;
+            }
+
+            //then checks if every key in object1 exists in object2 and has the same value
+
+            return object1Keys.every(key => object2.hasOwnProperty(key) && object1[key] === object2[key]);
+        };
+
+        //step 2 - create function which iterates through an array and returns index of recipe that is to be deleted (by applying above function)
+
+        const findRecipeIndexInArray = (objectArray, targetObject) => {
+            return objectArray.findIndex(existingObject => areObjectsEqual(existingObject, targetObject));
+        };
+
+        //step 3 - apply above function to user's favouritedRecipes array to find index of recipe that is to be deleted
+
+        const recipeIndex = findRecipeIndexInArray(user.favouritedRecipes, recipeToBeRemoved)
+
+        //if recipe is not found (i.e. -1 is returned), return a response flagging this
+
+        if (recipeIndex === -1) {
+            return res.status(404).json({message: 'Recipe not in favourites!'})
+        }
+
+        //if recipe index is found, remove it from user's favouritedRecipes array
+        user.favouritedRecipes.splice(recipeIndex, 1); //splice method takes 2 args: index to start removing from, number of elements to remove i.e. 1 in this case
+        await user.save();
+
+        //send a response confirming action
+        res.status(200).json({ message: 'Recipe removed from favourites.'});
+
+    } catch (err) {
+        console.error(error);
+        res.status(500).json( {message: 'Something went wrong - unable to remove recipe from favourites.'})
+    }
+}
+
 const RecipesController = {
-    getRandomRecipes: getRandomRecipes
+    getRandomRecipes: getRandomRecipes,
+    addRecipeToFavourites: addRecipeToFavourites,
+    removeRecipeFromFavourites: removeRecipeFromFavourites
 };
 
 module.exports = RecipesController;
-
