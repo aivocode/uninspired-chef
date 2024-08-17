@@ -18,6 +18,7 @@ export const Pantry = ({ className }) => {
   const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create Pantry mode, before clicking CREATE
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
+  const [arrayIndex, setArrayIndex] = useState(1); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
 
   useEffect(() => {
     if (token) {
@@ -27,6 +28,18 @@ export const Pantry = ({ className }) => {
 
   const addToIngredientsArray = (ingredientObject) => {
     setIngredientsArrayState([...ingredientsArrayState, ingredientObject]); // we add new array item (object that has name and quantity) each time submit from popup
+  };
+
+  const deleteDataStateIngredientsArrayItem = (index) => {
+    setIngredientsArrayState((ingredientsArrayState) => {
+      return ingredientsArrayState.filter((_, i) => i !== index); // delete element in useState based on on index, so elements can re-render
+    });
+  };
+
+  const editIngredientsArrayItem = (ingredientObject, index) => {
+    setIngredientsArrayState((values) =>
+      values.map((value, i) => (i === index ? ingredientObject : value))
+    ); // map  previous state to the next state, using the index to match by, when the index matches return the new value, otherwise return the current value.
   };
 
   const fetchGetPantry = async () => {
@@ -48,24 +61,17 @@ export const Pantry = ({ className }) => {
     setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
   };
 
-  const deleteDataStateIngredientsArrayItem = (index) => {
-    setIngredientsArrayState((ingredientsArrayState) => {
-      return ingredientsArrayState.filter((_, i) => i !== index); // delete element in useState based on on index, so elements can re-render
-    });
-  };
-
   const handleAddButtonClick = () => {
     setShowPopout(true); // Show the popout when the "Add" button is clicked
   };
-
   const handleClosePopout = () => {
     setShowPopout(false); // Hide the popout when the user is done
   };
 
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = (index) => {
+    setArrayIndex(index); // popout will render knowing which element it's editing
     setShowEditPopout(true); // open popout when user clicks edit button (pencil icon)
   };
-
   const handleCloseEditPopout = () => {
     setShowEditPopout(false); // close popout when user submitted edit form
   };
@@ -93,7 +99,7 @@ export const Pantry = ({ className }) => {
                   {/* shows message if it exists */}
                   {message && (
                     <div
-                      class="p-4 mb-6 text-sm text-blue-800 rounded-lg bg-blue-50"
+                      className="p-4 mb-6 text-sm text-blue-800 rounded-lg bg-blue-50"
                       role="alert"
                     >
                       {message}
@@ -118,7 +124,7 @@ export const Pantry = ({ className }) => {
                       <button
                         type="button"
                         className="pt-1 pb-1"
-                        onClick={handleEditButtonClick}
+                        onClick={() => handleEditButtonClick(index)}
                       >
                         &#9998;
                       </button>
@@ -128,7 +134,7 @@ export const Pantry = ({ className }) => {
                           <div>{element.ingredientName} </div>
                         </div>
 
-                        <div className="p-1 rounded-r bg-[#ff7f50]">
+                        <div className="p-1 pl-2 pr-2 rounded-r bg-[#ff7f50]">
                           {element.ingredientQuantity}
                         </div>
                       </div>
@@ -204,7 +210,7 @@ export const Pantry = ({ className }) => {
         <div className="popout-overlay">
           <AddIngredient
             onClose={handleClosePopout}
-            addToIngredientsArray={addToIngredientsArray}
+            addToIngredientsArray={addToIngredientsArray} // we pass addToIngredientsArray to Add popout so it can pass parameters from there
           />
         </div>
       )}
@@ -212,8 +218,10 @@ export const Pantry = ({ className }) => {
       {showEditPopout && (
         <div className="popout-overlay">
           <EditIngredient
+            index={arrayIndex} // we pass index of element where edit button was clicked to Edit popout, which is child component
+            ingredientsArrayState={ingredientsArrayState} // we pass it so child so form in child component can get default values from it to appear during editing
             onClose={handleCloseEditPopout}
-            addToIngredientsArray={addToIngredientsArray}
+            editIngredientsArrayItem={editIngredientsArrayItem} //  we pass editIngredientsArrayItem to edit popout so it can pass parameters from there
           />
         </div>
       )}
