@@ -5,21 +5,20 @@ import { createPantry, getPantry, updatePantry } from "../../services/pantry";
 import { jwtDecode } from "jwt-decode";
 
 export const Pantry = ({ className }) => {
-  const token = localStorage.getItem("token");
-
-  let userId = "";
-  if (token) {
-    userId = jwtDecode(token).user_id // get user_id from token so it can be passed as paramaters
-  }
-
   const [showPopout, setShowPopout] = useState(false);
-  const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for editing individual ingredients
+  const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for displaying edit popout
 
   const [pantryRenderMode, setPantryRenderMode] = useState(""); // here we store render mode, 0 for create Pantry, 1 for show Pantry contents, 2 for edit Pantry
   const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create Pantry mode, before clicking CREATE
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
   const [arrayIndex, setArrayIndex] = useState(1); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
+
+  const token = localStorage.getItem("token");
+  let userId = "";
+  if (token) {
+    userId = jwtDecode(token).user_id; // get user_id from token so it can be passed as paramaters
+  }
 
   useEffect(() => {
     if (token) {
@@ -51,7 +50,6 @@ export const Pantry = ({ className }) => {
     } else if ((data.status = 200)) {
       setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
       setDataState(data); // set data state so it can keep response from db
-      // setIngredientsArrayState(data.ingredientsArray);
     }
   };
 
