@@ -6,7 +6,11 @@ import { jwtDecode } from "jwt-decode";
 
 export const Pantry = ({ className }) => {
   const token = localStorage.getItem("token");
-  const userId = jwtDecode(token).user_id;
+
+  let userId = "";
+  if (token) {
+    userId = jwtDecode(token).user_id // get user_id from token so it can be passed as paramaters
+  }
 
   const [showPopout, setShowPopout] = useState(false);
   const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for editing individual ingredients
@@ -84,6 +88,16 @@ export const Pantry = ({ className }) => {
         <div className="pantry-background" />
         <div className="pantry-header-bar" />
         <div className="pantry-content-box p-10">
+          {/* if logged out display warning message */}
+          {!token && (
+            <div
+              className="p-4 mb-1 text-sm text-yellow-800 rounded-lg bg-yellow-50"
+              role="alert"
+            >
+              You are not logged in. Please login.
+            </div>
+          )}
+
           {/* if logged in and render mode is set to create Pantry mode 0, render these elements */}
           {token && pantryRenderMode === 0 && (
             <>
