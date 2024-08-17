@@ -27,6 +27,7 @@ export const SuggestionsCard = ({ uriKey, suggestion }) => {
           {/* <p>{description}</p> */}
           <button onClick={handleSeeMoreClick}>See more</button>
         </div>
+        <div className="save-recipe-button"></div>
         <i>missing ingredients: 
           <br /><br />{missingIngs}</i>
         {/* {saved && <div className="bookmark" />} */}

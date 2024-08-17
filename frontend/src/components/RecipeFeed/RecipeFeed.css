@@ -101,3 +101,13 @@
     color: white;
     cursor: pointer;
 }
+
+.save-recipe-button {
+    width: 40px;
+    height: 60px;
+    background: red;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+    position: absolute;
+    top: 20px;
+    right: 40px;
+}

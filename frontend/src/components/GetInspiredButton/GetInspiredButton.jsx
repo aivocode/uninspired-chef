@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RandomRecipe from "../Recipes/RandomRecipe.jsx";
-import { getRandomRecipe } from "../../services/services.js";
+import { getRandomRecipe } from "../../services/recipes.js";
 import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
 import { Knife } from "../Knife/Knife.jsx";
 import { Tomato } from "../Tomato/Tomato.jsx";
