@@ -1,7 +1,7 @@
-import "./AddIngredientPopout.css";
+import "./IngredientPopout.css";
 import { useState } from "react";
 
-export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
+export const EditIngredient = ({ onClose, addToIngredientsArray }) => {
   const [ingredientString, setIngredientString] = useState("");
 
   const handleSubmit = (event) => {
@@ -15,11 +15,11 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
   };
 
   return (
-    <div className="add-ingredient-popout">
+    <div className="ingredient-popout">
       <button className="close-button" onClick={onClose}>
         ✖️
       </button>
-      <form id="add-ingredient-form" onSubmit={handleSubmit}>
+      <form id="edit-ingredient-form" onSubmit={handleSubmit}>
         <div className="input-group">
           <label className="label">Ingredient Name</label>
           <input
@@ -34,8 +34,8 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
         <label className="label">Ingredient Quantity</label>
         <input type="text" className="input" placeholder="4" />
       </div> */}
-      <button className="add-button" type="submit" form="add-ingredient-form">
-        Add Ingredient
+      <button className="add-button" type="submit" form="edit-ingredient-form">
+        Edit Ingredient
       </button>
     </div>
   );

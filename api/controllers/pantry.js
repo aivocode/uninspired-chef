@@ -92,7 +92,7 @@ const getPantry = async (req, res) => {
     res.status(400).json({
       status: 400,
       message:
-        "No Pantry found. Click ADD to add each pantry ingredient, click CREATE to create Pantry.",
+        "No Pantry found. Click +ADD to add pantry ingredient, click CREATE to create Pantry.",
     });
   }
 };

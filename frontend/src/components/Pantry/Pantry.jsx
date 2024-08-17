@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { AddIngredient } from "../AddIngredientPopout/AddIngredientPopout";
+import { AddIngredient } from "../IngredientPopout/AddIngredientPopout";
+import { EditIngredient } from "../IngredientPopout/EditIngredientPopout";
 import { createPantry, getPantry, updatePantry } from "../../services/pantry";
 
 export const Pantry = ({ className }) => {
@@ -11,16 +12,12 @@ export const Pantry = ({ className }) => {
   const userId = "66b50d1969615f1c46aa93ab";
 
   const [showPopout, setShowPopout] = useState(false);
+  const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for editing individual ingredients
 
-  const [pantryRenderMode, setPantryRenderMode] = useState(""); // here we store render mode, 0 for create Pantry form, 1 for show Pantry contents, 2 for edit Pantry form
-  const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients from popup here, so it can be passed to display on Create Pantry mode, before passing to createPantry
+  const [pantryRenderMode, setPantryRenderMode] = useState(""); // here we store render mode, 0 for create Pantry, 1 for show Pantry contents, 2 for edit Pantry
+  const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create Pantry mode, before clicking CREATE
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
-
-  // here we store our ingredients string, so validator can later check if it's format is correct
-  // and display message if it is not
-  // suggested format: "ingredient1, ingredient2, ingredient3"
-  const [ingredientsString, setIngredientsString] = useState("");
 
   useEffect(() => {
     if (token) {
@@ -28,26 +25,26 @@ export const Pantry = ({ className }) => {
     }
   }, []);
 
-  const addToIngredientsArray = (ingredientString) => {
-    setIngredientsArrayState([...ingredientsArrayState, ingredientString]); // we add new array item each time submit from popup
+  const addToIngredientsArray = (ingredientObject) => {
+    setIngredientsArrayState([...ingredientsArrayState, ingredientObject]); // we add new array item (object that has name and quantity) each time submit from popup
   };
 
   const fetchGetPantry = async () => {
     const data = await getPantry(userId);
     if (data.status === 400) {
       setPantryRenderMode(0); // first time we login, we have no Pantry, which will have status code 400, so render mode is set to 0
-      setMessage(data.message);
+      setMessage(data.message); // set info message so it displays when no Pantry was found
     } else if ((data.status = 200)) {
       setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
-      setDataState(data);
-      setIngredientsArrayState(data.ingredientsArray);
+      setDataState(data); // set data state so it can keep response from db
+      // setIngredientsArrayState(data.ingredientsArray);
     }
   };
 
   const fetchCreatePantry = async () => {
     const data = await createPantry(token, userId, ingredientsArrayState);
     setPantryRenderMode(1);
-    setMessage(data.message);
+    setMessage(data.message); // set info message so it displays that Pantry was created
     setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
   };
 
@@ -63,6 +60,14 @@ export const Pantry = ({ className }) => {
 
   const handleClosePopout = () => {
     setShowPopout(false); // Hide the popout when the user is done
+  };
+
+  const handleEditButtonClick = () => {
+    setShowEditPopout(true); // open popout when user clicks edit button (pencil icon)
+  };
+
+  const handleCloseEditPopout = () => {
+    setShowEditPopout(false); // close popout when user submitted edit form
   };
 
   // console.log(pantryRenderMode);
@@ -86,14 +91,46 @@ export const Pantry = ({ className }) => {
               <div className="flex flex-col">
                 <div>
                   {/* shows message if it exists */}
-                  {message && <div className="mb-2 text-center">{message}</div>}
+                  {message && (
+                    <div
+                      class="p-4 mb-6 text-sm text-blue-800 rounded-lg bg-blue-50"
+                      role="alert"
+                    >
+                      {message}
+                    </div>
+                  )}
                 </div>
 
-                <div className="container m-auto grid grid-cols-6">
+                <div className="container m-auto grid grid-cols-3">
+                  {/* We automatically generate html elements from ingredientsArrayState */}
                   {ingredientsArrayState.map((element, index) => (
-                    <div className="flex justify-center mb-2 gap-2" key={index}>
-                      <div className="flex items-end badge-ingredient">
-                        <div>{element}</div>
+                    <div className="flex justify-start mb-2 gap-2" key={index}>
+                      <button
+                        type="button"
+                        className="pt-1 pb-1"
+                        onClick={() =>
+                          deleteDataStateIngredientsArrayItem(index)
+                        }
+                      >
+                        ✖️
+                      </button>
+
+                      <button
+                        type="button"
+                        className="pt-1 pb-1"
+                        onClick={handleEditButtonClick}
+                      >
+                        &#9998;
+                      </button>
+
+                      <div className="flex">
+                        <div className="badge-ingredient p-1 rounded-l">
+                          <div>{element.ingredientName} </div>
+                        </div>
+
+                        <div className="p-1 rounded-r bg-[#ff7f50]">
+                          {element.ingredientQuantity}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -108,7 +145,7 @@ export const Pantry = ({ className }) => {
                       +ADD
                     </button>
 
-                    {/* render button only there some ingredients added to ingredientsArray */}
+                    {/* render button only if there some ingredients added to ingredientsArray */}
                     {ingredientsArrayState.length > 0 && (
                       <button
                         className="pantry-button"
@@ -136,27 +173,9 @@ export const Pantry = ({ className }) => {
                   {message && <div className="mb-2 text-center">{message}</div>}
                 </div>
 
-                <div className="container m-auto grid grid-cols-3">
-                  {ingredientsArrayState.map((element, index) => (
-                    <div className="flex justify-start mb-2 gap-2 " key={index}>
-                      <button
-                        type="button"
-                        className="pt-1 pb-1"
-                        onClick={() =>
-                          deleteDataStateIngredientsArrayItem(index)
-                        }
-                      >
-                        ✖️
-                      </button>
-
-                      <button
-                        type="button"
-                        className="pt-1 pb-1"
-                        onClick={handleAddButtonClick}
-                      >
-                        &#9998;
-                      </button>
-
+                <div className="container m-auto grid grid-cols-6">
+                  {dataState.ingredientsArray.map((element, index) => (
+                    <div className="flex justify-start mb-2" key={index}>
                       <div className="flex gap-1 badge-ingredient">
                         <img
                           src={element.image}
@@ -170,7 +189,7 @@ export const Pantry = ({ className }) => {
 
                 <div className="container m-auto">
                   <div className="flex">
-                    <button className="pantry-button">UPDATE</button>
+                    <button className="pantry-button">EDIT</button>
                   </div>
                 </div>
               </div>
@@ -185,6 +204,15 @@ export const Pantry = ({ className }) => {
         <div className="popout-overlay">
           <AddIngredient
             onClose={handleClosePopout}
+            addToIngredientsArray={addToIngredientsArray}
+          />
+        </div>
+      )}
+
+      {showEditPopout && (
+        <div className="popout-overlay">
+          <EditIngredient
+            onClose={handleCloseEditPopout}
             addToIngredientsArray={addToIngredientsArray}
           />
         </div>
