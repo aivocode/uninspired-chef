@@ -2,14 +2,11 @@ import { useState, useEffect } from "react";
 import { AddIngredient } from "../IngredientPopout/AddIngredientPopout";
 import { EditIngredient } from "../IngredientPopout/EditIngredientPopout";
 import { createPantry, getPantry, updatePantry } from "../../services/pantry";
+import { jwtDecode } from "jwt-decode";
 
 export const Pantry = ({ className }) => {
-  localStorage.setItem(
-    "token",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZhZThmNmFjYzNiNzc1NDJlYTc0ZDIxIiwiaWF0IjoxNzIyODk1OTcwfQ.QOeRf8AgdnpPEiD_51hF73W9WW2c87Z5v_ZVTo6riP8"
-  );
   const token = localStorage.getItem("token");
-  const userId = "66b50d1969615f1c46aa93ab";
+  const userId = jwtDecode(token).user_id;
 
   const [showPopout, setShowPopout] = useState(false);
   const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for editing individual ingredients
