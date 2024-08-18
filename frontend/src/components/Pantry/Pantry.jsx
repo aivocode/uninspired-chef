@@ -12,7 +12,7 @@ export const Pantry = ({ className }) => {
   const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create Pantry mode, before clicking CREATE
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
-  const [arrayIndex, setArrayIndex] = useState(1); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
+  const [arrayIndex, setArrayIndex] = useState(null); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
 
   const token = localStorage.getItem("token");
   let userId = "";
@@ -49,8 +49,26 @@ export const Pantry = ({ className }) => {
       setDataState(data);
       setMessage(data.message); // set info message so it displays when no Pantry was found
     } else if ((data.status = 200)) {
-      setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
       setDataState(data); // set data state so it can keep response from db
+      setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
+
+      const arrayOfPantryObjects = data.ingredientsArray.map(
+        ({ label, ingredientQuantity }) => ({
+          label,
+          ingredientQuantity,
+        })
+      ); // create new array of Pantry objects so it can be passed to setIngredientsArrayState matching same data structure as in create Pantry mode
+      // console.log(arrayOfPantryObjects);
+
+      const arrayOfPantryObjectsWithRenamedKeys = arrayOfPantryObjects.map(
+        ({ label: ingredientName, ingredientQuantity }) => ({
+          ingredientName,
+          ingredientQuantity,
+        })
+      ); // rename key "label" to key "ingredientName" in each object in array
+      // console.log(arrayOfPantryObjectsWithRenamedKeys);
+
+      setIngredientsArrayState(arrayOfPantryObjectsWithRenamedKeys);
     }
   };
 
@@ -64,6 +82,19 @@ export const Pantry = ({ className }) => {
       setPantryRenderMode(1);
       setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
       setMessage(data.message); // set info message so it displays that Pantry was created
+    }
+  };
+
+  const fetchUpdatePantry = async () => {
+    const data = await updatePantry(token, dataState.pantryId, ingredientsArrayState);
+    if (data.status === 404) {
+      // setDataState(data);
+      setMessage(data.message); // set info message so it displays when no Pantry was updated
+      // setIngredientsArrayState([]); // optional: make all entered ingredients dissapear
+    } else if (data.status === 201) {
+      setPantryRenderMode(1);
+      setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by PUT request
+      setMessage(data.message); // set info message so it displays that Pantry was updated
     }
   };
 
@@ -252,7 +283,96 @@ export const Pantry = ({ className }) => {
 
                 <div className="container m-auto">
                   <div className="flex flex-nowrap">
-                    <button className="pantry-button">EDIT</button>
+                    <button
+                      className="pantry-button"
+                      onClick={() => setPantryRenderMode(2)}
+                    >
+                      EDIT
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* if logged in and render mode is set to update Pantry mode 2, render these elements */}
+          {token && pantryRenderMode === 2 && (
+            <>
+              <div className="pantry-title flex flex-col text-center mb-10">
+                UPDATE PANTRY
+              </div>
+
+              <div className="flex flex-col">
+                <div>
+                  {/* shows message in red if PUT request responded with 404 */}
+                  {dataState.status === 404 && message && (
+                    <div
+                      className="p-4 mb-6 text-sm text-red-800 rounded-b-lg bg-red-50"
+                      role="alert"
+                    >
+                      {message}
+                    </div>
+                  )}
+                </div>
+
+                <div className="container m-auto">
+                  <div className="flex flex-wrap gap-6 justify-start">
+                    {/* We automatically generate html elements from ingredientsArrayState */}
+                    {ingredientsArrayState.map((element, index) => (
+                      <div
+                        className="flex flex-nowrap justify-start mb-2 gap-2"
+                        key={index}
+                      >
+                        <button
+                          type="button"
+                          className="pt-1 pb-1"
+                          onClick={() =>
+                            deleteDataStateIngredientsArrayItem(index)
+                          }
+                        >
+                          ✖️
+                        </button>
+
+                        <button
+                          type="button"
+                          className="pt-1 pb-1"
+                          onClick={() => handleEditButtonClick(index)}
+                        >
+                          &#9998;
+                        </button>
+
+                        <div className="flex flex-nowrap">
+                          <div className="bg-[#feead1] p-2 rounded-l">
+                            <div>{element.ingredientName}</div>
+                          </div>
+
+                          <div className="p-2 rounded-r bg-[#ff7f50]">
+                            {element.ingredientQuantity}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="container m-auto">
+                    <div className="flex gap-2">
+                      <button
+                        className="pantry-button"
+                        onClick={handleAddButtonClick}
+                      >
+                        +ADD
+                      </button>
+
+                      {/* render button only if there some ingredients added to ingredientsArray */}
+                      {ingredientsArrayState.length > 0 && (
+                        <button
+                          className="pantry-button"
+                          onClick={fetchUpdatePantry}
+                        >
+                          UPDATE
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
