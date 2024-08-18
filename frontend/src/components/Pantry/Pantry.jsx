@@ -13,6 +13,7 @@ export const Pantry = ({ className }) => {
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
   const [arrayIndex, setArrayIndex] = useState(null); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
+  const [pantryId, setPantryId] = useState(null); // we store pantryId here
 
   const token = localStorage.getItem("token");
   let userId = "";
@@ -42,6 +43,26 @@ export const Pantry = ({ className }) => {
     ); // map  previous state to the next state, using the index to match by, when the index matches return the new value, otherwise return the current value.
   };
 
+  const translateObjects = (data) => {
+    const arrayOfPantryObjects = data.ingredientsArray.map(
+      ({ label, ingredientQuantity }) => ({
+        label,
+        ingredientQuantity,
+      })
+    ); // create new array of Pantry objects so it can be passed to setIngredientsArrayState matching same data structure as in create Pantry mode
+    // console.log(arrayOfPantryObjects);
+
+    const arrayOfPantryObjectsWithRenamedKeys = arrayOfPantryObjects.map(
+      ({ label: ingredientName, ingredientQuantity }) => ({
+        ingredientName,
+        ingredientQuantity,
+      })
+    ); // rename key "label" to key "ingredientName" in each object in array
+    // console.log(arrayOfPantryObjectsWithRenamedKeys);
+
+    setIngredientsArrayState(arrayOfPantryObjectsWithRenamedKeys);
+  };
+
   const fetchGetPantry = async () => {
     const data = await getPantry(userId);
     if (data.status === 400) {
@@ -50,25 +71,9 @@ export const Pantry = ({ className }) => {
       setMessage(data.message); // set info message so it displays when no Pantry was found
     } else if ((data.status = 200)) {
       setDataState(data); // set data state so it can keep response from db
+      setPantryId(data.pantryId);
       setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
-
-      const arrayOfPantryObjects = data.ingredientsArray.map(
-        ({ label, ingredientQuantity }) => ({
-          label,
-          ingredientQuantity,
-        })
-      ); // create new array of Pantry objects so it can be passed to setIngredientsArrayState matching same data structure as in create Pantry mode
-      // console.log(arrayOfPantryObjects);
-
-      const arrayOfPantryObjectsWithRenamedKeys = arrayOfPantryObjects.map(
-        ({ label: ingredientName, ingredientQuantity }) => ({
-          ingredientName,
-          ingredientQuantity,
-        })
-      ); // rename key "label" to key "ingredientName" in each object in array
-      // console.log(arrayOfPantryObjectsWithRenamedKeys);
-
-      setIngredientsArrayState(arrayOfPantryObjectsWithRenamedKeys);
+      translateObjects(data);
     }
   };
 
@@ -81,20 +86,24 @@ export const Pantry = ({ className }) => {
     } else if (data.status === 200) {
       setPantryRenderMode(1);
       setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
+      setPantryId(data.pantryId);
       setMessage(data.message); // set info message so it displays that Pantry was created
+      translateObjects(data);
     }
   };
 
   const fetchUpdatePantry = async () => {
-    const data = await updatePantry(token, dataState.pantryId, ingredientsArrayState);
+    const data = await updatePantry(token, pantryId, ingredientsArrayState);
     if (data.status === 404) {
-      // setDataState(data);
+      setDataState(data);
       setMessage(data.message); // set info message so it displays when no Pantry was updated
       // setIngredientsArrayState([]); // optional: make all entered ingredients dissapear
     } else if (data.status === 201) {
       setPantryRenderMode(1);
       setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by PUT request
+      setPantryId(data.pantryId);
       setMessage(data.message); // set info message so it displays that Pantry was updated
+      translateObjects(data);
     }
   };
 
@@ -249,7 +258,7 @@ export const Pantry = ({ className }) => {
                 </div>
 
                 <div className="container m-auto">
-                  <div className="flex flex-wrap gap-2 justify-center">
+                  <div className="flex flex-wrap gap-2 justify-start">
                     {/* We automatically generate html elements from dataState.ingredientsArray */}
                     {dataState.ingredientsArray.map((element, index) => (
                       <div className="mb-2" key={index}>
@@ -405,3 +414,5 @@ export const Pantry = ({ className }) => {
     </div>
   );
 };
+
+// qwerty1!
