@@ -1,83 +1,79 @@
 /* AuthenticationPage.css */
 .auth-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #feead1;
-  height: 100vh;
-}
-
-.auth-header {
-  position: absolute;
-  top: 20px; /* Adjust as needed to bring it down a bit */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.auth-form {
-  background-color: #dde4ba;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  transition: all 0.3s ease;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.auth-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #515839;
-}
-
-.auth-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #feead1;
-  color: #515839;
-}
-
-.auth-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #515839;
-  color: #feead1;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.auth-toggle {
-  margin-top: 15px;
-  text-align: center;
-  cursor: pointer;
-  color: #515839;
-  text-decoration: underline;
-}
-
-.auth-toggle:hover {
-  color: #333;
-}
-
-.login {
-  transform: translateX(100%);
-  animation: slideIn 0.5s forwards;
-}
-
-.signup {
-  transform: translateX(-100%);
-  animation: slideIn 0.5s forwards;
-}
-
-@keyframes slideIn {
-  from {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #feead1;
+    height: 100vh;
+  }
+  
+  .auth-header {
+    position: fixed; /* Fixed at the top */
+    top: 0; /* Align to the top of the window */
+    width: 100%; /* Ensure the header takes full width */
+    display: flex;
+    justify-content: center;
+    background-color: #feead1; /* Add a background color to avoid overlap issues */
+    z-index: 1000; /* Ensure the header is above other content */
+    padding: 20px 0; /* Add padding to adjust spacing */
+  }
+  
+  .auth-form {
+    background-color: #dde4ba;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auth-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #515839;
+  }
+  
+  .auth-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #feead1;
+    color: #515839;
+  }
+  
+  .auth-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #515839;
+    color: #feead1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .auth-toggle {
+    margin-top: 15px;
+    text-align: center;
+    cursor: pointer;
+    color: #515839;
+    text-decoration: underline;
+  }
+  
+  .auth-toggle:hover {
+    color: #333;
+  }
+  
+  .login {
+    transform: translateX(100%);
+    animation: slideIn 0.5s forwards;
+  }
+  
+  .signup {
     transform: translateX(-100%);
   }
   to {
     transform: translateX(0);
   }
-}

@@ -5,11 +5,24 @@
   justify-content: flex-start;
   width: 100%;
   height: 100vh;
-  padding-top: 100px; /* Add padding to push down the content */
+  padding-bottom: 100px; /* Add padding to push down the content */
   background-color: #feead1;
-  overflow-y: auto;
+  overflow-y: scroll;
   margin: 0;
 }
+
+/* Hide scrollbar for webkit browsers (Chrome, Safari) */
+.pantrypage-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* Hide scrollbar for other browsers (Firefox) */
+.pantrypage-container {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
 
 .pantry-container {
   width: 1200px;
@@ -80,7 +93,7 @@
   /* width: 289px;
   top: 20px;
   left: 194px; */
-  font-family: var(--title-hero-font-family);
+  font-family: 'ThermalReceipt', sans-serif;;
   font-weight: var(--title-hero-font-weight);
   font-size: var(--title-hero-font-size);
   color: black;
@@ -93,7 +106,7 @@
   width: 483px;
   top: 236px;
   left: 88px;
-  font-family: var(--heading-font-family);
+  font-family: 'ThermalReceipt', sans-serif;;
   font-weight: var(--heading-font-weight);
   font-size: var(--heading-font-size);
   color: black;

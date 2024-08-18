@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 
-export const RecipeCard = ({ recipe }) => {
-  if (!recipe) {
-    return "We couldn't find a direct match sadly. But here are some suggestions!"
+export const SuggestionsCard = ({ uriKey, suggestion }) => {
+  if (!suggestion) {
+    return 
 }
-  console.log(recipe.suggestions[0])
-  const meal = recipe.suggestions[0].recipe
-  const missingIngs = recipe.suggestions[0].missingIngredients.toString().replaceAll(',',', ')
+  console.log(suggestion)
+  const meal = suggestion.recipe
+  const missingIngs = suggestion.missingIngredients.toString().replaceAll(',',', ')
   const [showPopout, setShowPopout] = useState(false);
 
   const handleSeeMoreClick = () => {

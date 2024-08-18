@@ -1,23 +1,23 @@
-import { RecipeCard } from "../RecipeCard/RecipeCard";
+
+import { SuggestionsCard } from "../SuggestionsCard/SuggestionsCard";
 import './RecipeFeed.css';
 
-export const RecipeFeed = () => {
-  // Example data, this will be replaced by JSON data in future
-  const recipes = [
-    { id: 1, title: "Recipe 1", description: "Short description of the recipe", saved: false },
-    { id: 2, title: "Recipe 2", description: "Short description of the recipe", saved: true },
-    { id: 3, title: "Recipe 3", description: "Short description of the recipe", saved: false },
-    // Add more recipes as needed
-  ];
+export const RecipeFeed = (suggestionsData) => {
+  console.log("this is the suggestionsData being passed from HomePage",suggestionsData)
+  // if (!Array.isArray(suggestionsData) || suggestionsData.length === 0) {
+  //   return
+  // }
+  // console.log(suggestionsData[0].recipe.recipe.label)
+  const recipesToDisplay = suggestionsData.suggestionsData.slice(0,3)
+
+  console.log("here are your suggestions recipes: ",recipesToDisplay)
 
   return (
     <div className="recipe-feed">
-      {recipes.map((recipe) => (
-        <RecipeCard 
-          key={recipe.id}
-          title={recipe.title}
-          description={recipe.description}
-          saved={recipe.saved}
+      {recipesToDisplay.map((suggestion) => (
+        <SuggestionsCard 
+          uriKey={suggestion.recipe.recipe.uri}
+          suggestion={suggestion}
         />
       ))}
     </div>
