@@ -46,6 +46,7 @@ export const Pantry = ({ className }) => {
     const data = await getPantry(userId);
     if (data.status === 400) {
       setPantryRenderMode(0); // first time we login, we have no Pantry, which will have status code 400, so render mode is set to 0
+      setDataState(data);
       setMessage(data.message); // set info message so it displays when no Pantry was found
     } else if ((data.status = 200)) {
       setPantryRenderMode(1); // When we already have Pantry, which will have status code 200, so render mode is set to 1
@@ -55,9 +56,15 @@ export const Pantry = ({ className }) => {
 
   const fetchCreatePantry = async () => {
     const data = await createPantry(token, userId, ingredientsArrayState);
-    setPantryRenderMode(1);
-    setMessage(data.message); // set info message so it displays that Pantry was created
-    setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
+    if (data.status === 404) {
+      setDataState(data);
+      setMessage(data.message); // set info message so it displays when no Pantry was created
+      // setIngredientsArrayState([]); // optional: make all entered ingredients dissapear
+    } else if (data.status === 200) {
+      setPantryRenderMode(1);
+      setDataState(data); // instead of running fetchGetPantry() GET request again, we can instead use data returned by POST request
+      setMessage(data.message); // set info message so it displays that Pantry was created
+    }
   };
 
   const handleAddButtonClick = () => {
@@ -105,8 +112,8 @@ export const Pantry = ({ className }) => {
 
               <div className="flex flex-col">
                 <div>
-                  {/* shows message if it exists */}
-                  {message && (
+                  {/* shows message in blue if GET request responded with 400 */}
+                  {dataState.status === 400 && message && (
                     <div
                       className="p-4 mb-6 text-sm text-blue-800 rounded-lg bg-blue-50"
                       role="alert"
@@ -114,61 +121,76 @@ export const Pantry = ({ className }) => {
                       {message}
                     </div>
                   )}
-                </div>
 
-                <div className="container m-auto grid grid-cols-3">
-                  {/* We automatically generate html elements from ingredientsArrayState */}
-                  {ingredientsArrayState.map((element, index) => (
-                    <div className="flex justify-start mb-2 gap-2" key={index}>
-                      <button
-                        type="button"
-                        className="pt-1 pb-1"
-                        onClick={() =>
-                          deleteDataStateIngredientsArrayItem(index)
-                        }
-                      >
-                        ✖️
-                      </button>
-
-                      <button
-                        type="button"
-                        className="pt-1 pb-1"
-                        onClick={() => handleEditButtonClick(index)}
-                      >
-                        &#9998;
-                      </button>
-
-                      <div className="flex">
-                        <div className="badge-ingredient p-1 rounded-l">
-                          <div>{element.ingredientName} </div>
-                        </div>
-
-                        <div className="p-1 pl-2 pr-2 rounded-r bg-[#ff7f50]">
-                          {element.ingredientQuantity}
-                        </div>
-                      </div>
+                  {/* shows message in red if POST request responded with 404 */}
+                  {dataState.status === 404 && message && (
+                    <div
+                      className="p-4 mb-6 text-sm text-red-800 rounded-b-lg bg-red-50"
+                      role="alert"
+                    >
+                      {message}
                     </div>
-                  ))}
+                  )}
                 </div>
 
                 <div className="container m-auto">
-                  <div className="flex gap-2">
-                    <button
-                      className="pantry-button"
-                      onClick={handleAddButtonClick}
-                    >
-                      +ADD
-                    </button>
+                  <div className="flex flex-wrap gap-6 justify-start">
+                    {/* We automatically generate html elements from ingredientsArrayState */}
+                    {ingredientsArrayState.map((element, index) => (
+                      <div
+                        className="flex flex-nowrap justify-start mb-2 gap-2"
+                        key={index}
+                      >
+                        <button
+                          type="button"
+                          className="pt-1 pb-1"
+                          onClick={() =>
+                            deleteDataStateIngredientsArrayItem(index)
+                          }
+                        >
+                          ✖️
+                        </button>
 
-                    {/* render button only if there some ingredients added to ingredientsArray */}
-                    {ingredientsArrayState.length > 0 && (
+                        <button
+                          type="button"
+                          className="pt-1 pb-1"
+                          onClick={() => handleEditButtonClick(index)}
+                        >
+                          &#9998;
+                        </button>
+
+                        <div className="flex flex-nowrap">
+                          <div className="bg-[#feead1] p-2 rounded-l">
+                            <div>{element.ingredientName}</div>
+                          </div>
+
+                          <div className="p-2 rounded-r bg-[#ff7f50]">
+                            {element.ingredientQuantity}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="container m-auto">
+                    <div className="flex gap-2">
                       <button
                         className="pantry-button"
-                        onClick={fetchCreatePantry}
+                        onClick={handleAddButtonClick}
                       >
-                        CREATE
+                        +ADD
                       </button>
-                    )}
+
+                      {/* render button only if there some ingredients added to ingredientsArray */}
+                      {ingredientsArrayState.length > 0 && (
+                        <button
+                          className="pantry-button"
+                          onClick={fetchCreatePantry}
+                        >
+                          CREATE
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -185,25 +207,51 @@ export const Pantry = ({ className }) => {
               <div className="flex flex-col">
                 <div>
                   {/* shows message if it exists */}
-                  {message && <div className="mb-2 text-center">{message}</div>}
-                </div>
-
-                <div className="container m-auto grid grid-cols-6">
-                  {dataState.ingredientsArray.map((element, index) => (
-                    <div className="flex justify-start mb-2" key={index}>
-                      <div className="flex gap-1 badge-ingredient">
-                        <img
-                          src={element.image}
-                          className="avatar-ingredient"
-                        />
-                        <div>{element.label}</div>
-                      </div>
+                  {message && (
+                    <div
+                      className="p-4 mb-6 text-sm text-green-800 rounded-lg bg-green-50"
+                      role="alert"
+                    >
+                      {message}
                     </div>
-                  ))}
+                  )}
                 </div>
 
                 <div className="container m-auto">
-                  <div className="flex">
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {/* We automatically generate html elements from dataState.ingredientsArray */}
+                    {dataState.ingredientsArray.map((element, index) => (
+                      <div className="mb-2" key={index}>
+                        <div className="flex flex-nowrap">
+                          <div className="flex flex-nowrap bg-[#feead1] p-2 rounded-l gap-1">
+                            {/* if image exists: */}
+                            {element.image && (
+                              <img
+                                className="w-4 h-4 rounded-full ring-2 ring-[#ff7f50]"
+                                src={element.image}
+                              />
+                            )}
+                            {/* if image doesn't exist use fallback src: */}
+                            {!element.image && (
+                              <img
+                                className="w-4 h-4 rounded-full ring-2 ring-[#ff7f50]"
+                                src="https://img.icons8.com/?size=100&id=35903&format=png&color=000000"
+                              />
+                            )}
+                            <div>{element.label}</div>
+                          </div>
+
+                          <div className="p-2 rounded-r bg-[#ff7f50]">
+                            {element.ingredientQuantity}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="container m-auto">
+                  <div className="flex flex-nowrap">
                     <button className="pantry-button">EDIT</button>
                   </div>
                 </div>

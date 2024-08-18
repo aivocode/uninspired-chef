@@ -195,14 +195,4 @@
   color: white;
 }
 
-.avatar-ingredient {
-  vertical-align: middle;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-}
 
-.badge-ingredient {
-  background-color: #feead1;
-  text-align: center;
-}
