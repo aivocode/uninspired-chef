@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NutritionTable from "../../components/NutritionTable/NutritionTable";
 import { getRecipeNutrition } from "../../services/recipesNutrition";
-
 export const NutritionPage = () => {
   const [recipeNutrition, setRecipeNutrition] = useState();
   const navigate = useNavigate();
@@ -20,9 +19,9 @@ export const NutritionPage = () => {
       // calls function from services
       const data = await getRecipeNutrition(token);
       //sets recipe to the data object returned
-      setRecipeNutrition(data);
-      console.log(data.hits[0].recipe.totalDaily);
-      return data;
+      setRecipeNutrition(data.hits[0].recipe);
+      console.log(data.hits[0].recipe);
+      return data.hits[0].recipe;
     } catch (err) {
       console.log("Failed to get inspired! ");
       console.error("Failed to get inspired :( ", err);
