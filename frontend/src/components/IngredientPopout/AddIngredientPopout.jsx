@@ -1,7 +1,7 @@
 import "./IngredientPopout.css";
 import { useState } from "react";
 
-export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
+export const AddIngredient = ({ onClose, addToIngredientsArray, ingredientsArrayState }) => {
   const [ingredientName, setIngredientName] = useState(""); // we store ingredient name
   const [ingredientQuantity, setIngredientQuantity] = useState(""); // we store ingredient quantity
 
@@ -14,6 +14,24 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // console.log(ingredientsArrayState);
+    // console.log(ingredientName);
+
+    let duplicate = false;
+    if (ingredientsArrayState) {
+      for (let i = 0; i < ingredientsArrayState.length; i++) {
+        if (
+          ingredientsArrayState[i].ingredientName.toLowerCase() ===
+          ingredientName.toLowerCase()
+        ) {
+          duplicate = true;
+        }
+      }
+    } // loops through ingredientsArrayState to find duplicate and set duplicate to true if found
+
+    // console.log(duplicate);
+
     if (!ingredientName) {
       setIngredientNameValidatorMessage(
         "Ingredient Name field cannot be empty."
@@ -26,7 +44,13 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
       ); // informs user why it was not submitted
     }
 
-    if (ingredientName && ingredientQuantity) {
+    if (duplicate) {
+      setIngredientNameValidatorMessage(
+        `Duplicate ingredient found: ${ingredientName}`
+      );
+    }
+
+    if (ingredientName && ingredientQuantity && !duplicate) {
       addToIngredientsArray({
         ingredientName: ingredientName,
         ingredientQuantity: ingredientQuantity,
@@ -37,6 +61,10 @@ export const AddIngredient = ({ onClose, addToIngredientsArray }) => {
 
   // input validation handling while user types for empty Ingredient Name value
   const handleChangeIngredientName = (event) => {
+    if (!event.target.value) {
+      setIngredientName("");
+    }
+
     if (event.target.value.length < 1) {
       setIngredientNameValidatorMessage(
         "Ingredient Name field cannot be empty."

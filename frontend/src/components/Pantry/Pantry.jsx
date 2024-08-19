@@ -406,6 +406,7 @@ export const Pantry = ({ className }) => {
         <div className="popout-overlay">
           <AddIngredient
             onClose={handleClosePopout}
+            ingredientsArrayState={ingredientsArrayState} // we pass it so child so form in child component can validate for duplicates
             addToIngredientsArray={addToIngredientsArray} // we pass addToIngredientsArray to Add popout so it can pass parameters from there
           />
         </div>
@@ -415,7 +416,7 @@ export const Pantry = ({ className }) => {
         <div className="popout-overlay">
           <EditIngredient
             index={arrayIndex} // we pass index of element where edit button was clicked to Edit popout, which is child component
-            ingredientsArrayState={ingredientsArrayState} // we pass it so child so form in child component can get default values from it to appear during editing
+            ingredientsArrayState={ingredientsArrayState} // we pass it so child so form in child component can get default values from it to appear during editing, and validate for duplicates
             onClose={handleCloseEditPopout}
             editIngredientsArrayItem={editIngredientsArrayItem} //  we pass editIngredientsArrayItem to edit popout so it can pass parameters from there
           />

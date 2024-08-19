@@ -26,6 +26,9 @@ export const EditIngredient = ({
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // console.log(ingredientsArrayState[index]);
+    // console.log(ingredientName);
+
     let duplicate = false;
     for (let i = 0; i < ingredientsArrayState.length; i++) {
       if (
@@ -59,6 +62,10 @@ export const EditIngredient = ({
 
   // input validation handling while user types for empty Ingredient Name value
   const handleChangeIngredientName = (event) => {
+    if (!event.target.value) {
+      setIngredientName(ingredientsArrayState[index].ingredientName);
+    }
+
     if (event.target.value.length < 1) {
       setIngredientNameValidatorMessage(
         "Leaving Ingredient Name field empty will revert to old values."
