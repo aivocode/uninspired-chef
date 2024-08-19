@@ -19,3 +19,20 @@
   margin-left: 15px;
   cursor: pointer;
 }
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .header-container {
+      padding: 10px;
+      text-align: center;
+  }
+
+  .header-title {
+      font-size: 1.5em;
+  }
+
+  .nav-links {
+      display: flex;
+      flex-direction: column;
+  }
+}

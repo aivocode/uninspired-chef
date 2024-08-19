@@ -115,3 +115,19 @@
     cursor: pointer;
   }
   
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .full-recipe-popout {
+      width: 100%;
+      padding: 15px;
+  }
+
+  .recipe-details {
+      font-size: 1em;
+  }
+
+  .close-button {
+      font-size: 1.2em;
+  }
+}

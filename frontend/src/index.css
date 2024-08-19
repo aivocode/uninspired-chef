@@ -9,6 +9,7 @@ h1 {
   font-size: 2rem;
   color: var(--color-text-default-default);
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -57,3 +58,18 @@ img {
   height: auto;
 }
 
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}

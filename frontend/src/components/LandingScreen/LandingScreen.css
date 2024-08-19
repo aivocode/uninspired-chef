@@ -77,3 +77,26 @@
   font-size: 2rem;
   color: #515839;
 }
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .landing-container {
+      padding: 10px;
+      text-align: center;
+  }
+
+  .landing-header {
+      font-size: 1.5em;
+  }
+
+  .landing-content {
+      font-size: 1em;
+  }
+
+  /* Adjust buttons for mobile */
+  .landing-button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1em;
+  }
+}

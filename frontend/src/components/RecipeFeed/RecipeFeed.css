@@ -101,3 +101,15 @@
     color: white;
     cursor: pointer;
 }
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .recipe-feed-container {
+        padding: 10px;
+    }
+
+    .recipe-item {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+}
