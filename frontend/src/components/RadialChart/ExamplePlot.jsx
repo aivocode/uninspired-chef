@@ -13,15 +13,22 @@ export const ExamplePlot = ({
   height = 600,
   showControls = true,
 }) => {
-  const data = letterFrequency;
-  console.log(recipe.totalDaily);
+  //const data = recipe;
+  const data = Object.values(recipe.totalDaily);
+  console.log(Object.values(recipe.totalDaily));
+  console.log(data);
 
-  const getLetter = (d) => d.letter;
+  //const getLetter = (d) => d.letter;
+  const getLetter = (d) => d.label;
 
-  const getLetterFrequency = (d) => Number(d.frequency) * 100;
+  //const getLetterFrequency = (d) => Number(d.frequency) * 100;
+  const getLetterFrequency = (d) => Number(d.quantity); //* 200;
 
-  const frequencySort = (a, b) => b.frequency - a.frequency;
-  const alphabeticalSort = (a, b) => a.letter.localeCompare(b.letter);
+  // const frequencySort = (a, b) => b.frequency - a.frequency;
+  // const alphabeticalSort = (a, b) => a.letter.localeCompare(b.letter);
+
+  const frequencySort = (a, b) => b.quantity - a.quantity;
+  const alphabeticalSort = (a, b) => a.label.localeCompare(b.label);
 
   const toRadians = (x) => (x * Math.PI) / 180;
   const toDegrees = (x) => (x * 180) / Math.PI;
@@ -78,6 +85,7 @@ export const ExamplePlot = ({
         <Group top={yMax / 2 + margin.top} left={xMax / 2 + margin.left}>
           {data.map((d) => {
             const letter = getLetter(d);
+            const frequency = Math.floor(getLetterFrequency(d)) + "%";
             const startAngle = xScale(letter);
             const midAngle = startAngle + xScale.bandwidth() / 2;
             const endAngle = startAngle + xScale.bandwidth();
@@ -103,14 +111,32 @@ export const ExamplePlot = ({
                 <Text
                   x={textX}
                   y={textY}
-                  dominantBaseline="end"
-                  textAnchor="middle"
+                  //dominantBaseline="end"
+                  dominantBaseline="middle"
+                  textAnchor="end"
                   fontSize={16}
                   fontWeight="bold"
                   fill={barColor}
-                  angle={toDegrees(midAngle)}
+                  //angle={toDegrees(midAngle)}
+                  transform={`rotate(${
+                    toDegrees(midAngle) + 90
+                  }, ${textX}, ${textY})`}
                 >
                   {letter}
+                </Text>
+
+                <Text
+                  x={textX}
+                  y={textY + 16} // Adjust this value to control the spacing
+                  dominantBaseline="middle"
+                  textAnchor="end"
+                  fontSize={12}
+                  fill={barColor}
+                  transform={`rotate(${
+                    toDegrees(midAngle) + 90
+                  }, ${textX}, ${textY})`}
+                >
+                  {frequency}
                 </Text>
               </>
             );
