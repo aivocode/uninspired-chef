@@ -56,12 +56,13 @@ const createPantry = async (req, res) => {
       user_id: req.body.userId,
       ingredientsArray: ingredients,
     });
-    pantry.save(); // we create new Pantry in Mongo since we passed check that all ingredients are correct
+    
+    const savedPantry = await pantry.save(); // we create new Pantry in Mongo since we passed check that all ingredients are correct
 
     res.status(200).json({
-      pantryId: pantry.id,
-      userId: pantry.user_id,
-      ingredientsArray: pantry.ingredientsArray,
+      pantryId: savedPantry.id,
+      userId: savedPantry.user_id,
+      ingredientsArray: savedPantry.ingredientsArray,
       status: 200,
       message: `Pantry created with all ingredients specified.`,
     }); // response to our service on frontend if Pantry was created in Mongo
