@@ -9,7 +9,7 @@ export const Pantry = ({ className }) => {
   const [showEditPopout, setShowEditPopout] = useState(false); // this state is responsible for displaying edit popout
 
   const [pantryRenderMode, setPantryRenderMode] = useState(""); // here we store render mode, 0 for create Pantry, 1 for show Pantry contents, 2 for edit Pantry
-  const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create Pantry mode, before clicking CREATE
+  const [ingredientsArrayState, setIngredientsArrayState] = useState([]); // we add ingredients and quantity objects from popup here, so they can display in Create/Update Pantry mode, before clicking CREATE/UPDATE
   const [dataState, setDataState] = useState({}); // here we store data object that comes from backend response
   const [message, setMessage] = useState(""); // here we store message that comes from backend, so we can render it later in our conditional statements in return()
   const [arrayIndex, setArrayIndex] = useState(null); // he we store index of element from where we clicked Edit button, so popout knows which item in ingredientsArrayState it is editing
@@ -258,7 +258,7 @@ export const Pantry = ({ className }) => {
                 </div>
 
                 <div className="container m-auto">
-                  <div className="flex flex-wrap gap-2 justify-start">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {/* We automatically generate html elements from dataState.ingredientsArray */}
                     {dataState.ingredientsArray.map((element, index) => (
                       <div className="mb-2" key={index}>
@@ -381,6 +381,16 @@ export const Pantry = ({ className }) => {
                           UPDATE
                         </button>
                       )}
+
+                      <button
+                        className="pantry-button"
+                        onClick={() => {
+                          fetchGetPantry(); // we need to run GET requests so dataState changes to object required by render mode 1
+                          setMessage(""); // reset message so it doesn't carry over from update Pantry mode, if wrong ingredient found in API
+                        }}
+                      >
+                        BACK
+                      </button>
                     </div>
                   </div>
                 </div>
