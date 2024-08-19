@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
   darkMode: 'class', // Enable dark mode based on a CSS class
   theme: {
