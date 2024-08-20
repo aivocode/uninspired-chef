@@ -22,7 +22,7 @@ export const ExamplePlot = ({
   const getLetter = (d) => d.label;
 
   //const getLetterFrequency = (d) => Number(d.frequency) * 100;
-  const getLetterFrequency = (d) => Number(d.quantity); //* 200;
+  const getLetterFrequency = (d) => Number(d.quantity) / 4; //* 200;
 
   // const frequencySort = (a, b) => b.frequency - a.frequency;
   // const alphabeticalSort = (a, b) => a.letter.localeCompare(b.letter);
@@ -33,7 +33,7 @@ export const ExamplePlot = ({
   const toRadians = (x) => (x * Math.PI) / 180;
   const toDegrees = (x) => (x * 180) / Math.PI;
 
-  const barColor = "#93F9B9";
+  const barColor = "#fd6f2f";
   const margin = { top: 20, bottom: 20, left: 20, right: 20 };
   const [rotation, setRotation] = useState(0);
   const [sortAlphabetically, setSortAlphabetically] = useState(true);
@@ -79,7 +79,7 @@ export const ExamplePlot = ({
         <rect
           width={width}
           height={height}
-          fill="url(#radial-bars-green)"
+          fill="url(#radial-bars-gray)"
           rx={14}
         />
         <Group top={yMax / 2 + margin.top} left={xMax / 2 + margin.left}>
@@ -116,7 +116,8 @@ export const ExamplePlot = ({
                   textAnchor="end"
                   fontSize={16}
                   fontWeight="bold"
-                  fill={barColor}
+                  // fill={barColor}
+                  fill="black"
                   //angle={toDegrees(midAngle)}
                   transform={`rotate(${
                     toDegrees(midAngle) + 90
@@ -131,7 +132,8 @@ export const ExamplePlot = ({
                   dominantBaseline="middle"
                   textAnchor="end"
                   fontSize={12}
-                  fill={barColor}
+                  // fill={barColor}
+                  fill="black"
                   transform={`rotate(${
                     toDegrees(midAngle) + 90
                   }, ${textX}, ${textY})`}

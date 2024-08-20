@@ -1,11 +1,11 @@
 //import { Header } from "../../components/Header/Header"; //Sam's
-import { useState, Suspense } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NutritionTable from "../../components/NutritionTable/NutritionTable";
 import { ExamplePlot } from "../../components/RadialChart/ExamplePlot";
+import { ExampleText } from "../../components/ExampleText/ExampleText";
 import { getRecipeNutrition } from "../../services/recipesNutrition";
 
-export const NutritionPage = async () => {
+export const NutritionPage = () => {
   const [recipeNutrition, setRecipeNutrition] = useState();
   const navigate = useNavigate();
 
@@ -40,7 +40,9 @@ export const NutritionPage = async () => {
         >
           GET INSPIRED
         </button>
-        <NutritionTable recipe={recipeNutrition} />
+        <div>
+          <h3> Nutrition Information: </h3>
+        </div>
         <ExamplePlot
           recipe={recipeNutrition}
           width={800}
@@ -48,6 +50,7 @@ export const NutritionPage = async () => {
           showControls={true}
         />
       </div>
+      <ExampleText recipe={recipeNutrition} />
     </>
   );
 };
