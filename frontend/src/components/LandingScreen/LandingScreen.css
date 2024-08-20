@@ -27,7 +27,7 @@
   top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1; /* Ensure the tomato appears above the chopping board */
+  z-index: 1;
 }
 
 .knife-position {
@@ -93,18 +93,17 @@
       font-size: 1em;
   }
 
-  /* Adjust buttons for mobile */
   .landing-button {
       width: 100%;
       padding: 15px;
       font-size: 1em;
   }
 
-  /* Adjust chopping board positioning for mobile */
+
   .chopping-board {
-    position: relative; /* Change to relative positioning on mobile */
-    top: auto; /* Remove the top offset */
+    position: relative; 
+    top: auto; 
     width: 100vw;
-    height: auto; /* Allow the height to adjust naturally */
+    height: auto; 
   }
 }
