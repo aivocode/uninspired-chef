@@ -10,7 +10,7 @@
 
 :root {
   --color-background-default-default: var(--color-primitives-white-1000);
-  --color-border-default-default: var(--color-primitives-gray-300);
+  --color-border-default-default: #FEEAD1;
   --color-border-neutral-secondary: var(--color-primitives-slate-600);
   --color-primitives-gray-300: rgba(217, 217, 217, 1);
   --color-primitives-gray-600: rgba(68, 68, 68, 1);
