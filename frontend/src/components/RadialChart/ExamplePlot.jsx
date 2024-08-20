@@ -7,12 +7,7 @@ import { Text } from "@visx/text";
 import letterFrequency from "@visx/mock-data/lib/mocks/letterFrequency";
 // replace letter frequency with our data
 
-export const ExamplePlot = ({
-  recipe,
-  width = 600,
-  height = 600,
-  showControls = true,
-}) => {
+export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
   //const data = recipe;
   const data = Object.values(recipe.totalDaily);
   console.log(Object.values(recipe.totalDaily));
@@ -34,7 +29,7 @@ export const ExamplePlot = ({
   const toDegrees = (x) => (x * 180) / Math.PI;
 
   const barColor = "#fd6f2f";
-  const margin = { top: 20, bottom: 20, left: 20, right: 20 };
+  const margin = { top: 0, bottom: 0, left: 0, right: 0 };
   const [rotation, setRotation] = useState(0);
   const [sortAlphabetically, setSortAlphabetically] = useState(true);
 
@@ -112,9 +107,9 @@ export const ExamplePlot = ({
                   x={textX}
                   y={textY}
                   //dominantBaseline="end"
-                  dominantBaseline="middle"
+                  dominantBaseline="start"
                   textAnchor="end"
-                  fontSize={16}
+                  fontSize={13}
                   fontWeight="bold"
                   // fill={barColor}
                   fill="black"
@@ -128,10 +123,10 @@ export const ExamplePlot = ({
 
                 <Text
                   x={textX}
-                  y={textY + 16} // Adjust this value to control the spacing
+                  y={textY + 11} // Adjust this value to control the spacing
                   dominantBaseline="middle"
                   textAnchor="end"
-                  fontSize={12}
+                  fontSize={10}
                   // fill={barColor}
                   fill="black"
                   transform={`rotate(${

@@ -14,20 +14,32 @@ export const ExampleText = ({ recipe }) => {
 
   return (
     <div>
-      <h2> Health Labels: </h2>
+      <h2 style={{ fontWeight: "Bold", paddingTop: "20px" }}>
+        {" "}
+        Health Labels:{" "}
+      </h2>
       <ul
         style={{
           listStyleType: "disc",
-          paddingLeft: "40px",
-          padding: "20px",
+          paddingLeft: "20px",
           lineHeight: "20px",
+          fontSize: "15px",
         }}
       >
         {" "}
         {myDietList}
       </ul>
-      <h2> Alergen Information: </h2>
-      <p style={{ padding: "20px", lineHeight: "20px" }}> {healthLabelstext}</p>
+      <h2 style={{ fontWeight: "Bold" }}> Allergen Information: </h2>
+      <p
+        style={{
+          paddingLeft: "20px",
+          lineHeight: "15px",
+          fontSize: "15px",
+        }}
+      >
+        {" "}
+        {healthLabelstext}
+      </p>
     </div>
   );
 };

@@ -12,13 +12,14 @@
 }
 
 .full-recipe-popout {
-  width: 647px;
+  width: 800px;
   height: 852px;
   border-radius: 20px;
   overflow: hidden;
   background-color: #fff5f5;
   position: relative;
-  padding: 30px;
+  padding: 20px;
+  padding-top: 5px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -35,8 +36,8 @@
 
 .full-recipe-content {
   flex: 1;
-  padding: 20px;
-  position: relative;
+  padding: 0px;
+  position: bottom;
 }
 
 .recipe-header {
