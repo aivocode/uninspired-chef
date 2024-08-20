@@ -1,7 +1,7 @@
 require("../mongodb_helper");
 const Pantry = require("../../models/pantry");
 
-// npm run test tests/models/pantry.test.js
+// npm run test tests/models/pantryModel.test.js
 describe("Pantry model", () => {
 
   // mock user_id

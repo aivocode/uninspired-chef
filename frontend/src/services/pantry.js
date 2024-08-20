@@ -18,6 +18,8 @@ export const createPantry = async (token, userId, ingredientsArray) => {
     body: JSON.stringify(payload),
   };
 
+  // console.log(requestOptions);
+
   // fetch request is built based on route defined in ../api/app.js and ../api/routers/pantry.js
   const response = await fetch(
     `${BACKEND_URL}/pantry/create-pantry`,
@@ -59,6 +61,8 @@ export const updatePantry = async (token, pantryId, ingredientsArray) => {
     },
     body: JSON.stringify(payload),
   };
+
+  // console.log(requestOptions);
 
   // fetch request is built based on route defined in ../api/app.js and ../api/routers/pantry.js
   const response = await fetch(
