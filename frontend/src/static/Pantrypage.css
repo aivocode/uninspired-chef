@@ -324,11 +324,11 @@
 /* Mobile Specific Adjustments */
 @media only screen and (max-width: 768px) {
   .pantry-container .p-4 {
-    word-wrap: break-word; /* Ensures long words wrap */
-    width: 60%; /* Adjust the width to ensure it fits on the screen */
-    margin: 0 auto; /* Centers the message on the screen */
-    font-size: 0.9rem; /* Slightly reduce font size for mobile */
-    box-sizing: border-box; /* Make sure padding and border are included in the width */
+    word-wrap: break-word;
+    width: 60%;
+    margin: 0 auto; 
+    font-size: 0.9rem; 
+    box-sizing: border-box; 
   }
 
   .pantry-title {
@@ -342,9 +342,9 @@
   }
 
   .container.m-auto {
-    width: 80%;  /* Adjust the width to ensure it fits well on smaller screens */
-    margin: 0 auto;  /* Center the container */
-    padding: 10px;  /* Add padding to ensure content isn't too close to the edges */
+    width: 80%; 
+    margin: 0 auto; 
+    padding: 10px; 
   }
 
   .ingredients-list {
@@ -357,21 +357,21 @@
   }
 
   button.pt-1, button.pb-1 {
-    font-size: 1.2rem; /* Increase the font size */
+    font-size: 1.2rem; 
     padding-top: 12px;
     padding-bottom: 12px;
   }
 
-  /* Adjust flex for ingredient listing */
+  /* Flex for ingredient listing */
   .flex-wrap {
-    flex-direction: column; /* Make ingredients stack vertically */
-    align-items: center; /* Center the ingredients */
-    justify-content: center; /* Center them within the container */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Ensure button alignment is mobile-friendly */
+  /* Button alignment */
   .flex {
-    flex-wrap: wrap; /* Allow wrapping for buttons and ingredients */
-    justify-content: center; /* Center-align the contents */
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
