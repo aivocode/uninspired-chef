@@ -1,3 +1,6 @@
+// import "ExampleText.css"
+import "../ExampleText/ExampleText.css";
+
 export const ExampleText = ({ recipe }) => {
   const healthLabels = Object.values(recipe.healthLabels);
   const dietLabels = Object.values(recipe.dietLabels);
@@ -11,14 +14,20 @@ export const ExampleText = ({ recipe }) => {
 
   return (
     <div>
-      <ul>{myDietList}</ul>
-      Health Labels
-      <p>{healthLabelstext}</p>
-      <ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li>
+      <h2> Health Labels: </h2>
+      <ul
+        style={{
+          listStyleType: "disc",
+          paddingLeft: "40px",
+          padding: "20px",
+          lineHeight: "20px",
+        }}
+      >
+        {" "}
+        {myDietList}
       </ul>
+      <h2> Alergen Information: </h2>
+      <p style={{ padding: "20px", lineHeight: "20px" }}> {healthLabelstext}</p>
     </div>
   );
 };
