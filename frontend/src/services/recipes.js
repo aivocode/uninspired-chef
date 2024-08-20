@@ -14,8 +14,28 @@ export const getRandomRecipe = async (token) => {
         throw new Error("Error retreiving a recipe")
     }
     const data = await response.json() 
-    console.log(data)
+    // console.log(data)
     return data
+}
+
+// get all favourites
+export const getFavouriteRecipes = async (token) => {
+
+    const requestOptions = {
+        method: "GET",
+        headers: {
+    Authorization: `Bearer ${token}`
+        } 
+    }
+
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error('Unable to retrieve favourites');
+    }
+
+    const data = await response.json();
+    return data;
 }
 
 // add a recipe to user's favourites
@@ -25,12 +45,15 @@ export const addRecipeToFavourites = async (token, recipe) => {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({recipe})
     };
 
-    const response = await fetch('${BACKEND_URL}/savedrecipes', requestOptions);
+    // console.log(recipe);
+    console.log(requestOptions);
+
+    const response = await fetch(`${BACKEND_URL}/recipes/add-favourite`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error('Unable to add recipe to favourites');
@@ -40,6 +63,7 @@ export const addRecipeToFavourites = async (token, recipe) => {
     return data;
 }
 
+
 // remove a recipe from user's favourites
 export const removeRecipeFromFavourites = async (token, recipe) => {
 
@@ -47,12 +71,12 @@ export const removeRecipeFromFavourites = async (token, recipe) => {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({recipe})
     };
 
-    const response = await fetch('${BACKEND_URL}/savedrecipes', requestOptions);
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error('Unable to remove recipe from favourites');
