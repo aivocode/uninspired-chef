@@ -37,14 +37,18 @@
 
 /* Recipe Title */
 .recipe-card h3 {
-    font-size: 1.25rem;
+    font-family: 'LemonTuesday', cursive;
+    font-size: 1.5rem; /* Increased size for emphasis */
     color: #333;
 }
 
 /* Recipe Description */
 .recipe-card p {
+    font-family: 'LemonTuesday', cursive;
+    font-size: 1.1rem; /* Slightly smaller for description */
     color: #555;
 }
+
 
 /* Button Styling */
 .recipe-card button {
@@ -96,4 +100,16 @@
     font-size: 16px;
     color: white;
     cursor: pointer;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .recipe-feed-container {
+        padding: 10px;
+    }
+
+    .recipe-item {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
 }

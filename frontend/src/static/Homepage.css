@@ -1,11 +1,23 @@
-/* Homepage.css */
 .homepage-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow-y: auto; /* Enable scrolling if content exceeds viewport */
+    overflow-y: scroll; /* Enable scrolling if content exceeds viewport */
 }
 
+/* Hide scrollbar for webkit browsers (Chrome, Safari) */
+.homepage-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* Hide scrollbar for other browsers (Firefox) */
+.homepage-container {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Keep rest of your styles the same */
 .header {
     flex-shrink: 0;
 }
@@ -32,4 +44,20 @@
 .recipe-feed .recipe-card {
     width: 100%;
     max-width: 600px; /* Limits the width of each recipe card */
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .homepage-container {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .homepage-header {
+        font-size: 1.5em;
+    }
+
+    .homepage-content {
+        font-size: 1em;
+    }
 }

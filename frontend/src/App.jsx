@@ -19,16 +19,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/pantry",
-    element: <PantryPage />,
-  },
-  {
-    path: "/nutrition",
-    element: <NutritionPage />,
-  },
-  {
-    path: "/nutrition2",
-    element: <ExamplePlot />,
-  },
+    element: <PantryPage/>
+  }
 ]);
 
 const App = () => {

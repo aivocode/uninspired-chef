@@ -9,6 +9,7 @@ h1 {
   font-size: 2rem;
   color: var(--color-text-default-default);
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -25,7 +26,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f8f9fa; /* A light background color */
+  background-color: #FEEAD1; /* A light background color */
 }
 
 a {
@@ -39,7 +40,7 @@ a:hover {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 6em;
   line-height: 1.1;
   margin-bottom: 1rem; /* Add some spacing below */
 }
@@ -57,3 +58,22 @@ img {
   height: auto;
 }
 
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  html, body {
+    overflow-x: hidden; /* Prevent side scrolling */
+  }
+
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}

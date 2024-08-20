@@ -5,23 +5,34 @@
   align-items: center;
   background-color: #feead1;
   height: 100vh;
+  padding: 0 20px; /* Add some padding for spacing on the sides */
+  position: relative; /* Make the container a relative parent for animation */
+  overflow: hidden; /* Prevent scrollbars during animation */
 }
 
 .auth-header {
-  position: absolute;
-  top: 20px; /* Adjust as needed to bring it down a bit */
-  width: 100%;
+  position: fixed; /* Fixed at the top */
+  top: 0; /* Align to the top of the window */
+  width: 100%; /* Ensure the header takes full width */
   display: flex;
   justify-content: center;
+  background-color: #feead1; /* Add a background color to avoid overlap issues */
+  z-index: 1000; /* Ensure the header is above other content */
+  padding: 20px 0; /* Add padding to adjust spacing */
 }
 
 .auth-form {
   background-color: #dde4ba;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 100%; /* Set form width to 100% on mobile */
+  max-width: 300px; /* Ensure the form doesn't exceed a max width */
   transition: all 0.3s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: absolute; /* Position for sliding animations */
+  top: 50%; /* Vertically center the form */
+  left: 50%; /* Horizontally center the form */
+  transform: translate(-50%, -50%); /* Adjust for exact centering */
 }
 
 .auth-form h2 {
@@ -63,21 +74,64 @@
   color: #333;
 }
 
+/* Sliding animations for login and signup */
 .login {
-  transform: translateX(100%);
-  animation: slideIn 0.5s forwards;
+  animation: slideInFromLeft 0.5s forwards;
 }
 
 .signup {
-  transform: translateX(-100%);
-  animation: slideIn 0.5s forwards;
+  animation: slideInFromRight 0.5s forwards;
 }
 
-@keyframes slideIn {
+@keyframes slideInFromLeft {
   from {
-    transform: translateX(-100%);
+    transform: translate(-150%, -50%); /* Start from off-screen left */
   }
   to {
-    transform: translateX(0);
+    transform: translate(-50%, -50%); /* End at centered position */
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translate(150%, -50%); /* Start from off-screen right */
+  }
+  to {
+    transform: translate(-50%, -50%); /* End at centered position */
+  }
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .auth-container {
+    padding: 10px; 
+    justify-content: flex-start; 
+  }
+
+  .auth-header {
+    padding: 15px 0; 
+    font-size: 1.2em; 
+  }
+
+  .auth-form {
+    width: 100%; 
+    max-width: 300px; 
+    padding: 15px; 
+  }
+
+  .auth-input {
+    padding: 10px; 
+    margin-bottom: 10px; 
+    font-size: 1em; 
+  }
+
+  .auth-button {
+    width: 100%; 
+    padding: 15px; 
+    font-size: 1em; 
+  }
+
+  .auth-toggle {
+    font-size: 0.9em; 
   }
 }

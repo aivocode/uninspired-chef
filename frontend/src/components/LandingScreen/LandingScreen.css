@@ -1,69 +1,109 @@
 .landing-screen {
-    width: 100%;
-    height: 2000px;
+  width: 100%;
+  height: 2000px;
+}
+
+.chopping-board {
+  position: absolute;
+  top: calc(120%);
+  left: 0;
+  height: 163px;
+  width: 100%;
+}
+
+.cutting-transition-container {
+  position: relative;
+  width: 100%;
+  height: calc(50% - 150px);
+  top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.tomato-position {
+  position: relative;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.knife-position {
+  position: absolute;
+  top: -300px; /* Start the knife well above the screen */
+  left: 40%;
+  transform: translateX(-50%);
+  animation: descendKnife 2s ease-in-out forwards; /* Knife animation */
+}
+
+/* Animation for the knife descending */
+@keyframes descendKnife {
+  0% {
+    top: -1000px; /* Start off-screen */
   }
-  
+  100% {
+    top: -170px; /* Final position of the knife */
+  }
+}
+
+.action-container {
+  margin-top: 20px;
+}
+
+.inspire-button {
+  background-color: #fd6f2f;
+  border: none;
+  padding: 12px 24px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.inspire-button:hover {
+  background-color: #ff7f3f;
+}
+
+.title-content {
+  font-family: 'LemonTuesday', cursive;
+  font-size: 6rem;
+  color: #515839;
+}
+
+.subtitle-content {
+  font-family: 'LemonTuesday', cursive;
+  font-size: 2rem;
+  color: #515839;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .landing-container {
+      padding: 10px;
+      text-align: center;
+  }
+
+  .landing-header {
+      font-size: 1.5em;
+  }
+
+  .landing-content {
+      font-size: 1em;
+  }
+
+  .landing-button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1em;
+  }
+
+
   .chopping-board {
-    position: absolute;
-    top: calc(120%); /* Adjust this to move the chopping board up or down */
-    left: 0;
-    height: 163px;
-    width: 100%;
+    position: relative; 
+    top: auto; 
+    width: 100vw;
+    height: auto; 
   }
-  
-  .cutting-transition-container {
-    position: absolute;
-    width: 100%;
-    height: calc(50% - 150px); /* Adjust height to properly fit within the landing screen */
-    top: 50px; /* Move the container to align with the rest of the content */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-  
-  .tomato-position {
-    position: absolute;
-    top: -100px; /* Adjust to position the tomato correctly */
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .knife-position {
-    position: absolute;
-    top: 0; /* Adjust the top position to align better with the tomato */
-    left: 50%;
-    transform: translateX(-50%); /* Adjust the rotation angle */
-  }
-  
-  .cutting-class {
-    animation: cutTomato 2s ease-in-out forwards;
-  }
-  
-  @keyframes cutTomato {
-    0% {
-      transform: translateY(-50%) rotate(0deg);
-    }
-    100% {
-      transform: translateY(0%) rotate(45deg); /* Adjust final rotation and position */
-    }
-  }
-  
-  .action-container {
-    margin-top: 20px; /* Adjust margin to keep it away from the cutting transition */
-  }
-  
-  .inspire-button {
-    background-color: #fd6f2f;
-    border: none;
-    padding: 12px 24px;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .inspire-button:hover {
-    background-color: #ff7f3f;
-  }
-  
+}
