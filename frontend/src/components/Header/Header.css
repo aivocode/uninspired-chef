@@ -11,9 +11,20 @@
   align-items: center;
   padding: 20px;
 }
+
+/* Position the burger dropdown */
+.burger-dropdown {
+  position: absolute;
+  top: 1.5rem; /* Adjust based on your layout */
+  left: 80%; /* Adjust based on your layout */
+  z-index: 999;
+}
+
+/* Adjustments for the elements inside the header */
 .header-logo img {
   width: 150px;
 }
+
 .header-menu img {
   width: 30px;
   margin-left: 15px;
@@ -23,16 +34,23 @@
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
   .header-container {
-      padding: 10px;
-      text-align: center;
+    padding: 10px;
+    text-align: center;
   }
 
   .header-title {
-      font-size: 1.5em;
+    font-size: 1.5em;
   }
 
   .nav-links {
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Adjust the burger dropdown for mobile */
+  .burger-dropdown {
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

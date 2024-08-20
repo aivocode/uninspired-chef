@@ -92,15 +92,3 @@
 .burger-dropdown.open .burger-content {
     transform: scale(1);
 }
-
-/* Mobile styles */
-@media only screen and (max-width: 768px) {
-    .burger-menu {
-        width: 100%;
-    }
-
-    .burger-link {
-        font-size: 1em;
-        padding: 10px;
-    }
-}

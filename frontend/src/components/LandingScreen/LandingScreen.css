@@ -99,4 +99,12 @@
       padding: 15px;
       font-size: 1em;
   }
+
+  /* Adjust chopping board positioning for mobile */
+  .chopping-board {
+    position: relative; /* Change to relative positioning on mobile */
+    top: auto; /* Remove the top offset */
+    width: 100vw;
+    height: auto; /* Allow the height to adjust naturally */
+  }
 }
