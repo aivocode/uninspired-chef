@@ -23,7 +23,6 @@
     scrollbar-width: none;  /* Firefox */
 }
 
-
 .pantry-container {
   width: 1200px;
   height: auto;
@@ -89,11 +88,7 @@
 }
 
 .pantry-title {
-  /* position: absolute; */
-  /* width: 289px;
-  top: 20px;
-  left: 194px; */
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--title-hero-font-weight);
   font-size: var(--title-hero-font-size);
   color: black;
@@ -106,7 +101,7 @@
   width: 483px;
   top: 236px;
   left: 88px;
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--heading-font-weight);
   font-size: var(--heading-font-size);
   color: black;
@@ -140,9 +135,7 @@
 }
 
 .add-button:hover {
-  background-color: var(
-    --color-border-neutral-secondary
-  ); /* Darken the background on hover */
+  background-color: var(--color-border-neutral-secondary); /* Darken the background on hover */
   color: white; /* Change text color to white on hover */
 }
 
@@ -208,4 +201,59 @@
   color: white;
 }
 
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  /* Remove unnecessary elements */
+  .pantry-header-bar,
+  .pantry-background,
+  .header-bar,
+  .white-box,
+  .line,
+  .pantry-ingredients {
+    display: none; /* Hide these elements */
+  }
 
+  .burger-container {
+    margin-top: 0; /* Ensure burger is at the top */
+    padding-top: 20px; /* Add a small padding to avoid touching the very top */
+    display: flex;
+    justify-content: center; /* Center the burger horizontally */
+  }
+
+  .pantry-container {
+    width: 90%; /* Make the pantry container 90% of the screen width */
+    margin: 20px auto 0 auto; /* Reduce the top margin and center the container */
+    padding: 20px; /* Add padding inside the container */
+    background-color: white; /* Set the container background to white */
+    box-shadow: none; /* Remove box shadow */
+  }
+
+  /* Ensure that the background color is visible outside the container */
+  .pantrypage-container {
+    background-color: #feead1; /* Background color */
+    padding: 0 5%; /* Add 5% padding on either side of the page container */
+    display: flex;
+    flex-direction: column; /* Ensure content flows vertically */
+    justify-content: flex-start; /* Start content at the top */
+    align-items: center; /* Center content horizontally */
+  }
+
+  .pantry-content-box {
+    position: relative;
+    width: 100%; /* Ensure the box takes up the full width of the container */
+    height: auto; /* Allow height to adjust naturally */
+    margin-top: 20px; /* Add a small margin at the top to create spacing */
+    background-size: cover;
+  }
+
+  .pantry-content-inner {
+    width: 100%;
+    height: auto;
+  }
+
+  .add-button-container {
+    left: auto;
+    right: 20px; /* Move it to the right side on mobile */
+    top: 10px;
+  }
+}

@@ -60,6 +60,10 @@ img {
 
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
+  html, body {
+    overflow-x: hidden; /* Prevent side scrolling */
+  }
+
   body {
     padding: 10px;
     font-size: 14px;
