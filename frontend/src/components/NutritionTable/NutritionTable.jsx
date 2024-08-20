@@ -1,6 +1,6 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 const NutritionTable = ({ recipe }) => {
-  console.log(recipe["label"]);
+  console.log(recipe);
   //const deepGet = (obj, keys) => keys.reduce((xs, x) => xs?.[x] ?? null, obj);
 
   //   const getKeys = recipe.hits.map((dataHits) => {
@@ -13,6 +13,7 @@ const NutritionTable = ({ recipe }) => {
   // Fat
   // Iron
   // Fiber
+
   const getNutrientValues = (recipe) => {
     return (
       <BarChart
@@ -20,21 +21,29 @@ const NutritionTable = ({ recipe }) => {
           {
             id: "barCategories",
             data: [
-              recipe.totalDaily["CA"].label,
+              recipe.totalDaily["PROCNT"].label,
               recipe.totalDaily["CHOCDF"].label,
               recipe.totalDaily["FAT"].label,
+              recipe.totalDaily["CA"].label,
+              recipe.totalDaily["FE"].label,
+              recipe.totalDaily["MG"].label,
             ],
             scaleType: "band",
+            //label: "% of RDA",
           },
         ]}
         series={[
           {
             data: [
+              recipe.totalDaily["PROCNT"].quantity,
               recipe.totalDaily["CA"].quantity,
               recipe.totalDaily["CHOCDF"].quantity,
               recipe.totalDaily["FAT"].quantity,
+              recipe.totalDaily["FE"].quantity,
+              recipe.totalDaily["MG"].quantity,
             ],
             label: "% of RDA",
+            color: "#bd7550",
           },
         ]}
         width={500}
@@ -48,7 +57,7 @@ const NutritionTable = ({ recipe }) => {
   }
   return (
     <div>
-      <h3>Recipe Nutrients: {recipe}</h3>
+      <h3> {recipe.label}</h3>
       <h3>{getNutrientValues(recipe)}</h3>
     </div>
   );

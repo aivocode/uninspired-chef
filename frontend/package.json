@@ -16,11 +16,13 @@
     "@mui/material": "^5.16.7",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-charts": "^7.13.0",
+    "@visx/visx": "^3.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "styled-components": "^6.1.12",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "vx": "^0.0.1"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
