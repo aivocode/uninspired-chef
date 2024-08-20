@@ -27,7 +27,7 @@
   top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1; /* Ensure the tomato appears above the chopping board */
+  z-index: 1;
 }
 
 .knife-position {
@@ -76,4 +76,34 @@
   font-family: 'LemonTuesday', cursive;
   font-size: 2rem;
   color: #515839;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .landing-container {
+      padding: 10px;
+      text-align: center;
+  }
+
+  .landing-header {
+      font-size: 1.5em;
+  }
+
+  .landing-content {
+      font-size: 1em;
+  }
+
+  .landing-button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1em;
+  }
+
+
+  .chopping-board {
+    position: relative; 
+    top: auto; 
+    width: 100vw;
+    height: auto; 
+  }
 }

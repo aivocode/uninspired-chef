@@ -45,3 +45,19 @@
     width: 100%;
     max-width: 600px; /* Limits the width of each recipe card */
 }
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .homepage-container {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .homepage-header {
+        font-size: 1.5em;
+    }
+
+    .homepage-content {
+        font-size: 1em;
+    }
+}

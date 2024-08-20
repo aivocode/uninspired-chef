@@ -23,7 +23,6 @@
     scrollbar-width: none;  /* Firefox */
 }
 
-
 .pantry-container {
   width: 1200px;
   height: auto;
@@ -89,11 +88,7 @@
 }
 
 .pantry-title {
-  /* position: absolute; */
-  /* width: 289px;
-  top: 20px;
-  left: 194px; */
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--title-hero-font-weight);
   font-size: var(--title-hero-font-size);
   color: black;
@@ -106,7 +101,7 @@
   width: 483px;
   top: 236px;
   left: 88px;
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--heading-font-weight);
   font-size: var(--heading-font-size);
   color: black;
@@ -140,9 +135,7 @@
 }
 
 .add-button:hover {
-  background-color: var(
-    --color-border-neutral-secondary
-  ); /* Darken the background on hover */
+  background-color: var(--color-border-neutral-secondary); /* Darken the background on hover */
   color: white; /* Change text color to white on hover */
 }
 
@@ -208,4 +201,58 @@
   color: white;
 }
 
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  /* Remove unnecessary elements */
+  .pantry-header-bar,
+  .pantry-background,
+  .header-bar,
+  .white-box,
+  .line,
+  .pantry-ingredients {
+    display: none; /* Hide these elements */
+  }
 
+  .burger-container {
+    margin-top: 0;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pantry-container {
+    width: 90%; 
+    margin: 20px auto 0 auto; 
+    padding: 20px; 
+    background-color: white; 
+    box-shadow: none; 
+  }
+
+  .pantrypage-container {
+    background-color: #feead1; 
+    padding: 0 5%; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center; 
+  }
+
+  .pantry-content-box {
+    position: relative;
+    width: 100%; 
+    height: auto; 
+    margin-top: 20px; 
+    background-size: cover;
+  }
+
+  .pantry-content-inner {
+    width: 100%;
+    height: auto;
+  }
+
+  .add-button-container {
+    left: auto;
+    right: 20px; 
+    top: 10px;
+  }
+}

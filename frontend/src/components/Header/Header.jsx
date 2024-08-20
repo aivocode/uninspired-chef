@@ -53,9 +53,9 @@ export const Header = ({ property1 = "default" }) => {
           />
         </div>
       </div>
-      
-      {/* Use BurgerDropDown Component */}
-      <BurgerDropDown property1={property1} className="absolute top-6 left-[968px]" />
+
+      {/* Use BurgerDropDown Component without inline styles */}
+      <BurgerDropDown property1={property1} className="burger-dropdown" />
       
     </div>
   );
