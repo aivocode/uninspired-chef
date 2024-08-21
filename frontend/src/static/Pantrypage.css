@@ -371,7 +371,6 @@
 
   /* Button alignment */
   .flex {
-    flex-wrap: wrap;
     justify-content: center;
   }
 }
