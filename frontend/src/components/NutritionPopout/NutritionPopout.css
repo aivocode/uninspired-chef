@@ -12,13 +12,14 @@
 }
 
 .full-recipe-popout {
-  width: 647px;
+  width: 800px;
   height: 852px;
   border-radius: 20px;
   overflow: hidden;
   background-color: #fff5f5;
   position: relative;
-  padding: 30px;
+  padding: 20px;
+  padding-top: 5px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -35,8 +36,8 @@
 
 .full-recipe-content {
   flex: 1;
-  padding: 20px;
-  position: relative;
+  padding: 0px;
+  position: bottom;
 }
 
 .recipe-header {
@@ -118,17 +119,8 @@
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
   .full-recipe-popout {
-      width: 95%;
-      padding: 15px;
-  }
-
-  .full-recipe-image {
-    width: 419px;
-    height: 293px;
-    border-radius: 20px;
-    background: #ddd; /* Grey placeholder for the image */
-    margin: 20px 0;
-    align-self: center;
+    width: 100%;
+    padding: 15px;
   }
 
   .recipe-details {
@@ -136,26 +128,6 @@
   }
 
   .close-button {
-      font-size: 4em;
+    font-size: 1.2em;
   }
-
-  /* Make the ul element scrollable */
-  .full-recipe-content ul {
-    max-height: 200px; /* Set a maximum height for the list */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding-right: 15px; /* Add padding to prevent text cutoff */
-    margin-bottom: 20px; /* Add some space at the bottom */
-}
-
-/* Hide scrollbar */
-.full-recipe-content ul::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-.full-recipe-content ul {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-}
-
 }

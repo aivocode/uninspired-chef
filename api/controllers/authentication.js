@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const { generateToken } = require("../lib/token");
 
+// checking that user exists in the database & validating password
 const createToken = async (req, res) => {
   const userName = req.body.userName;
   const password = req.body.password;

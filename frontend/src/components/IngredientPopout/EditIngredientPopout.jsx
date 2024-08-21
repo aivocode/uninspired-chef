@@ -25,7 +25,30 @@ export const EditIngredient = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ingredientName && ingredientQuantity) {
+
+    // console.log(ingredientsArrayState[index]);
+    // console.log(ingredientName);
+
+    let duplicate = false;
+    for (let i = 0; i < ingredientsArrayState.length; i++) {
+      if (
+        ingredientsArrayState[i].ingredientName.toLowerCase() ===
+          ingredientName.toLowerCase() &&
+        i !== index
+      ) {
+        duplicate = true;
+        break;
+      }
+    } // loops through ingredientsArrayState to find duplicate and set duplicate to true if found
+    // console.log(duplicate);
+
+    if (duplicate) {
+      setIngredientNameValidatorMessage(
+        `Duplicate ingredient found: ${ingredientName}`
+      );
+    }
+
+    if (ingredientName && ingredientQuantity && !duplicate) {
       editIngredientsArrayItem(
         {
           ingredientName: ingredientName,
@@ -39,6 +62,10 @@ export const EditIngredient = ({
 
   // input validation handling while user types for empty Ingredient Name value
   const handleChangeIngredientName = (event) => {
+    if (!event.target.value) {
+      setIngredientName(ingredientsArrayState[index].ingredientName);
+    }
+
     if (event.target.value.length < 1) {
       setIngredientNameValidatorMessage(
         "Leaving Ingredient Name field empty will revert to old values."
