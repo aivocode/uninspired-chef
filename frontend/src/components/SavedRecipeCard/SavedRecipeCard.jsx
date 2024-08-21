@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 import { getFavouriteRecipes, removeRecipeFromFavourites, addRecipeToFavourites } from '../../services/recipes';
+import './SavedRecipeCard.css';
 
-export const SuggestionsCard = ({ shareAs, suggestion }) => {
+export const SavedRecipeCard = ({ shareAs, savedRecipe }) => {
+  // console.log("saved recipe:", savedRecipe);
   const token = localStorage.getItem("token");
 
-  console.log("Suggestion:", suggestion)
-  const meal = suggestion.recipe
-  const missingIngs = suggestion.missingIngredients.toString().replaceAll(',',', ')
+  // console.log("Suggestion:" + suggestion)
+  const meal = savedRecipe.recipe
+  // console.log("meal:", meal);
+  // const missingIngs = savedRecipe.missingIngredients.toString().replaceAll(',',', ')
 
   const [showPopout, setShowPopout] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(false); // state to determine whether or not recipe is bookmarked already i.e. favourited
+  const [isFavourite, setIsFavourite] = useState(true); // state to determine whether or not recipe is bookmarked already i.e. favourited
 
   // check if recipe is in favouritedRecipes array on initial render
   useEffect(() => {
@@ -18,7 +21,7 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
       try {
         // check if recipe is already included in user's favourites (if no favourites yet, some function will resolve to false)
         const favouritedRecipes = await getFavouriteRecipes(token);
-        const recipeIsInFavourites = favouritedRecipes.some((favouritedRecipe) => favouritedRecipe.recipe.shareAs === shareAs);
+        const recipeIsInFavourites = favouritedRecipes.some((favouritedRecipe) => favouritedRecipe.recipe.recipe.shareAs === shareAs);
         // update state variable with result of recipeIsInFavourites i.e. true or false
         setIsFavourite(recipeIsInFavourites);
       } catch (err) {
@@ -27,18 +30,18 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
     };
 
     checkIfFavourite();
-  }, [shareAs, token]); // useEffect dependencies (shareAs = link to recipe on Edamam website)
+  }, ); // useEffect dependencies (shareAs = link to recipe on Edamam website)
 
   // handler to toggle bookmark (action dependent on favourite status of recipe)
   const handleBookmarkClick = async () => {
 
     try {
       if (isFavourite) {
-        await removeRecipeFromFavourites(token, suggestion);
+        await removeRecipeFromFavourites(token, savedRecipe);
         setIsFavourite(false);
         window.alert('Recipe removed from favourites!')
       } else {
-        await addRecipeToFavourites(token, suggestion);
+        await addRecipeToFavourites(token, savedRecipe);
         setIsFavourite(true);
         window.alert('Recipe added to favourites!');
       }
@@ -55,7 +58,7 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
     setShowPopout(false);
   };
 
-  if (!suggestion) {
+  if (!savedRecipe) {
     return null;
   }
 
@@ -72,8 +75,8 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
           className={`save-recipe-button ${isFavourite ? 'favourited' : 'not-favourited'}`}
           onClick={handleBookmarkClick}> 
         </button>
-        <i>missing ingredients: 
-          <br /><br />{missingIngs}</i>
+        {/* <i>missing ingredients:  */}
+          {/* <br /><br />{missingIngs}</i> */}
       </div>
 
       {showPopout && (

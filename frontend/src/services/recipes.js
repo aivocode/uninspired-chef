@@ -50,10 +50,9 @@ export const addRecipeToFavourites = async (token, recipe) => {
         body: JSON.stringify({recipe})
     };
 
-    // console.log(recipe);
-    console.log(requestOptions);
+    // console.log(requestOptions.body);
 
-    const response = await fetch(`${BACKEND_URL}/recipes/add-favourite`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error('Unable to add recipe to favourites');

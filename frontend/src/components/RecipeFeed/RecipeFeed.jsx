@@ -16,13 +16,11 @@ export const RecipeFeed = (suggestionsData) => {
 
   return (
     <div className="recipe-feed">
-      {recipesToDisplay.map((suggestion, index) => (
+      {recipesToDisplay.map((suggestion) => (
         <SuggestionsCard
-          index={index}
-          key={suggestion.recipe.recipe.uri}
-          uriKey={suggestion.recipe.recipe.uri}
+          key={suggestion.recipe.recipe.shareAs}
+          shareAs={suggestion.recipe.recipe.shareAs}
           suggestion={suggestion}
-          suggestionsData={suggestionsData}
           token={token}
         />
       ))}

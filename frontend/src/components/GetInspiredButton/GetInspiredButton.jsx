@@ -6,7 +6,7 @@ import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
 import { Knife } from "../Knife/Knife.jsx";
 import { Tomato } from "../Tomato/Tomato.jsx";
 
-export const GetInspiredButton = ({ setSuggestionsData }) => {
+export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }) => {
   const [recipe, setRecipe] = useState()
   // const [inspiredText, setInspiredText] = useState("")
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ export const GetInspiredButton = ({ setSuggestionsData }) => {
       //sets recipe to the data object returned
         setRecipe(data.hit)
         setSuggestionsData(data.suggestions);
+        setDisplaySavedRecipes(false);
         return data
 
     } catch (err) {
@@ -33,6 +34,7 @@ export const GetInspiredButton = ({ setSuggestionsData }) => {
         console.error('Failed to get inspired :( ', err)
     };
   }
+
 
   // const changeText =() => {
   //   if (setInspiredText = "") {
