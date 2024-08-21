@@ -11,11 +11,45 @@
   align-items: center;
   padding: 20px;
 }
+
+/* Position the burger dropdown */
+.burger-dropdown {
+  position: absolute;
+  top: 1.5rem;
+  left: 80%; 
+  z-index: 200;
+}
+
 .header-logo img {
   width: 150px;
 }
+
 .header-menu img {
   width: 30px;
   margin-left: 15px;
   cursor: pointer;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .header-container {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .header-title {
+    font-size: 1.5em;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The burger dropdown for mobile */
+  .burger-dropdown {
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

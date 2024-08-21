@@ -55,8 +55,10 @@ export const Header = ({ setDisplaySavedRecipes, property1 = "default" }) => {
           />
         </div>
       </div>
-            <BurgerDropDown setDisplaySavedRecipes={setDisplaySavedRecipes} property1={property1} className="absolute top-6 left-[968px]"/>
-    </div>
+
+      {/* Use BurgerDropDown Component without inline styles */}
+      <BurgerDropDown setDisplaySavedRecipes={setDisplaySavedRecipes} property1={property1} className="burger-dropdown" />
+          </div>
   );
 };
 

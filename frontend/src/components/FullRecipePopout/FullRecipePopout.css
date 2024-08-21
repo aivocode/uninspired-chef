@@ -115,3 +115,48 @@
     cursor: pointer;
   }
   
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .full-recipe-popout {
+      width: 95%;
+      padding: 15px;
+  }
+
+  .full-recipe-image {
+    width: 419px;
+    height: 293px;
+    border-radius: 20px;
+    background: #ddd; /* Grey placeholder for the image */
+    margin: 20px 0;
+    align-self: center;
+  }
+
+  .recipe-details {
+      font-size: 1em;
+  }
+
+  .close-button {
+      font-size: 4em;
+  }
+
+  /* Make the ul element scrollable */
+  .full-recipe-content ul {
+    max-height: 200px; /* Set a maximum height for the list */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 15px; /* Add padding to prevent text cutoff */
+    margin-bottom: 20px; /* Add some space at the bottom */
+}
+
+/* Hide scrollbar */
+.full-recipe-content ul::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.full-recipe-content ul {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+}

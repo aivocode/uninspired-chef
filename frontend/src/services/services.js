@@ -2,7 +2,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Get recipes based on user's pantry
 export const getRandomRecipe = async (token) => {
-    console.log(token)
+    // DEBUG -- console.log(token)
     const requestOptions = {
         method: "GET",
         headers: {
@@ -14,7 +14,7 @@ export const getRandomRecipe = async (token) => {
         throw new Error("Error retreiving a recipe")
     }
     const data = await response.json() 
-    // console.log(data)
+    // DEBUG -- console.log(data)
     return data
 }
 

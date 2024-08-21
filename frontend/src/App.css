@@ -1,10 +1,13 @@
 /* Additional or modified styles */
 html, body, #root {
   background-color: #fce8d8; /* Update background color */
-  font-family: 'Poppins', sans-serif; /* Update font */
+  font-family: 'Poppins', sans-serif; /*Update font;*/
 }
 
 .recipe-card {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: space-evenly;
   background-color: #f9f3f1;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -29,8 +32,12 @@ html, body, #root {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
+
 
 .recipe-card button:hover {
   background-color: #ff6347;
 }
+
+
