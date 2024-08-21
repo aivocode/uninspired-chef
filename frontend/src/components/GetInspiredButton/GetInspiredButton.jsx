@@ -8,8 +8,10 @@ import { Tomato } from "../Tomato/Tomato.jsx";
 
 export const GetInspiredButton = ({ setSuggestionsData }) => {
   const [recipe, setRecipe] = useState()
+  const [buttonPressed, setButtonPressed] = useState(0)
   // const [inspiredText, setInspiredText] = useState("")
   const navigate = useNavigate();
+
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -17,6 +19,9 @@ export const GetInspiredButton = ({ setSuggestionsData }) => {
     return;
   }
 
+  const toggleButton = () =>{
+    setButtonPressed(1)
+  }
 
   //function to handle getting a random recipe
   const fetchGetRecipe = async () => {
@@ -46,15 +51,15 @@ export const GetInspiredButton = ({ setSuggestionsData }) => {
   return (
     <>
       <div>
+        <RecipeCard recipe={recipe} buttonPressed={buttonPressed}/>
         <button className="inspire-button"
           onClick={() => {
             fetchGetRecipe();
-            // changeText();
-            }}> 
-          Get Inspired
+            toggleButton();
+            }}> {buttonPressed ? "Inspire me again" : "Get Inspired "}
+
         </button>
         <br/>
-            <RecipeCard recipe={recipe}/>
       </div>
     </>
   );
