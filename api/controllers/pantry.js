@@ -5,9 +5,11 @@ const foodAppKey = process.env.FOOD_APP_KEY;
 const Pantry = require("../models/pantry");
 
 const createPantry = async (req, res) => {
-  const ingredientsArray = req.body.ingredientsArray; //array of objects with keys: ingredientName, ingredientQuantity
+  const ingredientsArray = await req.body.ingredientsArray; //array of objects with keys: ingredientName, ingredientQuantity
   const notIngredients = []; // array where we store wrong ingredients that do not exists in Edamam API
   const ingredients = []; // array where we store ingredient objects that do exist in Edamam API
+
+  // console.log(req.body);
 
   for (let i = 0; i < ingredientsArray.length; i++) {
     // Loop through array to check each inredient
@@ -56,12 +58,13 @@ const createPantry = async (req, res) => {
       user_id: req.body.userId,
       ingredientsArray: ingredients,
     });
-    pantry.save(); // we create new Pantry in Mongo since we passed check that all ingredients are correct
+
+    const savedPantry = await pantry.save(); // we create new Pantry in Mongo since we passed check that all ingredients are correct
 
     res.status(200).json({
-      pantryId: pantry.id,
-      userId: pantry.user_id,
-      ingredientsArray: pantry.ingredientsArray,
+      pantryId: savedPantry.id,
+      userId: savedPantry.user_id,
+      ingredientsArray: savedPantry.ingredientsArray,
       status: 200,
       message: `Pantry created with all ingredients specified.`,
     }); // response to our service on frontend if Pantry was created in Mongo

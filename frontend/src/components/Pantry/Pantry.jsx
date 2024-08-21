@@ -93,6 +93,7 @@ export const Pantry = ({ className }) => {
   };
 
   const fetchUpdatePantry = async () => {
+    // console.log(ingredientsArrayState);
     const data = await updatePantry(token, pantryId, ingredientsArrayState);
     if (data.status === 404) {
       setDataState(data);
@@ -426,4 +427,4 @@ export const Pantry = ({ className }) => {
   );
 };
 
-// qwerty1!
+// Qwerty1!
