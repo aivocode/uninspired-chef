@@ -41,7 +41,7 @@ const getRandomRecipes = async (req, res) => {
         return acc;
     }, {});
 
-    console.log("These are our categorized ingredients: ", categorisedIngredients);
+    // DEBUG -- console.log("These are our categorized ingredients: ", categorisedIngredients);
 
     // Here we are defining a function to pick a random ingredient from a category. Thanks GPT
     const pickRandomIngredient = (category) => {
@@ -60,18 +60,18 @@ const getRandomRecipes = async (req, res) => {
     // Combining selected random ingredients to form the initial search query
     let selectedIngredients = [selectedCarbohydrate, selectedVegetable, selectedProtein,].filter(Boolean);
 
-    console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
+    // DEBUG -- console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
 
    // Now implementing a fallback so if we fail try removing an ingredient
     while (selectedIngredients.length > 0) {
-    console.log("Trying with ingredients: ", selectedIngredients);
+    // DEBUG --  console.log("Trying with ingredients: ", selectedIngredients);
 
         try {
             // Convert the selected ingredients into a formatted query string
             const formattedString = selectedIngredients.toString().replaceAll(',', '%2C%20');
             const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${formattedString}&app_id=${recipeAppId}&app_key=${recipeAppKey}`);
             const data = await response.json();
-            // console.log('Data received: ', data);
+            // DEBUG -- console.log('Data received: ', data);
 
             // Process the search results
             if (data.count > 0) {
@@ -92,8 +92,8 @@ const getRandomRecipes = async (req, res) => {
                         });
 
                     });
-                    console.log("missing ingredients: ", missingIngredients)
-                    console.log("replacement ingredients: ", replacementIngredients)
+                    // DEBUG -- console.log("missing ingredients: ", missingIngredients)
+                    // DEBUG -- console.log("replacement ingredients: ", replacementIngredients)
 
                     // This was some generated code, the function is so that when we return to the front end
                     // we know which missing ingredient it has suggested a replacement with

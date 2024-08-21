@@ -41,7 +41,3 @@ html, body, #root {
 }
 
 
-.recipe-return-container{
-  display: flex;
-  flex-direction: row;
-}
