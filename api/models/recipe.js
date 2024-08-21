@@ -9,4 +9,7 @@ const RecipeSchema = new mongoose.Schema({
 });
 
 const Recipe = mongoose.model("Recipe", RecipeSchema);
-module.exports = Recipe;
+module.exports = { 
+    RecipeSchema, //exporting recipe schema (for use in User schema)
+    Recipe // exporting recipe model
+};

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./BurgerDropDown.css";
 
-export const BurgerDropDown = ({ className }) => {
+export const BurgerDropDown = ({ setDisplaySavedRecipes, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +34,11 @@ export const BurgerDropDown = ({ className }) => {
     localStorage.clear();
     // redirect to login page
     window.location.href = "/auth";
+  };
+
+  const handleSavedRecipesClick = () => {
+    navigate("/");
+    setDisplaySavedRecipes(true);
   };
 
   return (
@@ -110,12 +115,15 @@ export const BurgerDropDown = ({ className }) => {
 
       {isOpen && (
         <>
+          {/* Bottom burger bun should always render */}
           <div className="BurgerBunBottom absolute w-[189px] h-7 top-[216px] left-5 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-2.svg)] bg-[100%_100%]">
-            <div className="BurgerBunBottom flex w-[162px] h-7 items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
-              <div className="button-text relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap">
-                Saved Recipes
+            {location.pathname !== "/pantry" && (
+              <div className="BurgerBunBottom flex w-[162px] h-7 items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
+                <div className="button-text relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap" onClick={handleSavedRecipesClick}>
+                  Saved Recipes
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="BurgerBunBottom absolute w-[189px] h-[35px] top-[158px] left-5 bg-[#a13c2a] rounded-[64px]">

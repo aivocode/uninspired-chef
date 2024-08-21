@@ -7,7 +7,6 @@ export const FullRecipePopout = ({ recipe, onClose }) => {
     <div className="full-recipe-popout-overlay">
       <div className="full-recipe-popout">
         <div className="top-buttons">
-          <div className="save-recipe-button"></div>
           <button className="close-button" onClick={onClose}>
             &times;
           </button>

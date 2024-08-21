@@ -1,6 +1,4 @@
-// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Get recipes based on user's pantry
 export const getRandomRecipe = async (token) => {
@@ -20,4 +18,69 @@ export const getRandomRecipe = async (token) => {
     return data
 }
 
-export default getRandomRecipe
+// get all favourites
+export const getFavouriteRecipes = async (token) => {
+
+    const requestOptions = {
+        method: "GET",
+        headers: {
+    Authorization: `Bearer ${token}`
+        } 
+    }
+
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error('Unable to retrieve favourites');
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+// add a recipe to user's favourites
+export const addRecipeToFavourites = async (token, recipe) => {
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({recipe})
+    };
+
+    // console.log(requestOptions.body);
+
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error('Unable to add recipe to favourites');
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+
+// remove a recipe from user's favourites
+export const removeRecipeFromFavourites = async (token, recipe) => {
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({recipe})
+    };
+
+    const response = await fetch(`${BACKEND_URL}/recipes/favourites`, requestOptions);
+
+    if (response.status !== 200) {
+        throw new Error('Unable to remove recipe from favourites');
+    }
+
+    const data = await response.json();
+    return data;
+}

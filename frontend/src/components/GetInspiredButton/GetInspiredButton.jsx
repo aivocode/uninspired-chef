@@ -4,7 +4,7 @@ import { getRandomRecipe } from "../../services/services.js";
 import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
 import ClipLoader from "react-spinners/ClipLoader";
 
-export const GetInspiredButton = ({ setSuggestionsData }) => {
+export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }) => {
   const [recipe, setRecipe] = useState()
   const [buttonPressed, setButtonPressed] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -29,6 +29,7 @@ export const GetInspiredButton = ({ setSuggestionsData }) => {
       //sets recipe to the data object returned
         setRecipe(data.hit)
         setSuggestionsData(data.suggestions);
+        setDisplaySavedRecipes(false);
         return data
 
     } catch (err) {
