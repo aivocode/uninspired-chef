@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 
 export const RecipeCard = ({ recipe, buttonPressed }) => {
-  console.log("The button status is currently: ", buttonPressed)
+  
   if ( buttonPressed === 0 ) {
     return
   }
   if (!recipe ) {
     return "We couldn't find a direct match sadly. But here are some suggestions!"
 }
-  console.log("BLAH BLAH BLAH LOOK: ",recipe)
+
   const [showPopout, setShowPopout] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
