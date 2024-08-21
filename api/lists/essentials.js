@@ -36,6 +36,8 @@ const essentialsList = [
     'water',
     'filtered water',
     'white pepper',
+    'coarse salt', 
+    'ground pepper'
     
 ]
 

@@ -18,18 +18,20 @@
     padding: 20px;
     margin: 0 auto; 
     width: 100%; 
-    max-width: 700px; 
+    max-width: 40vw; 
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: space-evenly;
     justify-content: space-between; 
     position: relative; /* For bookmark positioning */
+    
 }
 
 /* Image Placeholder */
 .image-placeholder {
-    width: 40%; 
-    height: 150px;
+    /* display: flex; */
+    /* flex-grow: 1; */
+    max-width: 30%; 
     background-color: #ddd;
     border-radius: 10px;
     margin-right: 20px;
@@ -37,7 +39,8 @@
 
 /* Recipe Title */
 .recipe-card h3 {
-    font-family: 'LemonTuesday', cursive;
+    padding: 4%;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 1.5rem; /* Increased size for emphasis */
     color: #333;
 }
@@ -63,6 +66,16 @@
 
 .recipe-card button:hover {
     background-color: #ff6347;
+}
+
+.recipe-details {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    justify-content: center;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: small;
+    
 }
 
 /* Saved Bookmark */
@@ -101,6 +114,7 @@
     color: white;
     cursor: pointer;
 }
+
 
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
