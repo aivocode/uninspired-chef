@@ -23,7 +23,6 @@
     scrollbar-width: none;  /* Firefox */
 }
 
-
 .pantry-container {
   width: 1200px;
   height: auto;
@@ -89,11 +88,7 @@
 }
 
 .pantry-title {
-  /* position: absolute; */
-  /* width: 289px;
-  top: 20px;
-  left: 194px; */
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--title-hero-font-weight);
   font-size: var(--title-hero-font-size);
   color: black;
@@ -106,7 +101,7 @@
   width: 483px;
   top: 236px;
   left: 88px;
-  font-family: 'ThermalReceipt', sans-serif;;
+  font-family: 'ThermalReceipt', sans-serif;
   font-weight: var(--heading-font-weight);
   font-size: var(--heading-font-size);
   color: black;
@@ -140,9 +135,7 @@
 }
 
 .add-button:hover {
-  background-color: var(
-    --color-border-neutral-secondary
-  ); /* Darken the background on hover */
+  background-color: var(--color-border-neutral-secondary); /* Darken the background on hover */
   color: white; /* Change text color to white on hover */
 }
 
@@ -208,4 +201,177 @@
   color: white;
 }
 
+/* General Container */
+.pantry-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  background-color: #feead1;
+  box-sizing: border-box;
+}
 
+/* Pantry Content */
+.pantry-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title Styling */
+.pantry-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 20px 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 90%; /* Ensure the title doesn't stretch too far across the screen */
+}
+
+/* Explanation Text */
+.pantry-explanation {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin: 10px 0;
+  padding: 10px;
+  width: 90%; /* Keep the text within bounds */
+  word-wrap: break-word;
+}
+
+/* Button Container */
+.pantry-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* Pantry Buttons */
+.pantry-button {
+  padding: 10px 20px;
+  background-color: #ff7f50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.pantry-button:hover {
+  background-color: #ff6347;
+}
+
+/* Ingredients List */
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Individual Ingredient Item */
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f9f3f1;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  align-items: center;
+  width: 90%; /* Keep items within the screen width */
+}
+
+/* Ingredient Name Styling */
+.ingredient-name {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Ingredient Quantity Styling */
+.ingredient-quantity {
+  background-color: #ff7f50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Ingredient Buttons Container */
+.ingredient-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+/* Individual Ingredient Button */
+.ingredient-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.ingredient-button:hover {
+  color: #333;
+}
+
+/* Mobile Specific Adjustments */
+@media only screen and (max-width: 768px) {
+  .pantry-container .p-4 {
+    word-wrap: break-word;
+    width: 60%;
+    margin: 0 auto; 
+    font-size: 0.9rem; 
+    box-sizing: border-box; 
+  }
+
+  .pantry-title {
+    font-size: 2.75rem;
+    width: 100%;
+  }
+
+  .pantry-explanation {
+    font-size: 1.5rem;
+    padding: 5px;
+  }
+
+  .container.m-auto {
+    width: 80%; 
+    margin: 0 auto; 
+    padding: 10px; 
+  }
+
+  .ingredients-list {
+    width: 100%;
+  }
+
+  .ingredient-item {
+    font-size: 1.5rem;
+    width: 95%;
+  }
+
+  button.pt-1, button.pb-1 {
+    font-size: 1.2rem; 
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  /* Flex for ingredient listing */
+  .flex-wrap {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Button alignment */
+  .flex {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
