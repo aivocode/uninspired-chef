@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',  // Bind to all network interfaces
-    port: parseInt(import.meta.env.VITE_PORT || '5173', 10),  // Use VITE_PORT or default to 5173
+    port: 5173,  // Use the default Vite port
   },
   test: {
     globals: true,
