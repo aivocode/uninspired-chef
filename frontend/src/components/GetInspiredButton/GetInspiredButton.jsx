@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RandomRecipe from "../Recipes/RandomRecipe.jsx";
-import { getRandomRecipe } from "../../services/recipes.js";
+import { getRandomRecipe } from "../../services/services.js";
 import { RecipeCard } from "../RecipeCard/RecipeCard.jsx";
-import { Knife } from "../Knife/Knife.jsx";
-import { Tomato } from "../Tomato/Tomato.jsx";
 
 export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }) => {
   const [recipe, setRecipe] = useState()
@@ -34,16 +31,6 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
         console.error('Failed to get inspired :( ', err)
     };
   }
-
-
-  // const changeText =() => {
-  //   if (setInspiredText = "") {
-  //     setInspiredText("GET INSPIRED")
-  //   } else {
-  //   setInspiredText("More inspiration...")
-  //   }
-  // }
-
 
   return (
     <>

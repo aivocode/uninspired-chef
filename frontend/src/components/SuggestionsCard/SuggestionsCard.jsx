@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
-import { getFavouriteRecipes, removeRecipeFromFavourites, addRecipeToFavourites } from '../../services/recipes';
+import { getFavouriteRecipes, removeRecipeFromFavourites, addRecipeToFavourites } from '../../services/services';
 
 export const SuggestionsCard = ({ shareAs, suggestion }) => {
   const token = localStorage.getItem("token");

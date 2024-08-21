@@ -3,7 +3,7 @@ import { Header } from "../components/Header/Header";
 import { LandingScreen } from "../components/LandingScreen/LandingScreen";
 import { RecipeFeed } from "../components/RecipeFeed/RecipeFeed";
 import { SavedRecipeFeed } from "../components/SavedRecipeFeed/SavedRecipeFeed";
-import { getFavouriteRecipes } from "../services/recipes";
+import { getFavouriteRecipes } from "../services/services";
 import '../static/HomePage.css';
 
 export const HomePage = () => {
