@@ -4,47 +4,39 @@ import { Group } from "@visx/group";
 import { GradientLightgreenGreen } from "@visx/gradient";
 import { scaleBand, scaleRadial } from "@visx/scale";
 import { Text } from "@visx/text";
-import letterFrequency from "@visx/mock-data/lib/mocks/letterFrequency";
-// replace letter frequency with our data
 
+// function to render plot
 export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
-  //const data = recipe;
   const data = Object.values(recipe.totalDaily);
-  console.log(Object.values(recipe.totalDaily));
-  console.log(data);
 
-  //const getLetter = (d) => d.letter;
-  const getLetter = (d) => d.label;
-
-  //const getLetterFrequency = (d) => Number(d.frequency) * 100;
-  const getLetterFrequency = (d) => Number(d.quantity) / 4; //* 200;
-
-  // const frequencySort = (a, b) => b.frequency - a.frequency;
-  // const alphabeticalSort = (a, b) => a.letter.localeCompare(b.letter);
-
-  const frequencySort = (a, b) => b.quantity - a.quantity;
+  // defining mapping funtions
+  const getLabel = (d) => d.label;
+  const getLabelQuantity = (d) => Number(d.quantity) / recipe.yield;
+  const quantitySort = (a, b) => b.quantity - a.quantity;
   const alphabeticalSort = (a, b) => a.label.localeCompare(b.label);
-
   const toRadians = (x) => (x * Math.PI) / 180;
   const toDegrees = (x) => (x * 180) / Math.PI;
 
+  // chart bar styling
   const barColor = "#fd6f2f";
   const margin = { top: 0, bottom: 0, left: 0, right: 0 };
+
+  // defining the useStates for the controls
   const [rotation, setRotation] = useState(0);
   const [sortAlphabetically, setSortAlphabetically] = useState(true);
 
-  // bounds
+  //margin bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
   const radiusMax = Math.min(xMax, yMax) / 2;
-
   const innerRadius = radiusMax / 3;
 
+  // capturing data from previous calculations
   const xDomain = useMemo(
     () =>
       data
-        .sort(sortAlphabetically ? alphabeticalSort : frequencySort)
-        .map(getLetter),
+        .sort(sortAlphabetically ? alphabeticalSort : quantitySort)
+        .map(getLabel),
     [sortAlphabetically]
   );
 
@@ -62,7 +54,7 @@ export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
     () =>
       scaleRadial({
         range: [innerRadius, radiusMax],
-        domain: [0, Math.max(...data.map(getLetterFrequency))],
+        domain: [0, Math.max(...data.map(getLabelQuantity))],
       }),
     [innerRadius, radiusMax]
   );
@@ -79,13 +71,13 @@ export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
         />
         <Group top={yMax / 2 + margin.top} left={xMax / 2 + margin.left}>
           {data.map((d) => {
-            const letter = getLetter(d);
-            const frequency = Math.floor(getLetterFrequency(d)) + "%";
+            const letter = getLabel(d);
+            const frequency = Math.floor(getLabelQuantity(d)) + "%";
             const startAngle = xScale(letter);
             const midAngle = startAngle + xScale.bandwidth() / 2;
             const endAngle = startAngle + xScale.bandwidth();
 
-            const outerRadius = yScale(getLetterFrequency(d)) ?? 0;
+            const outerRadius = yScale(getLabelQuantity(d)) ?? 0;
 
             // convert polar coordinates to cartesian for drawing labels
             const textRadius = outerRadius + 4;
@@ -106,14 +98,11 @@ export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
                 <Text
                   x={textX}
                   y={textY}
-                  //dominantBaseline="end"
                   dominantBaseline="start"
                   textAnchor="end"
                   fontSize={13}
                   fontWeight="bold"
-                  // fill={barColor}
                   fill="black"
-                  //angle={toDegrees(midAngle)}
                   transform={`rotate(${
                     toDegrees(midAngle) + 90
                   }, ${textX}, ${textY})`}
@@ -185,5 +174,3 @@ export const ExamplePlot = ({ recipe, width, height, showControls = true }) => {
     </>
   );
 };
-
-//export default ExamplePlot;

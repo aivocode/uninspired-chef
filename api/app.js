@@ -5,7 +5,6 @@ const cors = require("cors");
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const recipesRouter = require("./routes/recipes");
-const recipesNutritionRouter = require("./routes/recipesNutrition");
 const authenticationRouter = require("./routes/authentication");
 
 const tokenChecker = require("./middleware/tokenChecker");
@@ -27,7 +26,6 @@ app.use("/users", usersRouter);
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/recipes", recipesRouter);
-app.use("/recipesNutrition", recipesNutritionRouter);
 
 // tell app to use our imported Pantry router
 app.use("/pantry", pantryRouter);
