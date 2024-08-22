@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Header } from "../components/Header/Header";
 import { LandingScreen } from "../components/LandingScreen/LandingScreen";
 import { RecipeFeed } from "../components/RecipeFeed/RecipeFeed";
-import '../static/HomePage.css';
+import '../static/Homepage.css';
 import GetInspiredButton from "../components/GetInspiredButton/GetInspiredButton";
 
 export const HomePage = () => {
