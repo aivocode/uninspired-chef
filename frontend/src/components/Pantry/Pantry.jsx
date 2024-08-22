@@ -142,7 +142,7 @@ export const Pantry = ({ className }) => {
               </div>
 
               <div className="container m-auto">
-                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
+                <hr className="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="container m-auto">
@@ -164,7 +164,7 @@ export const Pantry = ({ className }) => {
               </div>
 
               <div className="container m-auto">
-                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
+                <hr className="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
@@ -264,7 +264,7 @@ export const Pantry = ({ className }) => {
               </div>
 
               <div className="container m-auto">
-                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
+                <hr className="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
@@ -335,7 +335,7 @@ export const Pantry = ({ className }) => {
               </div>
 
               <div className="container m-auto">
-                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
+                <hr className="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
