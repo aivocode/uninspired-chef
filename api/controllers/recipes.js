@@ -207,105 +207,56 @@ const getFavouriteRecipes = async (req, res) => {
 
 const addRecipeToFavourites = async (req, res) => {
   try {
-    //find the user by their ID (added to request object in middleware)
-    const user = await User.findById(req.user_id);
-    // console.log("User =>" + user);
-
-
-    try {
-        //find the user by their ID (added to request object in middleware)
-        const user = await User.findById(req.user_id);
-
-
-        //get shareAs link of the potential favourite recipe from the request body
-        const newFavouriteRecipeShareAs = req.body.recipe.shareAs;
-
-        // if (newFavouriteRecipeShareAs === undefined) {
-        //     newFavouriteRecipeShareAs = req.body.recipe?.shareAs;
-        // }
-
-        //check recipe shareAs isn't already include in user's favourites
-        const recipeAlreadyInFavourites = user.favouritedRecipes.some(
-            recipe => recipe.recipe.shareAs === newFavouriteRecipeShareAs
-        );
-
-
-    //check recipe shareAs isn't already include in user's favourites
-    const recipeAlreadyInFavourites = user.favouritedRecipes.some(
-      (recipe) => recipe.recipe.recipe.shareAs === newFavouriteRecipeShareAs
-    );
-
-    //if recipe has already been favourited, return a response confirming this
-
-    if (recipeAlreadyInFavourites) {
-      return res
-        .status(400)
-        .json({ message: "Recipe has already been favourited!" });
-    }
-
-    //if recipe hasn't been favourited, add the new recipe to the user's favouritedRecipes array
-    user.favouritedRecipes.push(req.body.recipe);
-    await user.save();
-
-    //send a response confirming action
-    res.status(200).json({ message: "Recipe added to favourites!" });
+      //find the user by their ID (added to request object in middleware)
+      const user = await User.findById(req.user_id);
+      //get shareAs link of the potential favourite recipe from the request body
+      const newFavouriteRecipeShareAs = req.body.recipe.shareAs;
+      // if (newFavouriteRecipeShareAs === undefined) {
+      //     newFavouriteRecipeShareAs = req.body.recipe?.shareAs;
+      // }
+      //check recipe shareAs isn't already include in user's favourites
+      const recipeAlreadyInFavourites = user.favouritedRecipes.some(
+          recipe => recipe.recipe.shareAs === newFavouriteRecipeShareAs
+      );
+      //if recipe has already been favourited, return a response confirming this
+      if (recipeAlreadyInFavourites) {
+          return res.status(400).json({message: 'Recipe has already been favourited!'});
+      }
+      //if recipe hasn't been favourited, add the new recipe to the user's favouritedRecipes array
+      user.favouritedRecipes.push(req.body.recipe);
+      await user.save();
+      //send a response confirming action
+      res.status(200).json({ message: 'Recipe added to favourites!'});
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json({
-        message: "Something went wrong - unable to add recipe to favourites.",
-      });
+      console.error(err);
+      res.status(500).json( {message: 'Something went wrong - unable to add recipe to favourites.'})
   }
 };
-
 const removeRecipeFromFavourites = async (req, res) => {
-
-    try {
-        //find the user by their ID (added to request object in middleware)
-        const user = await User.findById(req.user_id);
-
-        //get shareAs of the recipe to be removed from the request body
-        const recipeToBeRemovedShareAs = req.body.recipe.recipe.shareAs; 
-        console.log(recipeToBeRemovedShareAs);
-
-        //find index of recipe in the user's favouritedRecipes array
-        const recipeIndex = user.favouritedRecipes.findIndex(
-            recipe => recipe.recipe.shareAs === recipeToBeRemovedShareAs
-        );
-
-        //if recipe is not found (i.e. -1 is returned), return a response flagging this
-        if (recipeIndex === -1) {
-            return res.status(404).json({message: 'Recipe not in favourites!'})
-        }
-
-
-    //find index of recipe in the user's favouritedRecipes array
-    const recipeIndex = user.favouritedRecipes.findIndex(
-      (recipe) => recipe.recipe.recipe.shareAs === recipeToBeRemovedShareAs
-    );
-
-    //if recipe is not found (i.e. -1 is returned), return a response flagging this
-    if (recipeIndex === -1) {
-      return res.status(404).json({ message: "Recipe not in favourites!" });
-    }
-
-    //if recipe index is found, remove it from user's favouritedRecipes array
-    user.favouritedRecipes.splice(recipeIndex, 1); //splice method takes 2 args: index to start removing from, number of elements to remove i.e. 1 in this case
-    await user.save();
-
-    //send a response confirming action
-    res.status(200).json({ message: "Recipe removed from favourites." });
+  try {
+      //find the user by their ID (added to request object in middleware)
+      const user = await User.findById(req.user_id);
+      //get shareAs of the recipe to be removed from the request body
+      const recipeToBeRemovedShareAs = req.body.recipe.recipe.shareAs;
+      console.log(recipeToBeRemovedShareAs);
+      //find index of recipe in the user's favouritedRecipes array
+      const recipeIndex = user.favouritedRecipes.findIndex(
+          recipe => recipe.recipe.shareAs === recipeToBeRemovedShareAs
+      );
+      //if recipe is not found (i.e. -1 is returned), return a response flagging this
+      if (recipeIndex === -1) {
+          return res.status(404).json({message: 'Recipe not in favourites!'})
+      }
+      //if recipe index is found, remove it from user's favouritedRecipes array
+      user.favouritedRecipes.splice(recipeIndex, 1); //splice method takes 2 args: index to start removing from, number of elements to remove i.e. 1 in this case
+      await user.save();
+      //send a response confirming action
+      res.status(200).json({ message: 'Recipe removed from favourites.'});
   } catch (err) {
-    // console.error(error);
-    res
-      .status(500)
-      .json({
-        message:
-          "Something went wrong - unable to remove recipe from favourites.",
-      });
+      // console.error(error);
+      res.status(500).json( {message: 'Something went wrong - unable to remove recipe from favourites.'})
   }
-};
+}
 
 const RecipesController = {
   getRandomRecipes: getRandomRecipes,
