@@ -53,11 +53,18 @@ const getRandomRecipes = async (req, res) => {
     const selectedProtein = pickRandomIngredient('protein');
     const selectedVegetable = pickRandomIngredient('vegetables');
     const selectedCarbohydrate = pickRandomIngredient('carbohydrates');
+    const selectedFruit = pickRandomIngredient('fruit')
+    const selectedCondiments = pickRandomIngredient('condiments')
+    const selectedDairy = pickRandomIngredient('dairy')
+    const selectedOther = pickRandomIngredient('other')
 
     // Combining selected random ingredients to form the initial search query
     let selectedIngredients = [selectedCarbohydrate, selectedVegetable, selectedProtein,].filter(Boolean);
 
     // DEBUG -- console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
+    if (selectedIngredients.length === 0) {
+        selectedIngredients = [selectedFruit, selectedCondiments, selectedDairy, selectedOther].filter(Boolean)
+    }
 
    // Now implementing a fallback so if we fail try removing an ingredient
     while (selectedIngredients.length > 0) {
@@ -166,14 +173,18 @@ const addRecipeToFavourites = async (req, res) => {
     try {
         //find the user by their ID (added to request object in middleware)
         const user = await User.findById(req.user_id);
-        // console.log("User =>" + user);
+
 
         //get shareAs link of the potential favourite recipe from the request body
-        const newFavouriteRecipeShareAs = req.body.recipe.recipe.recipe.shareAs;
+        const newFavouriteRecipeShareAs = req.body.recipe.shareAs;
+
+        // if (newFavouriteRecipeShareAs === undefined) {
+        //     newFavouriteRecipeShareAs = req.body.recipe?.shareAs;
+        // }
 
         //check recipe shareAs isn't already include in user's favourites
         const recipeAlreadyInFavourites = user.favouritedRecipes.some(
-            recipe => recipe.recipe.recipe.shareAs === newFavouriteRecipeShareAs
+            recipe => recipe.recipe.shareAs === newFavouriteRecipeShareAs
         );
 
         //if recipe has already been favourited, return a response confirming this
@@ -201,11 +212,12 @@ const removeRecipeFromFavourites = async (req, res) => {
         const user = await User.findById(req.user_id);
 
         //get shareAs of the recipe to be removed from the request body
-        const recipeToBeRemovedShareAs = req.body.recipe.recipe.recipe.shareAs; 
+        const recipeToBeRemovedShareAs = req.body.recipe.recipe.shareAs; 
+        console.log(recipeToBeRemovedShareAs);
 
         //find index of recipe in the user's favouritedRecipes array
         const recipeIndex = user.favouritedRecipes.findIndex(
-            recipe => recipe.recipe.recipe.shareAs === recipeToBeRemovedShareAs
+            recipe => recipe.recipe.shareAs === recipeToBeRemovedShareAs
         );
 
         //if recipe is not found (i.e. -1 is returned), return a response flagging this
