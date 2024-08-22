@@ -131,60 +131,78 @@ export const Pantry = ({ className }) => {
   return (
     <div className={`pantry-container ${className}`}>
       <div className="relative pantry-content">
-        <div className="pantry-background" />
-        <div className="pantry-header-bar" />
-        <div className="pantry-content-box p-10">
+        <div className="" />
+        <div className="" />
+        <div className="pantry-content-box mt-56 rounded-t-3xl">
           {/* if logged out display warning message */}
           {!token && (
-            <div
-              className="p-4 mb-1 text-sm text-yellow-800 rounded-lg bg-yellow-50"
-              role="alert"
-            >
-              You are not logged in. Please login.
-            </div>
+            <>
+              <div className="flex flex-nowrap justify-center">
+                <div className="pantry-title text-center">HOWDY PARTNER</div>
+              </div>
+
+              <div className="container m-auto">
+                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
+              </div>
+
+              <div className="container m-auto">
+                <div
+                  className="p-2 mb-1 text-sm text-center text-yellow-800 rounded-lg bg-yellow-50"
+                  role="alert"
+                >
+                  You are not logged in. Please login.
+                </div>
+              </div>
+            </>
           )}
 
           {/* if logged in and render mode is set to create Pantry mode 0, render these elements */}
           {token && pantryRenderMode === 0 && (
             <>
-              <div className="pantry-title flex flex-col text-center mb-10">
-                CREATE PANTRY
+              <div className="flex flex-nowrap justify-center">
+                <div className="pantry-title text-center">CREATE PANTRY</div>
+              </div>
+
+              <div className="container m-auto">
+                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
-                <div>
-                  {/* shows message in blue if GET request responded with 400 */}
-                  {dataState.status === 400 && message && (
+                {/* shows message in blue if GET request responded with 400 */}
+                {dataState.status === 400 && message && (
+                  <div className="container m-auto">
                     <div
-                      className="p-4 mb-6 text-sm text-blue-800 rounded-lg bg-blue-50"
+                      className="p-2 text-sm text-center text-blue-800 rounded-lg bg-blue-50"
                       role="alert"
                     >
                       {message}
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* shows message in red if POST request responded with 404 */}
-                  {dataState.status === 404 && message && (
+                {/* shows message in red if POST request responded with 404 */}
+                {dataState.status === 404 && message && (
+                  <div classSname="container m-auto">
                     <div
-                      className="p-4 mb-6 text-sm text-red-800 rounded-b-lg bg-red-50"
+                      className="p-2 text-sm text-center text-red-800 rounded-b-lg bg-red-50"
                       role="alert"
                     >
                       {message}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div className="container m-auto">
-                  <div className="flex flex-wrap gap-6 justify-start">
+                  <div className="flex flex-wrap gap-2 justify-start">
                     {/* We automatically generate html elements from ingredientsArrayState */}
                     {ingredientsArrayState.map((element, index) => (
                       <div
-                        className="flex flex-nowrap justify-start mb-2 gap-2"
+                        className="flex flex-nowrap justify-start mb-2"
                         key={index}
                       >
                         <button
                           type="button"
-                          className="pt-1 pb-1"
+                          className="p-2 pl-0"
                           onClick={() =>
                             deleteDataStateIngredientsArrayItem(index)
                           }
@@ -194,7 +212,7 @@ export const Pantry = ({ className }) => {
 
                         <button
                           type="button"
-                          className="pt-1 pb-1"
+                          className="p-2 pl-0"
                           onClick={() => handleEditButtonClick(index)}
                         >
                           &#9998;
@@ -212,26 +230,26 @@ export const Pantry = ({ className }) => {
                       </div>
                     ))}
                   </div>
+                </div>
 
-                  <div className="container m-auto">
-                    <div className="flex gap-2">
+                <div className="container m-auto">
+                  <div className="flex gap-2">
+                    <button
+                      className="pantry-button"
+                      onClick={handleAddButtonClick}
+                    >
+                      +ADD
+                    </button>
+
+                    {/* render button only if there some ingredients added to ingredientsArray */}
+                    {ingredientsArrayState.length > 0 && (
                       <button
                         className="pantry-button"
-                        onClick={handleAddButtonClick}
+                        onClick={fetchCreatePantry}
                       >
-                        +ADD
+                        CREATE
                       </button>
-
-                      {/* render button only if there some ingredients added to ingredientsArray */}
-                      {ingredientsArrayState.length > 0 && (
-                        <button
-                          className="pantry-button"
-                          onClick={fetchCreatePantry}
-                        >
-                          CREATE
-                        </button>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -241,25 +259,29 @@ export const Pantry = ({ className }) => {
           {/* if logged in and render mode is set to view Pantry mode 1, render these elements */}
           {token && pantryRenderMode === 1 && (
             <>
-              <div className="pantry-title flex flex-col text-center mb-10">
-                PANTRY
+              <div className="flex flex-nowrap justify-center">
+                <div className="pantry-title text-center">PANTRY</div>
+              </div>
+
+              <div className="container m-auto">
+                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
-                <div>
-                  {/* shows message if it exists */}
-                  {message && (
+                {/* shows message if it exists */}
+                {message && (
+                  <div className="container m-auto">
                     <div
-                      className="p-4 mb-6 text-sm text-green-800 rounded-lg bg-green-50"
+                      className="p-2 text-sm text-center text-green-800 rounded-lg bg-green-50"
                       role="alert"
                     >
                       {message}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div className="container m-auto">
-                  <div className="flex flex-wrap gap-2 justify-center">
+                  <div className="flex flex-wrap gap-2 justify-start">
                     {/* We automatically generate html elements from dataState.ingredientsArray */}
                     {dataState.ingredientsArray.map((element, index) => (
                       <div className="mb-2" key={index}>
@@ -308,34 +330,38 @@ export const Pantry = ({ className }) => {
           {/* if logged in and render mode is set to update Pantry mode 2, render these elements */}
           {token && pantryRenderMode === 2 && (
             <>
-              <div className="pantry-title flex flex-col text-center mb-10">
-                UPDATE PANTRY
+              <div className="flex flex-nowrap justify-center">
+                <div className="pantry-title text-center">UPDATE PANTRY</div>
+              </div>
+
+              <div className="container m-auto">
+                <hr class="w-full h-1 mx-auto bg-[#565656] border-0 rounded" />
               </div>
 
               <div className="flex flex-col">
-                <div>
-                  {/* shows message in red if PUT request responded with 404 */}
-                  {dataState.status === 404 && message && (
+                {/* shows message in red if PUT request responded with 404 */}
+                {dataState.status === 404 && message && (
+                  <div className="container m-auto">
                     <div
-                      className="p-4 mb-6 text-sm text-red-800 rounded-b-lg bg-red-50"
+                      className="p-2 text-sm text-center text-red-800 rounded-b-lg bg-red-50"
                       role="alert"
                     >
                       {message}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div className="container m-auto">
-                  <div className="flex flex-wrap gap-6 justify-start">
+                  <div className="flex flex-wrap gap-2 justify-start">
                     {/* We automatically generate html elements from ingredientsArrayState */}
                     {ingredientsArrayState.map((element, index) => (
                       <div
-                        className="flex flex-nowrap justify-start mb-2 gap-2"
+                        className="flex flex-nowrap justify-start mb-2"
                         key={index}
                       >
                         <button
                           type="button"
-                          className="pt-1 pb-1"
+                          className="p-2 pl-0"
                           onClick={() =>
                             deleteDataStateIngredientsArrayItem(index)
                           }
@@ -345,7 +371,7 @@ export const Pantry = ({ className }) => {
 
                         <button
                           type="button"
-                          className="pt-1 pb-1"
+                          className="p-2 pl-0"
                           onClick={() => handleEditButtonClick(index)}
                         >
                           &#9998;
@@ -363,36 +389,36 @@ export const Pantry = ({ className }) => {
                       </div>
                     ))}
                   </div>
+                </div>
 
-                  <div className="container m-auto">
-                    <div className="flex gap-2">
+                <div className="container m-auto">
+                  <div className="flex gap-2">
+                    <button
+                      className="pantry-button"
+                      onClick={handleAddButtonClick}
+                    >
+                      +ADD
+                    </button>
+
+                    {/* render button only if there some ingredients added to ingredientsArray */}
+                    {ingredientsArrayState.length > 0 && (
                       <button
                         className="pantry-button"
-                        onClick={handleAddButtonClick}
+                        onClick={fetchUpdatePantry}
                       >
-                        +ADD
+                        UPDATE
                       </button>
+                    )}
 
-                      {/* render button only if there some ingredients added to ingredientsArray */}
-                      {ingredientsArrayState.length > 0 && (
-                        <button
-                          className="pantry-button"
-                          onClick={fetchUpdatePantry}
-                        >
-                          UPDATE
-                        </button>
-                      )}
-
-                      <button
-                        className="pantry-button"
-                        onClick={() => {
-                          fetchGetPantry(); // we need to run GET requests so dataState changes to object required by render mode 1
-                          setMessage(""); // reset message so it doesn't carry over from update Pantry mode, if wrong ingredient found in API
-                        }}
-                      >
-                        BACK
-                      </button>
-                    </div>
+                    <button
+                      className="pantry-button"
+                      onClick={() => {
+                        fetchGetPantry(); // we need to run GET requests so dataState changes to object required by render mode 1
+                        setMessage(""); // reset message so it doesn't carry over from update Pantry mode, if wrong ingredient found in API
+                      }}
+                    >
+                      BACK
+                    </button>
                   </div>
                 </div>
               </div>
@@ -400,7 +426,7 @@ export const Pantry = ({ className }) => {
           )}
         </div>
         {/* <div className="white-box" /> */}
-        <div className="header-bar" />
+        {/* <div className="header-bar" /> */}
       </div>
 
       {showPopout && (

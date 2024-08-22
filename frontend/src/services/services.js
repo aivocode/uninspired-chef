@@ -40,6 +40,7 @@ export const getFavouriteRecipes = async (token) => {
 
 // add a recipe to user's favourites
 export const addRecipeToFavourites = async (token, recipe) => {
+    console.log(recipe);
 
     const requestOptions = {
         method: "POST",
