@@ -31,7 +31,6 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
 
   // handler to toggle bookmark (action dependent on favourite status of recipe)
   const handleBookmarkClick = async () => {
-
     try {
       if (isFavourite) {
         await removeRecipeFromFavourites(token, suggestion);
