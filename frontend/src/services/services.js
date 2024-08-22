@@ -1,15 +1,23 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+import { jwtDecode } from "jwt-decode";
+
+
+
 // Get recipes based on user's pantry
-export const getRandomRecipe = async (token) => {
-    // DEBUG -- console.log(token)
+export const getRandomRecipe = async () => {
+
+    const token = localStorage.getItem("token");
+    const decodedToken = jwtDecode(token).user_id
+
     const requestOptions = {
         method: "GET",
         headers: {
     Authorization: `Bearer ${token}`
-        } 
+        },
     }
-    const response = await fetch(`http://localhost:3000/recipes`, requestOptions);
+    console.log('calling backend...')
+    const response = await fetch(`http://localhost:3000/recipes?userId=${decodedToken}`, requestOptions);
     if (!response.ok) {
         throw new Error("Error retreiving a recipe")
     }
@@ -17,6 +25,7 @@ export const getRandomRecipe = async (token) => {
     // DEBUG -- console.log(data)
     return data
 }
+
 
 // get all favourites
 export const getFavouriteRecipes = async (token) => {

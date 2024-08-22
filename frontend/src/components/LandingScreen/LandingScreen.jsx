@@ -20,7 +20,7 @@ export const LandingScreen = ({ className, setSuggestionsData, setDisplaySavedRe
       <div className="content-container h-full flex flex-col justify-center items-center relative">
         <h1 className="title-content">Uninspired?</h1>
         <h2 className="subtitle-content">That can change</h2>
-        <div className="action-container mt-6">
+        <div className="mt-5">
           <GetInspiredButton setSuggestionsData={setSuggestionsData} setDisplaySavedRecipes={setDisplaySavedRecipes}/>
           {/* <button className="inspire-button" onClick={handleCut}>
             <div className="button-text">Inspire Me!</div>
