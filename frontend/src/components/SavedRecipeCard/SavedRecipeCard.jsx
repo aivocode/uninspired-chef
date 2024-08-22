@@ -81,7 +81,7 @@ export const SavedRecipeCard = ({ shareAs, savedRecipe }) => {
 
       {showPopout && (
         <div className="popout-overlay">
-          <FullRecipePopout recipe={meal} onClose={handleClosePopout} />
+          <FullRecipePopout recipe={savedRecipe} onClose={handleClosePopout} />
         </div>
       )}
     </>
