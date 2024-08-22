@@ -25,7 +25,9 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
     setLoading(true)
     try {
       // calls function from services
+      console.log('get a recipe...')
         const data = await getRandomRecipe(token)
+      console.log('got a recipe...')
       //sets recipe to the data object returned
         setRecipe(data.hit)
         setSuggestionsData(data.suggestions);
@@ -51,7 +53,7 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
           <RecipeCard recipe={recipe} buttonPressed={buttonPressed} />
         )}
         {!loading && (
-        <button className="inspire-button"
+        <button className="inspire-button mt-10 "
           onClick={() => {
             fetchGetRecipe();
             toggleButton();

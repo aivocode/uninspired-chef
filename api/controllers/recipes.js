@@ -13,7 +13,11 @@ const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
 
 const getRandomRecipes = async (req, res) => {
-    const allIngredients = examplePantry; // Replace with actual pantry data
+    const userId = req.query.userId;  // id of owner of the pantry
+    const pantry = await Pantry.findOne({ user_id: userId });
+    const ourPantry = pantry.ingredientsArray.map(item => item.label.toLowerCase());
+    
+    const allIngredients = ourPantry; // Replace with actual pantry data
     let suggestionsArray = [];
     let hitRecipe = null;
 
@@ -38,7 +42,7 @@ const getRandomRecipes = async (req, res) => {
         return acc;
     }, {});
 
-    // DEBUG -- console.log("These are our categorized ingredients: ", categorisedIngredients);
+    console.log("These are our categorized ingredients: ", categorisedIngredients);
 
     // Here we are defining a function to pick a random ingredient from a category. Thanks GPT
     const pickRandomIngredient = (category) => {
@@ -53,16 +57,25 @@ const getRandomRecipes = async (req, res) => {
     const selectedProtein = pickRandomIngredient('protein');
     const selectedVegetable = pickRandomIngredient('vegetables');
     const selectedCarbohydrate = pickRandomIngredient('carbohydrates');
+    const selectedFruit = pickRandomIngredient('fruit')
+    const selectedCondiments = pickRandomIngredient('condiments')
+    const selectedDairy = pickRandomIngredient('dairy')
+    const selectedOther = pickRandomIngredient('other')
+
 
     // Combining selected random ingredients to form the initial search query
     let selectedIngredients = [selectedCarbohydrate, selectedVegetable, selectedProtein,].filter(Boolean);
 
-    // DEBUG -- console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
+    if (selectedIngredients.length === 0) {
+        selectedIngredients = [selectedFruit, selectedCondiments, selectedDairy, selectedOther].filter(Boolean)
+    } 
+
+    console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
 
    // Now implementing a fallback so if we fail try removing an ingredient
     while (selectedIngredients.length > 0) {
     // DEBUG --  console.log("Trying with ingredients: ", selectedIngredients);
-
+        console.log("entering Loop...")
         try {
             // Convert the selected ingredients into a formatted query string
             const formattedString = selectedIngredients.toString().replaceAll(',', '%2C%20');
@@ -100,8 +113,9 @@ const getRandomRecipes = async (req, res) => {
                             const ingredientWords = ingredient.split(' ');
                             return missingWords.some(word => ingredientWords.includes(word));
                         });
-                        return replacement ? `${missing} with ${replacement}` : null;
-                    }).filter(Boolean); // Filter out any null values where no replacement was found
+                        return replacement ? `- Replace ${missing} with ${replacement}` : null;
+                    }).filter(Boolean); 
+                    // Filter out any null values where no replacement was found
                     
                     // If we find that we can replace all the missing ingredients with a potential replacement
                     // then we push the recipe into hitRecipe
@@ -146,6 +160,8 @@ if (suggestionsArray.length > 0) {
 }
 };
 
+
+
 const getFavouriteRecipes = async (req, res) => {
     try {
         //find the user by their ID (added to request object in middleware)
@@ -166,7 +182,7 @@ const addRecipeToFavourites = async (req, res) => {
     try {
         //find the user by their ID (added to request object in middleware)
         const user = await User.findById(req.user_id);
-        // console.log("User =>" + user);
+        console.log("User =>" + user);
 
         //get shareAs link of the potential favourite recipe from the request body
         const newFavouriteRecipeShareAs = req.body.recipe.recipe.recipe.shareAs;
