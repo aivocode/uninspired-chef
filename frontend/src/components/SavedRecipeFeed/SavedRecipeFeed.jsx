@@ -10,8 +10,8 @@ export const SavedRecipeFeed = ({ savedRecipes }) => {
       ) : (
         savedRecipes.map((savedRecipe) => (
           <SavedRecipeCard
-            key={savedRecipe.recipe.recipe.shareAs}
-            shareAs={savedRecipe.recipe.recipe.shareAs}
+            key={savedRecipe.recipe.shareAs}
+            shareAs={savedRecipe.recipe.shareAs}
             savedRecipe={savedRecipe}
           />
         ))

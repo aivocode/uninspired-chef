@@ -43,6 +43,8 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
     ;
   }
 
+  //shareAs={recipe.recipe.recipe.recipe.shareAs}
+
   return (
     <>
       <div>

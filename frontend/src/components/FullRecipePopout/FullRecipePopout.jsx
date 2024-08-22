@@ -1,4 +1,4 @@
-import './FullRecipePopout.css';
+import "./FullRecipePopout.css";
 
 export const FullRecipePopout = ({ recipe, onClose }) => {
   const recipeData = recipe.recipe;
@@ -12,24 +12,27 @@ export const FullRecipePopout = ({ recipe, onClose }) => {
           </button>
         </div>
         {/* <div className="full-recipe-image"></div> */}
-        <img className="full-recipe-image" src={recipe.recipe.images.REGULAR.url}/>
+        <img
+          className="full-recipe-image"
+          src={recipe.recipe.images.REGULAR.url}
+        />
         <div className="full-recipe-content">
           <div className="recipe-header">
             <div className="recipe-title">{recipe.recipe.label}</div>
           </div>
           <p className="recipe-description">tags: {recipe.recipe.tags}</p>
-            <ul>
-              {recipe.recipe.ingredientLines.map((line, index) => (
-                <li key={index}>{line}</li>
-              ))}
-            </ul>
+          <ul>
+            {recipe.recipe.ingredientLines.map((line, index) => (
+              <li key={index}>{line}</li>
+            ))}
+          </ul>
           <p className="recipe-instructions">
-          {recipeData.instructions ? (
+            {recipeData.instructions ? (
               recipeData.instructions
             ) : (
               <>
-            Oh no! We don't have how to prepare it on record. <br /> <br /> 
-            <a href={recipe.recipe.url}>Find full recipe here</a>
+                Oh no! We don't have how to prepare it on record. <br /> <br />
+                <a href={recipe.recipe.url}>Find full recipe here</a>
               </>
             )}
           </p>

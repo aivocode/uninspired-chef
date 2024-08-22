@@ -119,7 +119,10 @@ export const BurgerDropDown = ({ setDisplaySavedRecipes, className }) => {
           <div className="BurgerBunBottom absolute w-[189px] h-7 top-[216px] left-5 bg-[url(https://c.animaapp.com/SwMh7ZZE/img/subtract-2.svg)] bg-[100%_100%]">
             {location.pathname !== "/pantry" && (
               <div className="BurgerBunBottom flex w-[162px] h-7 items-center justify-center gap-2 p-3 relative left-[13px] rounded-lg overflow-hidden">
-                <div className="button-text relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap" onClick={handleSavedRecipesClick}>
+                <div
+                  className="button-text relative w-fit mt-[-6.85px] mb-[-4.85px] [font-family:'Inter',Helvetica] font-normal text-[#1e1e1e] text-base tracking-[0] leading-4 whitespace-nowrap"
+                  onClick={handleSavedRecipesClick}
+                >
                   Saved Recipes
                 </div>
               </div>

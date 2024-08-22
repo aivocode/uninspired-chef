@@ -1,7 +1,11 @@
 import "./IngredientPopout.css";
 import { useState } from "react";
 
-export const AddIngredient = ({ onClose, addToIngredientsArray, ingredientsArrayState }) => {
+export const AddIngredient = ({
+  onClose,
+  addToIngredientsArray,
+  ingredientsArrayState,
+}) => {
   const [ingredientName, setIngredientName] = useState(""); // we store ingredient name
   const [ingredientQuantity, setIngredientQuantity] = useState(""); // we store ingredient quantity
 
@@ -89,9 +93,11 @@ export const AddIngredient = ({ onClose, addToIngredientsArray, ingredientsArray
 
   return (
     <div className="ingredient-popout">
-      <button className="close-button" onClick={onClose}>
+      <button className="float-right p-0" onClick={onClose}>
         ✖️
       </button>
+
+      <div className="mt-8" />
 
       <form id="add-ingredient-form" onSubmit={handleSubmit}>
         <div className="input-group">

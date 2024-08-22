@@ -1,5 +1,5 @@
 const examplePantry = [
-    "chicken breast",
+    "apple",
     "ground beef",
     "pasta",
     "rice",

@@ -90,11 +90,13 @@ export const EditIngredient = ({
 
   return (
     <div className="ingredient-popout">
-      <button className="close-button" onClick={onClose}>
+      <button className="float-right p-0" onClick={onClose}>
         ✖️
       </button>
 
-      <form id="add-ingredient-form" onSubmit={handleSubmit}>
+      <div className="mt-8" />
+
+      <form className="" id="add-ingredient-form" onSubmit={handleSubmit}>
         <div className="input-group">
           <label className="label">Ingredient Name</label>
           <input
