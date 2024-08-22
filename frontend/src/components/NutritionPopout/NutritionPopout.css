@@ -1,0 +1,133 @@
+.full-recipe-popout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.full-recipe-popout {
+  width: 800px;
+  height: 852px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff5f5;
+  position: relative;
+  padding: 20px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.full-recipe-image {
+  width: 419px;
+  height: 293px;
+  border-radius: 20px;
+  background: #ddd; /* Grey placeholder for the image */
+  margin: 20px 0;
+  align-self: center;
+}
+
+.full-recipe-content {
+  flex: 1;
+  padding: 0px;
+  position: bottom;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.recipe-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.save-recipe-button {
+  width: 40px;
+  height: 60px;
+  background: red;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+  position: absolute;
+  top: 20px;
+  right: 40px;
+}
+
+.top-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.recipe-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.recipe-ingredients {
+  list-style-type: disc;
+  margin: 10px 0;
+  padding-left: 20px;
+  color: #555;
+}
+
+.recipe-instructions {
+  margin-top: 20px;
+  color: #555;
+}
+
+.recipe-serves {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cooking-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .full-recipe-popout {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .recipe-details {
+    font-size: 1em;
+  }
+
+  .close-button {
+    font-size: 1.2em;
+  }
+}
