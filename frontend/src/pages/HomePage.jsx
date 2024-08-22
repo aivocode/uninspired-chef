@@ -4,7 +4,7 @@ import { LandingScreen } from "../components/LandingScreen/LandingScreen";
 import { RecipeFeed } from "../components/RecipeFeed/RecipeFeed";
 import { SavedRecipeFeed } from "../components/SavedRecipeFeed/SavedRecipeFeed";
 import { getFavouriteRecipes } from "../services/services";
-import '../static/HomePage.css';
+import '../static/Homepage.css';
 
 export const HomePage = () => {
   const [suggestionsData, setSuggestionsData] = useState([]); // state for storing suggestions data (API)
