@@ -78,6 +78,44 @@
   color: #515839;
 }
 
+.inspire-container {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.recipe-button-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 40px;
+  gap: 5px;
+
+}
+
+.label-container {
+  display: flex;
+  justify-content: left;
+  margin-right: 20px;
+}
+
+.replacements-group {
+  display: flex;
+  margin: 10px;
+  justify-content: right;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: right;
+  margin-left: 60px;
+}
+
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
   .landing-container {

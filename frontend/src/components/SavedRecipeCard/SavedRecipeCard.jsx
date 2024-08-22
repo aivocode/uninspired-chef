@@ -84,19 +84,26 @@ export const SavedRecipeCard = ({ shareAs, savedRecipe }) => {
   return (
     <>
       <div className="recipe-card">
-        <img className="image-placeholder" src={meal.images.REGULAR.url}/>
+        <img 
+          className="image-placeholder" 
+          src={meal.images.REGULAR.url}
+        />
         <div className="recipe-details">
-          <h3>{meal.label}</h3>
-          {/* <p>{description}</p> */}
-          <button onClick={handleSeeMoreClick}>See more</button>
-          <button onClick={handleNutritionClick}>Nutrition</button>
-        </div>
         <button
           className={`save-recipe-button ${
             isFavourite ? "favourited" : "not-favourited"
           }`}
           onClick={handleBookmarkClick}
         ></button>
+        <div className="label-container">
+          <h3>{meal.label}</h3>
+          </div>
+          <div className="recipe-button-container">
+          <button onClick={handleSeeMoreClick}>See more</button>
+          <button onClick={handleNutritionClick}>Nutrition</button>
+          </div>
+        </div>
+
         {/* <i>missing ingredients:  */}
         {/* <br /><br />{missingIngs}</i> */}
       </div>

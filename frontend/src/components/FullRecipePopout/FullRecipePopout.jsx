@@ -40,7 +40,7 @@ export const FullRecipePopout = ({ recipe, onClose }) => {
             <strong>Serves:</strong> {recipe.recipe.yield} people
           </div>
         </div>
-        <button className="cooking-button">I’m cooking it</button>
+        {/* <button className="cooking-button">I’m cooking it</button> */}
       </div>
     </div>
   );

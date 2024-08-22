@@ -43,7 +43,7 @@
 
 .recipe-feed .recipe-card {
     width: 100%;
-    max-width: 600px; /* Limits the width of each recipe card */
+    max-width: 400px; 
 }
 
 /* Mobile styles */
