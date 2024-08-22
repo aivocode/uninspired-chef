@@ -25,13 +25,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.full-recipe-image {
-  width: 419px;
-  height: 293px;
-  border-radius: 20px;
-  background: #ddd; /* Grey placeholder for the image */
-  margin: 20px 0;
-  align-self: center;
+/* SVG container for better responsiveness */
+.full-recipe-popout svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
 .full-recipe-content {
@@ -119,15 +118,33 @@
 /* Mobile styles */
 @media only screen and (max-width: 768px) {
   .full-recipe-popout {
-    width: 100%;
+    width: 95%;
+    height: auto; /* Allow height to adjust based on content */
     padding: 15px;
   }
 
-  .recipe-details {
-    font-size: 1em;
+  .full-recipe-image {
+    width: 100%; /* Make image full width on mobile */
+    height: auto;
+    border-radius: 20px;
+    background: #ddd; /* Grey placeholder for the image */
+    margin: 20px 0;
+    align-self: center;
   }
 
   .close-button {
-    font-size: 1.2em;
+    font-size: 1.5em; /* Adjust font size for close button */
+  }
+
+  /* Ensure SVG scales properly on mobile */
+  svg {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .controls {
+    font-size: 0.9em; /* Adjust control font size for mobile */
   }
 }
