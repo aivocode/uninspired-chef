@@ -1,6 +1,6 @@
 import Header from "../components/Header/Header";
 import { Pantry } from "../components/Pantry/Pantry";
-import "../static/PantryPage.css";
+import "../static/Pantrypage.css";
 
 export const PantryPage = () => {
   return (

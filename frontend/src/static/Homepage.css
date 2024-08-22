@@ -60,4 +60,13 @@
     .homepage-content {
         font-size: 1em;
     }
+
+    .landing-screen {
+        padding: 200px 0 50px 0; /* 200px at the top, 50px at the bottom */
+    }
+
+    .recipe-feed .recipe-card {
+        width: 95%;
+        max-width: 400px; /* Limits the width of each recipe card */
+    }
 }
