@@ -109,7 +109,7 @@ export const SavedRecipeCard = ({ shareAs, savedRecipe }) => {
       {showNutrition && (
         <div className="popout-overlay">
           <NutritionPopout
-            recipe={recipe}
+            recipe={savedRecipe}
             closeMe={handleCloseNutritionPopout}
           />
         </div>
