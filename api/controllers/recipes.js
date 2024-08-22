@@ -14,7 +14,7 @@ const { Recipe } = require("../models/recipe"); // importing the Recipe model
 const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
 
-cconst getRandomRecipes = async (req, res) => {
+const getRandomRecipes = async (req, res) => {
   const userId = req.query.userId;  // id of owner of the pantry
   const pantry = await Pantry.findOne({ user_id: userId });
   const ourPantry = pantry.ingredientsArray.map(item => item.label.toLowerCase());
