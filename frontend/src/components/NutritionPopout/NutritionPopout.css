@@ -1,3 +1,4 @@
+/* Base styles for the popout */
 .full-recipe-popout-overlay {
   position: fixed;
   top: 0;
@@ -25,97 +26,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* SVG container for better responsiveness */
-.full-recipe-popout svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
+/* Ensure SVG is responsive */
+svg {
+  width: 100%; /* Make the SVG take full width */
+  height: auto; /* Scale height proportionally */
+  max-width: 100%; /* Ensure it does not exceed container */
+  margin: 0 auto; /* Center the SVG */
 }
 
-.full-recipe-content {
-  flex: 1;
-  padding: 0px;
-  position: bottom;
-}
-
-.recipe-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.recipe-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-.save-recipe-button {
-  width: 40px;
-  height: 60px;
-  background: red;
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
-  position: absolute;
-  top: 20px;
-  right: 40px;
-}
-
-.top-buttons {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: black;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.recipe-description {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.recipe-ingredients {
-  list-style-type: disc;
-  margin: 10px 0;
-  padding-left: 20px;
-  color: #555;
-}
-
-.recipe-instructions {
-  margin-top: 20px;
-  color: #555;
-}
-
-.recipe-serves {
-  margin-top: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-.cooking-button {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Mobile styles */
+/* Mobile-specific styles */
 @media only screen and (max-width: 768px) {
   .full-recipe-popout {
     width: 95%;
@@ -123,28 +42,20 @@
     padding: 15px;
   }
 
-  .full-recipe-image {
-    width: 100%; /* Make image full width on mobile */
-    height: auto;
-    border-radius: 20px;
-    background: #ddd; /* Grey placeholder for the image */
-    margin: 20px 0;
-    align-self: center;
-  }
-
-  .close-button {
-    font-size: 1.5em; /* Adjust font size for close button */
-  }
-
-  /* Ensure SVG scales properly on mobile */
+  /* Adjust the SVG for mobile */
   svg {
-    width: 100%;
+    width: 100%; /* Ensure the SVG scales to fit mobile screen */
     height: auto;
-    max-width: 100%;
+    max-width: 100%; /* Ensure it does not exceed the container */
     margin: 0 auto;
   }
 
+  /* Adjust other elements if necessary */
+  .close-button {
+    font-size: 1.5em;
+  }
+
   .controls {
-    font-size: 0.9em; /* Adjust control font size for mobile */
+    font-size: 0.9em;
   }
 }
