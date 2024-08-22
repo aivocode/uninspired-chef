@@ -5,7 +5,7 @@ import './LandingScreen.css';
 import GetInspiredButton from '../../components/GetInspiredButton/GetInspiredButton';
 
 
-export const LandingScreen = ({ className, setSuggestionsData }) => {
+export const LandingScreen = ({ className, setSuggestionsData, setDisplaySavedRecipes }) => {
   const [isCutting, setIsCutting] = useState(false);
 
   const handleCut = () => {
@@ -21,7 +21,7 @@ export const LandingScreen = ({ className, setSuggestionsData }) => {
         <h1 className="title-content">Uninspired?</h1>
         <h2 className="subtitle-content">That can change</h2>
         <div className="action-container mt-6">
-          <GetInspiredButton setSuggestionsData={setSuggestionsData}/>
+          <GetInspiredButton setSuggestionsData={setSuggestionsData} setDisplaySavedRecipes={setDisplaySavedRecipes}/>
           {/* <button className="inspire-button" onClick={handleCut}>
             <div className="button-text">Inspire Me!</div>
           </button> */}

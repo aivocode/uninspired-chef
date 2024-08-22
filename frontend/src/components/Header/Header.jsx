@@ -1,7 +1,9 @@
 import './Header.css';
 import { BurgerDropDown } from '../BurgerDropDown/BurgerDropDown';
 
-export const Header = ({ property1 = "default" }) => {
+export const Header = ({ setDisplaySavedRecipes, property1 = "default" }) => {
+
+
   return (
     <div className="relative w-[1254px] h-[280px] bg-[#feead1] border-b border-solid border-color-border-default-default gap-[var(--size-space-600)]">
       <div className="absolute w-[169px] h-[169px] top-[29px] left-[39px] bg-[#feead1] rounded-[48px]">
@@ -55,9 +57,8 @@ export const Header = ({ property1 = "default" }) => {
       </div>
 
       {/* Use BurgerDropDown Component without inline styles */}
-      <BurgerDropDown property1={property1} className="burger-dropdown" />
-      
-    </div>
+      <BurgerDropDown setDisplaySavedRecipes={setDisplaySavedRecipes} property1={property1} className="burger-dropdown" />
+          </div>
   );
 };
 

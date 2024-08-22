@@ -1,166 +1,237 @@
 // Load environment variables from the /api/.env file
-require("dotenv").config({
-  path: require("path").resolve(__dirname, "../.env"),
-});
-
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+const categoryKeywords = require("../lists/categoryKeywords")
 const Pantry = require("../models/pantry");
-
-const examplePantry = require("../lists/examplePantry");
-const essentialsList = require("../lists/essentials");
-
+const examplePantry = require("../lists/examplePantry")
+const essentialsList = require("../lists/essentials")
 const recipeAppId = process.env.RECIPE_APP_ID;
 const recipeAppKey = process.env.RECIPE_APP_KEY;
-
 const foodAppId = process.env.FOOD_APP_ID;
 const foodAppKey = process.env.FOOD_APP_KEY;
-
-// const Recipe = require("../models/recipe");
+const { Recipe } = require("../models/recipe"); // importing the Recipe model
+const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
 
-/* 
-
-At the moment the code does not look to see if the ingredients in our pantry match exactly what is 
-in the recipe api. In order to do this we're going to have to make some assumptions about the persons 
-pantry.
-
-First I think we should exclude things like salt, pepper, spices and oils (butter, olive oil etc). 
-In order to do this we should probably have an 'essentials' category that we assume the person has and 
-ignore these.
-
-Next, as each fetch request gives us a series of hits, we can go into each of those hits and compare 
-the ingredients on that list to the ingredients in our pantry. If we get an exact match then that is the
-recipe we present. Otherwise we add it to an empty array. This array should be ordered based on fewest unmatching 
-ingredients. 
-
-TODO:
-
-Create essentials list 
-    Break down the ingredients and hopefully find a category key value which can 
-    speed this along
-
-Search each hit for ingredients
-    Once data.count != 0, we scan through the ingredients of each 'hit' 
-
-Remove essentials
-    We remove or ignore any ingredient in the recipe that matches our essentials list
-
-Check for matching ingredients
-    We compare what's in our pantry to the pared down recipe list adding recipes that don't match perfectly
-    to a new 'suggestions array' - it would also be nice to return what ingredients are missing.
-
-Return matching recipe 
-    We return the first recipe with an exact match. It may be possible to randomise this if we have multiple 
-    matches
-
-Return suggestions array
-    If we can't find any matches, we return the array of suggestions. This should be ordered by the fewest
-    non matching ingredients.
-
-
-*/
-
 const getRandomRecipes = async (req, res) => {
-  /* commented out for testing 
-    const pantry = await Pantry.findOne({ user_id: '66b50d1969615f1c46aa93ab'});
-    const allIngredients = pantry.ingredientsArray.map(ingredient => ingredient.label);
-    */
-  const allIngredients = examplePantry;
+    const allIngredients = examplePantry; // Replace with actual pantry data
+    let suggestionsArray = [];
+    let hitRecipe = null;
 
-  let suggestionsArray = [];
+    const categorizeIngredient = (ingredient) => {
+        for (const category in categoryKeywords) {
+            const keywords = categoryKeywords[category];
+            if (keywords.some(keyword => ingredient.toLowerCase().includes(keyword))) {
+                return category;
+            }
+        }
+        return "others"; // Default category if no match is found
+    };
 
-  // we're setting up a while loop so we dont get stuck in a infinite loop searching for the same ingredients over and over
-  while (true) {
-    console.log("Initialising loop...");
-    // randomly selects 5 ingredients from our pantry. If nothing is found it randomises and goes again.
-    const ingredients = allIngredients
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 4);
-    console.log("Randomly selected ingredients: ", ingredients);
+    // Categorize the ingredients using the category keywords
+    const categorisedIngredients = allIngredients.reduce((acc, ingredient) => {
+        const category = categorizeIngredient(ingredient);
+        // no category found then the category defaults to empty, which is other
+        if (!acc[category]) acc[category] = [];
+        //the category is pushed to the ingredient 
+        acc[category].push(ingredient);
+        //accumulator is returned
+        return acc;
+    }, {});
 
-    try {
-      // initialises the count value with the loop
-      let data = { count: 0 };
+    // DEBUG -- console.log("These are our categorized ingredients: ", categorisedIngredients);
 
-      // converts ingredients Array to formatted string to insert into the URL
-      const formattedString = ingredients.toString().replaceAll(",", "%2C%20");
+    // Here we are defining a function to pick a random ingredient from a category. Thanks GPT
+    const pickRandomIngredient = (category) => {
+        if (categorisedIngredients[category] && categorisedIngredients[category].length > 0) {
+            const ingredients = categorisedIngredients[category];
+            return ingredients[Math.floor(Math.random() * ingredients.length)];
+        }
+        return;
+    };
 
-      // fetches data from Edamam API
-      const response = await fetch(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${formattedString}&app_id=${recipeAppId}&app_key=${recipeAppKey}`
-      );
-      data = await response.json();
-      console.log("this is the data: ", data);
+    // Defining some variables to randomly select one ingredient from the desired category 
+    const selectedProtein = pickRandomIngredient('protein');
+    const selectedVegetable = pickRandomIngredient('vegetables');
+    const selectedCarbohydrate = pickRandomIngredient('carbohydrates');
 
-      //if statement to check the value of count (hits for combination). If 0 then we remove a random ingredient and then go again
-      if (data.count > 0) {
-        data.hits.forEach((recipe) => {
-          console.log("this the food info: ", recipe.recipe.ingredients);
+    // Combining selected random ingredients to form the initial search query
+    let selectedIngredients = [selectedCarbohydrate, selectedVegetable, selectedProtein,].filter(Boolean);
 
-          // maps the ingredients of each recipe into an array (formatted as lower case)
-          const recipeIngredients = recipe.recipe.ingredients.map(
-            (ingredient) => ingredient.food.toLowerCase()
-          );
-          console.log("Here are the recipe ingredients: ", recipeIngredients);
+    // DEBUG -- console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
 
-          // filters out ingredients that are in our essentials list
-          const filteredIngredients = recipeIngredients.filter(
-            (food) => !essentialsList.includes(food)
-          );
-          console.log(
-            "Here are the filtered ingredients: ",
-            filteredIngredients
-          );
+   // Now implementing a fallback so if we fail try removing an ingredient
+    while (selectedIngredients.length > 0) {
+    // DEBUG --  console.log("Trying with ingredients: ", selectedIngredients);
 
-          // checks which ingredients are in our pantry and creates an array of missing ingredients
-          const missingIngredients = filteredIngredients.filter(
-            (food) => !allIngredients.includes(food)
-          );
-          console.log("Here are the missing ingredients: ", missingIngredients);
+        try {
+            // Convert the selected ingredients into a formatted query string
+            const formattedString = selectedIngredients.toString().replaceAll(',', '%2C%20');
+            const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${formattedString}&app_id=${recipeAppId}&app_key=${recipeAppKey}`);
+            const data = await response.json();
+            // DEBUG -- console.log('Data received: ', data);
 
-          if (missingIngredients.length === 0) {
-            //lucky us we got a match!
-            return res.status(200).json({
-              hit: recipe,
-              suggestions: [],
-            });
-          } else {
-            // we push an OBJECT of a recipe to an array. This clever little trick allows us to sort via missing ingredients later and
-            // it will allow us to display on the front end which ingredients we are missing from the recipe
-            suggestionsArray.push({
-              recipe: recipe,
-              missingIngredients: missingIngredients,
-              missingCount: missingIngredients.length,
-            });
-          }
-        });
-        // break out of the loop as we've processed the recipes
+            // Process the search results
+            if (data.count > 0) {
+                data.hits.forEach(recipe => {
+                    const recipeIngredients = recipe.recipe.ingredients.map(ingredient => ingredient.food.toLowerCase());
+                    const filteredIngredients = recipeIngredients.filter(food => !essentialsList.includes(food));
+                    // creates a missing ingredients array. 
+                    const missingIngredients = filteredIngredients.filter(food => !allIngredients.includes(food));
+                    // this creates a potential replacements ingredients array
+                    const replacementIngredients = missingIngredients.flatMap(missing => {
+                        return allIngredients.filter(ingredient => {
+                            // Split both missing and pantry ingredients into words
+                            const missingWords = missing.split(' ');
+                            const ingredientWords = ingredient.split(' ');
+            
+                            // Check if any word in missing matches a word in the pantry ingredient
+                            return missingWords.some(word => ingredientWords.includes(word));
+                        });
+
+                    });
+                    // DEBUG -- console.log("missing ingredients: ", missingIngredients)
+                    // DEBUG -- console.log("replacement ingredients: ", replacementIngredients)
+
+                    // This was some generated code, the function is so that when we return to the front end
+                    // we know which missing ingredient it has suggested a replacement with
+                    const mappedReplacements = missingIngredients.map(missing => {
+                        const replacement = replacementIngredients.find(ingredient => {
+                            const missingWords = missing.split(' ');
+                            const ingredientWords = ingredient.split(' ');
+                            return missingWords.some(word => ingredientWords.includes(word));
+                        });
+                        return replacement ? `${missing} with ${replacement}` : null;
+                    }).filter(Boolean); // Filter out any null values where no replacement was found
+                    
+                    // If we find that we can replace all the missing ingredients with a potential replacement
+                    // then we push the recipe into hitRecipe
+                    if (missingIngredients.length - mappedReplacements.length === 0) {
+                        hitRecipe = recipe;
+                        hitRecipe.suggestedReplacements = mappedReplacements;
+                        return; // Exit the forEach loop
+                    } else {
+                        suggestionsArray.push({
+                            recipe: recipe,
+                            missingIngredients: missingIngredients,
+                            missingCount: missingIngredients.length
+                        });
+                    }
+                });
+
+                if (hitRecipe) {
+                    return res.status(200).json({ hit: hitRecipe, suggestions: [] });
+                }
+            }
+        } catch (err) {
+            console.log('Error occurred: ', err);
+            return res.status(500).json({ message: "Error fetching a recipe" });
+        }
+
+    // If no results found, remove one ingredient and try again
+    if (selectedIngredients.length > 1) {
+        selectedIngredients.pop();
+    } else {
         break;
-      }
-    } catch (err) {
-      console.log("You got an error!: ");
-      res.status(500).json({ message: "error fetching a recipe" });
-      return;
     }
-  }
+}
 
-  // Sort the suggestions by the fewest missing ingredients
-  suggestionsArray.sort((a, b) => a.missingCount - b.missingCount);
-  console.log("this is our suggestions array: ", suggestionsArray);
+// Sort and return suggestions if no exact hit is found
+suggestionsArray.sort((a, b) => a.missingCount - b.missingCount);
+// console.log("Sorted suggestions: ", suggestionsArray);
 
-  if (suggestionsArray.length > 0) {
+if (suggestionsArray.length > 0) {
     res.status(200).json({ hit: null, suggestions: suggestionsArray });
-  } else {
-    res
-      .status(404)
-      .json({
-        message:
-          "Couldn't find a recipe with your ingredients. You need to go shopping!",
-      });
-  }
+} else {
+    res.status(404).json({ message: "Couldn't find a recipe with your ingredients. You need to go shopping!" });
+}
 };
 
+const getFavouriteRecipes = async (req, res) => {
+    try {
+        //find the user by their ID (added to request object in middleware)
+        const user = await User.findById(req.user_id);
+
+        // send back the user's favourited recipes
+        res.json(user.favouritedRecipes);
+
+    } catch (error) {
+        // console.error(error);
+        res.status(500).json( {message: 'Something went wrong - unable to retrieve favourites.'})
+    }
+};
+
+
+const addRecipeToFavourites = async (req, res) => {
+
+    try {
+        //find the user by their ID (added to request object in middleware)
+        const user = await User.findById(req.user_id);
+        // console.log("User =>" + user);
+
+        //get shareAs link of the potential favourite recipe from the request body
+        const newFavouriteRecipeShareAs = req.body.recipe.recipe.recipe.shareAs;
+
+        //check recipe shareAs isn't already include in user's favourites
+        const recipeAlreadyInFavourites = user.favouritedRecipes.some(
+            recipe => recipe.recipe.recipe.shareAs === newFavouriteRecipeShareAs
+        );
+
+        //if recipe has already been favourited, return a response confirming this
+
+        if (recipeAlreadyInFavourites) {
+            return res.status(400).json({message: 'Recipe has already been favourited!'});
+        }
+
+        //if recipe hasn't been favourited, add the new recipe to the user's favouritedRecipes array
+        user.favouritedRecipes.push(req.body.recipe); 
+        await user.save();
+
+        //send a response confirming action
+        res.status(200).json({ message: 'Recipe added to favourites!'});
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json( {message: 'Something went wrong - unable to add recipe to favourites.'})
+    }
+};
+
+const removeRecipeFromFavourites = async (req, res) => {
+    try {
+        //find the user by their ID (added to request object in middleware)
+        const user = await User.findById(req.user_id);
+
+        //get shareAs of the recipe to be removed from the request body
+        const recipeToBeRemovedShareAs = req.body.recipe.recipe.recipe.shareAs; 
+
+        //find index of recipe in the user's favouritedRecipes array
+        const recipeIndex = user.favouritedRecipes.findIndex(
+            recipe => recipe.recipe.recipe.shareAs === recipeToBeRemovedShareAs
+        );
+
+        //if recipe is not found (i.e. -1 is returned), return a response flagging this
+        if (recipeIndex === -1) {
+            return res.status(404).json({message: 'Recipe not in favourites!'})
+        }
+
+        //if recipe index is found, remove it from user's favouritedRecipes array
+        user.favouritedRecipes.splice(recipeIndex, 1); //splice method takes 2 args: index to start removing from, number of elements to remove i.e. 1 in this case
+        await user.save();
+
+        //send a response confirming action
+        res.status(200).json({ message: 'Recipe removed from favourites.'});
+
+    } catch (err) {
+        // console.error(error);
+        res.status(500).json( {message: 'Something went wrong - unable to remove recipe from favourites.'})
+    }
+}
+
+
 const RecipesController = {
-  getRandomRecipes: getRandomRecipes,
+    getRandomRecipes: getRandomRecipes,
+    getFavouriteRecipes: getFavouriteRecipes,
+    addRecipeToFavourites: addRecipeToFavourites,
+    removeRecipeFromFavourites: removeRecipeFromFavourites
 };
 
 module.exports = RecipesController;

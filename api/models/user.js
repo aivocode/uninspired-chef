@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { RecipeSchema } = require('./recipe'); //importing the recipe schema
 
 // Fields to be in the database
 const UserSchema = new mongoose.Schema({
@@ -6,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  favouritedRecipes: { type: Array, default: [] },
+  favouritedRecipes: [RecipeSchema], //array of Recipe subdocuments (i.e. recipe objects from Edamam API that we've saved)
 });
 
 const User = mongoose.model("User", UserSchema);

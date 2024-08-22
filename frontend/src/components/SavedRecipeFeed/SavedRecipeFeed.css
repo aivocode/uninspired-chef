@@ -18,20 +18,18 @@
     padding: 20px;
     margin: 0 auto; 
     width: 100%; 
-    max-width: 40vw; 
+    max-width: 700px; 
     display: flex;
     flex-direction: row;
-    align-items: space-evenly;
+    align-items: center;
     justify-content: space-between; 
     position: relative; /* For bookmark positioning */
-    
 }
 
 /* Image Placeholder */
 .image-placeholder {
-    /* display: flex; */
-    /* flex-grow: 1; */
-    max-width: 30%; 
+    width: 40%; 
+    height: 150px;
     background-color: #ddd;
     border-radius: 10px;
     margin-right: 20px;
@@ -39,8 +37,7 @@
 
 /* Recipe Title */
 .recipe-card h3 {
-    padding: 4%;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'LemonTuesday', cursive;
     font-size: 1.5rem; /* Increased size for emphasis */
     color: #333;
 }
@@ -66,16 +63,6 @@
 
 .recipe-card button:hover {
     background-color: #ff6347;
-}
-
-.recipe-details {
-    display: flex;
-    flex-grow: 2;
-    flex-direction: column;
-    justify-content: center;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-size: small;
-    
 }
 
 /* Saved Bookmark */
@@ -114,62 +101,6 @@
     color: white;
     cursor: pointer;
 }
-
-
-/* Mobile styles */
-@media only screen and (max-width: 768px) {
-    .recipe-feed-container {
-        padding: 10px;
-    }
-
-    .recipe-card {
-        flex-direction: column; /* Stack the content vertically */
-        align-items: center; /* Center content */
-        padding: 15px; /* Adjust padding for mobile */
-        width: 98%; /* Ensure the card takes full width */
-        max-width: 325px; /* Set a maximum width for the card */
-        margin: 0 auto; /* Center the card horizontally */
-        box-sizing: border-box; /* Include padding in width calculations */
-        overflow: hidden; /* Prevent content from overflowing */
-    }
-
-    .image-placeholder {
-        width: 35%; /* Maintain the image size */
-        height: 100px; /* Keep the height consistent */
-        margin-bottom: 10px; /* Add margin below the image */
-    }
-
-    .recipe-card h3 {
-        font-size: 2.25rem; /* Increase font size for better readability */
-        margin-bottom: 10px; /* Add space below the title */
-        width: 100%; /* Ensure the title spans the full width */
-        text-align: center; /* Center the text */
-    }
-
-    .recipe-card p {
-        font-size: 1.1rem; /* Adjust font size for readability */
-        margin-bottom: 10px; /* Add space below the description */
-        text-align: center; /* Center the text */
-    }
-
-    .recipe-card button {
-        background-color: #ff7f50;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        color: white;
-        cursor: pointer;
-        width: auto; /* Adjust based on content */
-        margin-top: 10px; /* Add spacing above the button */
-        text-align: center; /* Center the text */
-    }
-
-    .recipe-card button:hover {
-        background-color: #ff6347;
-    }
-}
-
-
 
 .save-recipe-button.favourited {
     width: 40px;

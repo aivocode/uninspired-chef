@@ -5,12 +5,14 @@ const examplePantry = [
     "rice",
     "canned tomatoes",
     "canned beans",
-    "broth",
     "onions",
     "garlic",
     "carrots",
     "potatoes",
     "bell peppers",
+    "courgette",
+    "eggplant",
+    "aubergine",
     "mushrooms",
     "zucchini",
     "spinach",
@@ -84,6 +86,7 @@ const examplePantry = [
     "cloves",
     "cardamom",
     "coriander",
+    "cillantro",
     "red pepper flakes",
     "chili powder",
     "cayenne pepper",
@@ -104,7 +107,8 @@ const examplePantry = [
     "powdered sugar",
     "honey",
     "maple syrup",
-    "molasses"
+    "molasses",
+    "broth"
   ];
 
 module.exports = examplePantry
