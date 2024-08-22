@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 import { getFavouriteRecipes, removeRecipeFromFavourites, addRecipeToFavourites } from '../../services/services';
-
+import { NutritionPopout } from "../NutritionPopout/NutritionPopout";
 
 export const RecipeCard = ({ recipe, buttonPressed }) => {
-  
-  if ( buttonPressed === 0 ) {
-    return
+  if (buttonPressed === 0) {
+    return;
   }
-  if (!recipe ) {
-    return "We couldn't find a direct match sadly. But here are some suggestions!"
-}
+  if (!recipe) {
+    return "We couldn't find a direct match sadly. But here are some suggestions!";
+  }
 
   const [showPopout, setShowPopout] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false); // state to determine whether or not recipe is bookmarked already i.e. favourited
-
+  const [showNutrition, setShowNutrition] = useState(false);
   const token = localStorage.getItem("token");
   // console.log(recipe);
 
@@ -58,9 +57,9 @@ export const RecipeCard = ({ recipe, buttonPressed }) => {
     }
   };
 
-  const toggleExpansion =()=> {
+  const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
-  }
+  };
   const handleSeeMoreClick = () => {
     setShowPopout(true);
   };
@@ -68,23 +67,34 @@ export const RecipeCard = ({ recipe, buttonPressed }) => {
   const handleClosePopout = () => {
     setShowPopout(false);
   };
+  // on click function for show nutrition button
+  const handleNutritionClick = () => {
+    setShowNutrition(true);
+  };
+  const handleCloseNutritionPopout = () => {
+    setShowNutrition(false);
+  };
 
-  const replacements = recipe.suggestedReplacements
+  const replacements = recipe.suggestedReplacements;
 
   return (
     <>
       <div className="recipe-card">
-        <img className="image-placeholder" src={recipe.recipe.images.REGULAR.url}/>
+        <img
+          className="image-placeholder"
+          src={recipe.recipe.images.REGULAR.url}
+        />
         <div className="recipe-details">
           <h3>{recipe.recipe.label}</h3>
           {/* <p>{description}</p> */}
           <button onClick={handleSeeMoreClick}>See more</button>
+          <button onClick={handleNutritionClick}>Nutrition</button>
           <a onClick={toggleExpansion}>
             {isExpanded ? "Hide Replacements" : "Show Replacements"}
           </a>
           {isExpanded && (
             <ul>
-              {replacements.map((replacement,index)=> (
+              {replacements.map((replacement, index) => (
                 <li key={index}>{replacement}</li>
               ))}
             </ul>
@@ -100,6 +110,14 @@ export const RecipeCard = ({ recipe, buttonPressed }) => {
       {showPopout && (
         <div className="popout-overlay">
           <FullRecipePopout recipe={recipe} onClose={handleClosePopout} />
+        </div>
+      )}
+      {showNutrition && (
+        <div className="popout-overlay">
+          <NutritionPopout
+            recipe={recipe}
+            closeMe={handleCloseNutritionPopout}
+          />
         </div>
       )}
     </>

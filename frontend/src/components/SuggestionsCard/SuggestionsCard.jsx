@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FullRecipePopout } from '../FullRecipePopout/FullRecipePopout';
 import { getFavouriteRecipes, removeRecipeFromFavourites, addRecipeToFavourites } from '../../services/services';
+import { NutritionPopout } from "../NutritionPopout/NutritionPopout";
 
 export const SuggestionsCard = ({ shareAs, suggestion }) => {
   const token = localStorage.getItem("token");
@@ -11,6 +12,7 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
 
   const [showPopout, setShowPopout] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false); // state to determine whether or not recipe is bookmarked already i.e. favourited
+  const [showNutrition, setShowNutrition] = useState(false);
 
   // check if recipe is in favouritedRecipes array on initial render
   useEffect(() => {
@@ -53,6 +55,13 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
   const handleClosePopout = () => {
     setShowPopout(false);
   };
+  // on click function for show nutrition button
+  const handleNutritionClick = () => {
+    setShowNutrition(true);
+  };
+  const handleCloseNutritionPopout = () => {
+    setShowNutrition(false);
+  };
 
   if (!suggestion) {
     return null;
@@ -61,11 +70,15 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
   return (
     <>
       <div className="recipe-card">
-        <img className="image-placeholder" src={meal.recipe.images.REGULAR.url}/>
+        <img
+          className="image-placeholder"
+          src={meal.recipe.images.REGULAR.url}
+        />
         <div className="recipe-details">
           <h3>{meal.recipe.label}</h3>
           {/* <p>{description}</p> */}
           <button onClick={handleSeeMoreClick}>See more</button>
+          <button onClick={handleNutritionClick}>Nutrition</button>
         </div>
         <button 
           className={`save-recipe-button ${isFavourite ? 'favourited' : 'not-favourited'}`}
@@ -78,6 +91,11 @@ export const SuggestionsCard = ({ shareAs, suggestion }) => {
       {showPopout && (
         <div className="popout-overlay">
           <FullRecipePopout recipe={meal} onClose={handleClosePopout} />
+        </div>
+      )}
+      {showNutrition && (
+        <div className="popout-overlay">
+          <NutritionPopout recipe={meal} closeMe={handleCloseNutritionPopout} />
         </div>
       )}
     </>
