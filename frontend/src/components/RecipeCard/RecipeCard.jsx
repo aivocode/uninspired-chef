@@ -85,10 +85,18 @@ export const RecipeCard = ({ recipe, buttonPressed }) => {
           src={recipe.recipe.images.REGULAR.url}
         />
         <div className="recipe-details">
+        <button 
+          className={`save-recipe-button ${isFavourite ? 'favourited' : 'not-favourited'}`}
+          onClick={handleBookmarkClick}> 
+        </button>
+        <div className="label-container">
           <h3>{recipe.recipe.label}</h3>
-          {/* <p>{description}</p> */}
+        </div>
+          <div className="recipe-button-container">
           <button onClick={handleSeeMoreClick}>See more</button>
           <button onClick={handleNutritionClick}>Nutrition</button>
+          </div>
+          <div className="replacements-group">
           <a onClick={toggleExpansion}>
             {isExpanded ? "Hide Replacements" : "Show Replacements"}
           </a>
@@ -99,11 +107,9 @@ export const RecipeCard = ({ recipe, buttonPressed }) => {
               ))}
             </ul>
           )}
+          </div>
         </div>
-        <button 
-          className={`save-recipe-button ${isFavourite ? 'favourited' : 'not-favourited'}`}
-          onClick={handleBookmarkClick}> 
-        </button>
+
         {/* {saved && <div className="bookmark" />} */}
       </div>
 

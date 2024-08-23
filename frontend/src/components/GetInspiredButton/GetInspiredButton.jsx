@@ -47,7 +47,7 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
 
   return (
     <>
-      <div>
+      <div className="inspire-container">
         {/* Conditionally render the spinner or the RecipeCard */}
         {loading ? (
           <ClipLoader color={"#123abc"} loading={loading} size={50} />
@@ -55,12 +55,14 @@ export const GetInspiredButton = ({ setSuggestionsData, setDisplaySavedRecipes }
           <RecipeCard recipe={recipe} buttonPressed={buttonPressed} />
         )}
         {!loading && (
+        <div className="button-wrapper">
         <button className="inspire-button mt-10 "
           onClick={() => {
             fetchGetRecipe();
             toggleButton();
             }}> {buttonPressed ? "Inspire me again" : "Get Inspired "}
         </button>
+        </div>
           )}
         <br/>
       </div>
