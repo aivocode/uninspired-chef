@@ -15,11 +15,7 @@ const User = require("../models/user"); // importing the User model
 const { generateToken } = require("../lib/token");
 
 const getRandomRecipes = async (req, res) => {
-  const userId = req.query.userId;  // id of owner of the pantry
-  const pantry = await Pantry.findOne({ user_id: userId });
-  const ourPantry = pantry.ingredientsArray.map(item => item.label.toLowerCase());
-  
-  const allIngredients = ourPantry; // Replace with actual pantry data
+  const allIngredients = examplePantry; // Replace with actual pantry data
   let suggestionsArray = [];
   let hitRecipe = null;
 
@@ -44,7 +40,7 @@ const getRandomRecipes = async (req, res) => {
       return acc;
   }, {});
 
-  console.log("These are our categorized ingredients: ", categorisedIngredients);
+  // DEBUG -- console.log("These are our categorized ingredients: ", categorisedIngredients);
 
   // Here we are defining a function to pick a random ingredient from a category. Thanks GPT
   const pickRandomIngredient = (category) => {
@@ -64,23 +60,18 @@ const getRandomRecipes = async (req, res) => {
   const selectedDairy = pickRandomIngredient('dairy')
   const selectedOther = pickRandomIngredient('other')
 
-// Combining selected random ingredients to form the initial search query
-let selectedIngredients = [
-  selectedCarbohydrate,
-  selectedVegetable,
-  selectedProtein,
-].filter(Boolean);
+  // Combining selected random ingredients to form the initial search query
+  let selectedIngredients = [selectedCarbohydrate, selectedVegetable, selectedProtein,].filter(Boolean);
 
+  // DEBUG -- console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
   if (selectedIngredients.length === 0) {
       selectedIngredients = [selectedFruit, selectedCondiments, selectedDairy, selectedOther].filter(Boolean)
-  } 
+  }
 
-//     console.log("Selected Ingredients for Initial Query: ", selectedIngredients);
-
-// Now implementing a fallback so if we fail try removing an ingredient
-while (selectedIngredients.length > 0) {
+ // Now implementing a fallback so if we fail try removing an ingredient
+  while (selectedIngredients.length > 0) {
   // DEBUG --  console.log("Trying with ingredients: ", selectedIngredients);
-      console.log("entering Loop...")
+
       try {
           // Convert the selected ingredients into a formatted query string
           const formattedString = selectedIngredients.toString().replaceAll(',', '%2C%20');
@@ -118,9 +109,8 @@ while (selectedIngredients.length > 0) {
                           const ingredientWords = ingredient.split(' ');
                           return missingWords.some(word => ingredientWords.includes(word));
                       });
-                      return replacement ? `- Replace ${missing} with ${replacement}` : null;
-                  }).filter(Boolean); 
-                  // Filter out any null values where no replacement was found
+                      return replacement ? `${missing} with ${replacement}` : null;
+                  }).filter(Boolean); // Filter out any null values where no replacement was found
                   
                   // If we find that we can replace all the missing ingredients with a potential replacement
                   // then we push the recipe into hitRecipe
@@ -141,18 +131,20 @@ while (selectedIngredients.length > 0) {
                   return res.status(200).json({ hit: hitRecipe, suggestions: [] });
               }
           }
-  } catch (err) {
-    console.log("Error occurred: ", err);
-    return res.status(500).json({ message: "Error fetching a recipe" });
-  }
+      } catch (err) {
+          console.log('Error occurred: ', err);
+          return res.status(500).json({ message: "Error fetching a recipe" });
+      }
 
   // If no results found, remove one ingredient and try again
   if (selectedIngredients.length > 1) {
-    selectedIngredients.pop();
+      selectedIngredients.pop();
   } else {
-    break;
+      break;
   }
 }
+
+
 
 // Sort and return suggestions if no exact hit is found
 suggestionsArray.sort((a, b) => a.missingCount - b.missingCount);
@@ -161,12 +153,7 @@ suggestionsArray.sort((a, b) => a.missingCount - b.missingCount);
 if (suggestionsArray.length > 0) {
   res.status(200).json({ hit: null, suggestions: suggestionsArray });
 } else {
-  res
-    .status(404)
-    .json({
-      message:
-        "Couldn't find a recipe with your ingredients. You need to go shopping!",
-    });
+  res.status(404).json({ message: "Couldn't find a recipe with your ingredients. You need to go shopping!" });
 }
 };
 
